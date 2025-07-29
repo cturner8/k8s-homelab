@@ -47,3 +47,28 @@ spec:
     automated: {}
     syncOptions:
       - CreateNamespace=true
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-kustomize
+  namespace: argocd
+  labels:
+    name: nginx-kustomize
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/cturner8/k8s-homelab.git
+    targetRevision: argocd-apps
+    path: apps/nginx-kustomize
+
+  destination:
+    name: in-cluster
+    namespace: nginx-kustomize
+
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
