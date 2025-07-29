@@ -1,0 +1,2 @@
+resources:
+  - https://raw.githubusercontent.com/cturner8/k8s-homelab/refs/heads/argocd-apps/apps/nginx/main.yml
