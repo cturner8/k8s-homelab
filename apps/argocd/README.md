@@ -23,7 +23,7 @@ minikube dashboard
 Once ArgoCD is up and running, access using minikube:
 
 ```sh
-minikube service argocd-server -n argocd --url=false --https=false
+minikube service argocd-server -n argocd
 ```
 
 This will expose the ArgoCD server on a random available port.
