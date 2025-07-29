@@ -19,28 +19,14 @@ If you haven't used devcontainers before, see [Getting started](https://code.vis
 
 If you chose not to use a devcontainer, you'll need to install these tools manually.
 
+## Directory Structure
+
+App deployments are organised into sub-folders of the `apps` directory. 
+
+The content of these app sub-folders can be any application tool supported by ArgoCD (e.g. manifests, kustomize, helm etc.).
+
+Each app sub-folder would then be registered within ArgoCD as an application, targeting the specific sub-folder.
+
 ## Deploying ArgoCD
 
-To deploy ArgoCD into the cluster, apply the kustomization file:
-
-```sh
-kubectl apply -n argocd -k apps/argocd
-```
-
-Open the minikube dashboard to verify the status of ArgoCD:
-
-```sh
-minikube dashboard
-```
-
-Once ArgoCD is up and running, access using minikube:
-
-```sh
-minikube service argocd-server -n argocd --url=false --https=false
-```
-
-This will expose the ArgoCD server on a random available port.
-
-Get the initial admin password from the `argocd-initial-admin-secret` secret. 
-
-Login to the UI using username `admin` and the password from above.
+See [apps/argocd/README.md](./apps/argocd/README.md) for ArgoCD deployment steps.
