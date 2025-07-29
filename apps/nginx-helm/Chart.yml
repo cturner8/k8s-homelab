@@ -1,0 +1,9 @@
+apiVersion: v2
+name: nginx-helm
+description: A Helm chart for deploying Bitnami NGINX via ArgoCD
+type: application
+version: 0.1.0
+dependencies:
+  - name: nginx
+    # version: 17.4.2 # Use the desired version from Bitnami
+    repository: https://charts.bitnami.com/bitnami
