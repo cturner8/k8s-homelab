@@ -114,7 +114,7 @@ spec:
       releaseName: nginx-helm
 
   destination:
-    server: "https://kubernetes.default.svc"
+    name: in-cluster
     namespace: nginx-helm
 
   syncPolicy:
