@@ -5,7 +5,7 @@ metadata:
   name: nginx
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - match: Host(`nginx.local.gd`)
       kind: Rule
