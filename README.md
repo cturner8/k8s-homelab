@@ -30,3 +30,27 @@ Each app sub-folder would then be registered within ArgoCD as an application, ta
 ## Deploying ArgoCD
 
 See [apps/argocd/README.md](./apps/argocd/README.md) for ArgoCD deployment steps.
+
+## minikube Ingress Access
+
+When running inside the devcontainer, ingress access via Traefik won't resolve by default. 
+
+When starting a tunnel, you need to ensure to set the bind address to a wildcard value:
+
+```sh
+minikube tunnel --bind-address='*'
+```
+
+If it worked correctly, you should receive an output similar to the following:
+
+```
+✅  Tunnel successfully started
+
+📌  NOTE: Please do not close this terminal as this process must stay alive for the tunnel to be accessible ...
+
+❗  The service/ingress traefik requires privileged ports to be exposed: [80 443]
+🔑  sudo permission will be asked for it.
+🏃  Starting tunnel for service traefik.
+```
+
+The traefik ports 80 and 443 will be forwarded to a random local port, check the "Ports" panel to find it. Check the "Forwarded Address" column for the 80/443 ports.
