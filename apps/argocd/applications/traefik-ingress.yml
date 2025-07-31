@@ -16,14 +16,21 @@ spec:
         ports:
           web:
             exposedPort: 8080
+            redirections:
+              entryPoint:
+                to: websecure
+                scheme: https
           websecure:
             exposedPort: 8443
+            tls:
+              secretName: self-signed-tls
         ingressRoute:
           dashboard:
             enabled: true
             matchRule: Host(`traefik.local.gd`)
             entryPoints:
               - websecure
+            tls: {}
         providers:
           kubernetesGateway:
             enabled: true
@@ -40,3 +47,12 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+---
+apiVersion: traefik.io/v1alpha1
+kind: TLSStore
+metadata:
+  name: default
+
+spec:
+  defaultCertificate:
+    secretName: self-signed-tls
