@@ -31,3 +31,7 @@ This will expose the ArgoCD server on a random available port.
 Get the initial admin password from the `argocd-initial-admin-secret` secret. 
 
 Login to the UI using username `admin` and the password from above.
+
+## Known Issues and Workarounds
+
+- You may run into an issue during first deployment relating to the missing ArgoCD CRD's when attempting to create application resources. Re-apply and it should work.
