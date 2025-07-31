@@ -1,0 +1,37 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+spec:
+  project: default
+
+  source:
+    chart: traefik
+    repoURL: https://traefik.github.io/charts
+    targetRevision: 37.0.0
+    helm:
+      releaseName: traefik
+      valuesObject:
+        ingressRoute:
+          dashboard:
+            enabled: true
+            matchRule: Host(`traefik.local.gd`)
+            entryPoints:
+              - web
+        providers:
+          kubernetesGateway:
+            enabled: true
+        gateway:
+          namespacePolicy: All
+
+  destination:
+    name: in-cluster
+    namespace: traefik
+
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+---
+
