@@ -18,7 +18,7 @@ spec:
             enabled: true
             matchRule: Host(`traefik.local.gd`)
             entryPoints:
-              - web
+              - websecure
         providers:
           kubernetesGateway:
             enabled: true
@@ -30,8 +30,8 @@ spec:
     namespace: traefik
 
   syncPolicy:
-    automated: {}
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
----
-
