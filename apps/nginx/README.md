@@ -1,3 +1,4 @@
 # nginx App Deployment
 
-Simple nginx app deployment using standard manifest files.
+Simple nginx app deployment using Kustomize.
+

@@ -1,0 +1,17 @@
+---
+apiVersion: apps/v1
+kind: Ingress
+metadata:
+  name: nginx
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+    - host: nginx.local.gd
+      http:
+        paths:
+          - backend:
+              serviceName: nginx
+              servicePort: 80
+---
+
