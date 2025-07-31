@@ -12,7 +12,18 @@
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  // "forwardPorts": [],
+  "forwardPorts": [8000, 8080, 8443],
+  "portsAttributes": {
+    "8000": {
+      "label": "Kubernetes Dashboard"
+    },
+    "8080": {
+      "label": "HTTP"
+    },
+    "8443": {
+      "label": "HTTPS"
+    }
+  },
 
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "minikube start",
