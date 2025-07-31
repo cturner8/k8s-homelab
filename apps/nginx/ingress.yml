@@ -12,3 +12,4 @@ spec:
       services:
         - name: nginx
           port: 80
+  tls: {}
