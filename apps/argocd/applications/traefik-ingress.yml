@@ -23,7 +23,7 @@ spec:
           websecure:
             exposedPort: 8443
             tls:
-              secretName: self-signed-tls
+              secretName: local-gd-tls
         ingressRoute:
           dashboard:
             enabled: true
@@ -54,5 +54,8 @@ metadata:
   name: default
 
 spec:
+  certificates:
+    - secretName: local-gd-tls
+    - secretName: kube-cturner-xyz-tls
   defaultCertificate:
-    secretName: self-signed-tls
+    secretName: local-gd-tls
