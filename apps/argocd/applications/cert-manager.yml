@@ -3,6 +3,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: cert-manager
+  namespace: argocd
 spec:
   project: default
 
@@ -15,6 +16,8 @@ spec:
       valuesObject:
         crds:
           enabled: true
+        dns01RecursiveNameserversOnly: true
+        dns01RecursiveNameservers: "8.8.8.8:53,1.1.1.1:53"
 
   destination:
     name: in-cluster
