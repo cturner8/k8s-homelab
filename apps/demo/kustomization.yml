@@ -1,4 +1,10 @@
+---
 namespace: demo
+
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    app.kubernetes.io/managed-by: kustomize
 
 resources:
   - deployment.yml

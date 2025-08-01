@@ -1,5 +1,10 @@
 ---
 namespace: traefik
 
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+
 resources:
   - tls.yml
