@@ -2,8 +2,6 @@
 
 Kustomization deployment for Cert Manager.
 
-Not intended to be directly applied, it is instead included in the main [argocd/kustomization.yml](../argocd/kustomization.yml) file which bootstraps ArgoCD.
-
 ## ACME DNS Challenge Troubleshooting
 
 Steps to try and debug any DNS challenge issues when generating certs.

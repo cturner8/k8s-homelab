@@ -2,5 +2,5 @@
 namespace: argocd
 
 resources:
-  - certmanager
-  - traefik
+  - nginx.yml
+  - tools.yml

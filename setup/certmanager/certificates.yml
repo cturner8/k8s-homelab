@@ -32,5 +32,5 @@ spec:
     - "*.kube.dev.cturner.xyz"
 
   issuerRef:
-    name: acme-staging-cluster-issuer
+    name: acme-cluster-issuer
     kind: ClusterIssuer

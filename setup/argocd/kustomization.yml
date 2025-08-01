@@ -7,13 +7,7 @@ generatorOptions:
 resources:
   - namespace.yml
   - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-  - applications/cert-manager.yml
-  - ../certmanager
-  - applications/traefik-ingress.yml
-  - ../traefik
   - ingress.yml
-  - applications/nginx.yml
-  - applications/tools.yml
 
 patches:
   - path: patches/set-server-insecure.yml
