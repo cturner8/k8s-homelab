@@ -7,6 +7,6 @@ metadata:
 spec:
   certificates:
     - secretName: local-gd-tls
-    - secretName: kube-cturner-xyz-tls
+    - secretName: dev-cturner-xyz-tls
   defaultCertificate:
     secretName: local-gd-tls
