@@ -1,0 +1,6 @@
+---
+namespace: cert-manager
+
+resources:
+  - issuers.yml
+  - certificates.yml
