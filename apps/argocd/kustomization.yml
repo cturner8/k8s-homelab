@@ -1,6 +1,16 @@
 ---
 namespace: argocd
 
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+
+secretGenerator:
+  - name: cloudflare-api-token-secret
+    envs:
+      - secrets/cloudflare-api-token.env
+
 resources:
   - namespace.yml
   - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
