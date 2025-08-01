@@ -1,0 +1,12 @@
+---
+namespace: nginx
+
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+
+resources:
+  - deployment.yml
+  - service.yml
+  - ingress.yml

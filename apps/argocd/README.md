@@ -14,20 +14,20 @@ To deploy ArgoCD into the cluster, apply the kustomization file into the `argocd
 kubectl apply -n argocd -k apps/argocd
 ```
 
-Open the minikube dashboard to verify the status of ArgoCD:
+Once ArgoCD is up and running, ensure the `minikube tunnel` is running and access via `https://argocd.local.gd:8443`
+
+Get the initial admin password from the `argocd-initial-admin-secret` secret using kubectl:
 
 ```sh
-minikube dashboard
+kubectl \
+    -n argocd \
+    get secret argocd-initial-admin-secret \
+    -o jsonpath="{.data.password}" \
+    | base64 --decode
 ```
-
-Once ArgoCD is up and running, access using minikube:
-
-```sh
-minikube service argocd-server -n argocd --url=false --https=false
-```
-
-This will expose the ArgoCD server on a random available port.
-
-Get the initial admin password from the `argocd-initial-admin-secret` secret. 
 
 Login to the UI using username `admin` and the password from above.
+
+## Known Issues and Workarounds
+
+- You may run into an issue during first deployment relating to the missing CRD's when attempting to apply certain manifests. Re-apply and it should work.
