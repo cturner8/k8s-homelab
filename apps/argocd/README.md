@@ -16,10 +16,18 @@ kubectl apply -n argocd -k apps/argocd
 
 Once ArgoCD is up and running, ensure the `minikube tunnel` is running and access via `https://argocd.local.gd:8443`
 
-Get the initial admin password from the `argocd-initial-admin-secret` secret. 
+Get the initial admin password from the `argocd-initial-admin-secret` secret using kubectl:
+
+```sh
+kubectl \
+    -n argocd \
+    get secret argocd-initial-admin-secret \
+    -o jsonpath="{.data.password}" \
+    | base64 --decode
+```
 
 Login to the UI using username `admin` and the password from above.
 
 ## Known Issues and Workarounds
 
-- You may run into an issue during first deployment relating to the missing ArgoCD CRD's when attempting to create application resources. Re-apply and it should work.
+- You may run into an issue during first deployment relating to the missing CRD's when attempting to apply certain manifests. Re-apply and it should work.
