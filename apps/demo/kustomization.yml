@@ -1,0 +1,6 @@
+namespace: demo
+
+resources:
+  - deployment.yml
+  - service.yml
+  - ingress.yml
