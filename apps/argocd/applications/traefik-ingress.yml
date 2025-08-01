@@ -8,7 +8,7 @@ spec:
 
   source:
     chart: traefik
-    repoURL: https://traefik.github.io/charts
+    repoURL: ghcr.io/traefik/helm
     targetRevision: 37.0.0
     helm:
       releaseName: traefik
@@ -22,8 +22,7 @@ spec:
                 scheme: https
           websecure:
             exposedPort: 8443
-            tls:
-              secretName: local-gd-tls
+            tls: {}
         ingressRoute:
           dashboard:
             enabled: true
