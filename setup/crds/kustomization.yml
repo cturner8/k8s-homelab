@@ -1,0 +1,8 @@
+---
+resources:
+  # Cert Manager
+  - https://github.com/cert-manager/cert-manager/releases/download/<version>/cert-manager.crds.yaml
+  # Traefik
+  - https://raw.githubusercontent.com/traefik/traefik/v3.5/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+  # Traefik RBAC
+  - https://raw.githubusercontent.com/traefik/traefik/v3.5/docs/content/reference/dynamic-configuration/kubernetes-crd-rbac.yml
