@@ -13,6 +13,7 @@ resources:
   - ../traefik
   - ingress.yml
   - applications/nginx.yml
+  - applications/tools.yml
 
 patches:
   - path: patches/set-server-insecure.yml
