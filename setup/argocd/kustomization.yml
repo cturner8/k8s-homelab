@@ -6,6 +6,7 @@ generatorOptions:
 
 resources:
   - namespace.yml
+  # ArgoCD Installation manifests
   - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
   - ingress.yml
 
