@@ -1,0 +1,31 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    chart: cert-manager
+    repoURL: quay.io/jetstack/charts
+    targetRevision: v1.18.2
+    helm:
+      releaseName: cert-manager
+      valuesObject:
+        crds:
+          enabled: true
+        dns01RecursiveNameserversOnly: true
+        dns01RecursiveNameservers: "8.8.8.8:53,1.1.1.1:53"
+
+  destination:
+    name: in-cluster
+    namespace: cert-manager
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,24 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tools
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/cturner8/k8s-homelab.git
+    targetRevision: argocd-apps
+    path: apps/tools
+
+  destination:
+    name: in-cluster
+    namespace: tools
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

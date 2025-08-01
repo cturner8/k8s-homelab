@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ntfy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ntfy
+  template:
+    metadata:
+      labels:
+        app: ntfy
+    spec:
+      containers:
+        - name: ntfy
+          image: "binwiederhier/ntfy:v2.13.0"
+          command: ["ntfy"]
+          args: ["serve"]
+          env:
+            - name: TZ
+              value: Europe/London
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 10
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "125m"
+              memory: "128Mi"
+          volumeMounts:
+            - mountPath: /etc/ntfy
+              name: ntfy-config
+            - mountPath: /var/cache/ntfy
+              name: ntfy-cache
+      volumes:
+        - name: ntfy-cache
+          persistentVolumeClaim:
+            claimName: ntfy-cache
+        - name: ntfy-config
+          persistentVolumeClaim:
+            claimName: ntfy-config
