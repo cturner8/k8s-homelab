@@ -20,9 +20,9 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: kube-cturner-xyz
+  name: dev-cturner-xyz
 spec:
-  secretName: kube-cturner-xyz-tls
+  secretName: dev-cturner-xyz-tls
 
   privateKey:
     rotationPolicy: Always
@@ -32,5 +32,5 @@ spec:
     - "*.kube.dev.cturner.xyz"
 
   issuerRef:
-    name: selfsigned-cluster-issuer
+    name: acme-staging-cluster-issuer
     kind: ClusterIssuer
