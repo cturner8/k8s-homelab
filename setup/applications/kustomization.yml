@@ -6,3 +6,4 @@ resources:
   - tools.yml
   - ntfy.yml
   - redlib.yml
+  - homepage.yml
