@@ -2,6 +2,6 @@
 resources:
   - crds
   - certmanager
-  # - traefik
+  - traefik
   - argocd
   - applications
