@@ -1,0 +1,13 @@
+---
+namespace: homepage
+
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+
+resources:
+  - volume.yml
+  - deployment.yml
+  - service.yml
+  - ingress.yml
