@@ -1,4 +1,6 @@
 ---
+namespace: argocd
+
 generatorOptions:
   disableNameSuffixHash: true
   labels:
