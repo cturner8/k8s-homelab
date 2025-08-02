@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: demo
+  name: redlib
 spec:
   type: ClusterIP
   ports:
-    - port: 80
-      targetPort: 80
+    - port: 8080
+      targetPort: 8080
       name: http
   selector:
-    app: demo
+    app: redlib

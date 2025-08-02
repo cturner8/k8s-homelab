@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redlib
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redlib
+  template:
+    metadata:
+      labels:
+        app: redlib
+    spec:
+      containers:
+        - name: redlib
+          image: "quay.io/redlib/redlib:latest@sha256:e6e13e60f492a8c28994ec2d9b9e0053f562074d25d760851df1fa7859b6bee7"
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+            runAsUser: 65534
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
+          env:
+            - name: REDLIB_SFW_ONLY
+              value: "off"
+            - name: REDLIB_DEFAULT_SHOW_NSFW
+              value: "on"
+            - name: REDLIB_DEFAULT_BLUR_SPOILER
+              value: "on"
+            - name: REDLIB_DEFAULT_BLUR_NSFW
+              value: "on"
+            - name: REDLIB_DEFAULT_USE_HLS
+              value: "on"
+            - name: REDLIB_DEFAULT_LAYOUT
+              value: "clean"
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 10
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "125m"
+              memory: "128Mi"
