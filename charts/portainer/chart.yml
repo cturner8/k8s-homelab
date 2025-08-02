@@ -1,0 +1,32 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: portainer
+spec:
+  project: default
+
+  source:
+    chart: portainer
+    repoURL: https://portainer.github.io/k8s
+    targetRevision: 1.0.69
+    helm:
+      releaseName: portainer
+      valuesObject:
+        service:
+          type: ClusterIP
+        tls:
+          force: true
+        image:
+          tag: lts
+
+  destination:
+    name: in-cluster
+    namespace: portainer
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

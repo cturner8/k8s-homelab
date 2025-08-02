@@ -1,0 +1,4 @@
+---
+resources:
+  - chart.yml
+  - ingress.yml
