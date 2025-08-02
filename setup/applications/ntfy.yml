@@ -1,0 +1,23 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ntfy
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/cturner8/k8s-homelab.git
+    targetRevision: main
+    path: apps/ntfy
+
+  destination:
+    name: in-cluster
+    namespace: ntfy
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
