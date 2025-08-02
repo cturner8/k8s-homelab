@@ -20,6 +20,7 @@ spec:
               entryPoint:
                 to: websecure
                 scheme: https
+                permanent: true
           websecure:
             exposedPort: 8443
             tls: {}
@@ -30,11 +31,18 @@ spec:
             entryPoints:
               - websecure
             tls: {}
-        providers:
-          kubernetesGateway:
-            enabled: true
-        gateway:
-          namespacePolicy: All
+        tlsStore:
+          default:
+            defaultCertificate:
+              secretName: cturner-xyz-tls
+            certificates:
+              - secretName: local-gd-tls
+              - secretName: cturner-xyz-tls
+          providers:
+            kubernetesGateway:
+              enabled: true
+          gateway:
+            namespacePolicy: All
 
   destination:
     name: in-cluster

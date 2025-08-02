@@ -7,6 +7,6 @@ metadata:
 spec:
   certificates:
     - secretName: local-gd-tls
-    - secretName: dev-cturner-xyz-tls
+    - secretName: cturner-xyz-tls
   defaultCertificate:
-    secretName: dev-cturner-xyz-tls
+    secretName: cturner-xyz-tls
