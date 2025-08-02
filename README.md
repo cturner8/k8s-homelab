@@ -27,9 +27,13 @@ The content of these app sub-folders can be any application tool supported by Ar
 
 Each app sub-folder would then be registered within ArgoCD as an application, targeting the specific sub-folder.
 
-## Deploying ArgoCD
+## Deployment
 
-See [apps/argocd/README.md](./apps/argocd/README.md) for ArgoCD deployment steps.
+Apply the root `kustomization.yml` file to get started:
+
+```sh
+kubectl apply -k .
+```
 
 ## minikube 
 
@@ -60,3 +64,13 @@ If it worked correctly, you should receive an output similar to the following:
 ```
 
 The traefik service has been setup to expose HTTP port as 8080 and HTTPS port as 8443.
+
+## Known Issues
+
+### Cert Manager webhook service not found
+
+During initial apply, the cert manager deployment may fail du to an error such as the following:
+
+```sh
+Error from server (InternalError): error when creating ".": Internal error occurred: failed calling webhook "webhook.cert-manager.io": failed to call webhook: Post "https://cert-manager-webhook.cert-manager.svc:443/validate?timeout=30s": service "cert-manager-webhook" not found
+```
