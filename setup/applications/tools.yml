@@ -8,7 +8,7 @@ spec:
 
   source:
     repoURL: https://github.com/cturner8/k8s-homelab.git
-    targetRevision: argocd-apps
+    targetRevision: main
     path: apps/tools
 
   destination:
