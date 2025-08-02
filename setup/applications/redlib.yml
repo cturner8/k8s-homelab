@@ -1,0 +1,23 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: redlib
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/cturner8/k8s-homelab.git
+    targetRevision: main
+    path: apps/redlib
+
+  destination:
+    name: in-cluster
+    namespace: redlib
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
