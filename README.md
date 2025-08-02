@@ -27,9 +27,31 @@ The content of these app sub-folders can be any application tool supported by Ar
 
 Each app sub-folder would then be registered within ArgoCD as an application, targeting the specific sub-folder.
 
-## Deploying ArgoCD
+## Deployment
 
-See [apps/argocd/README.md](./apps/argocd/README.md) for ArgoCD deployment steps.
+Apply the root `kustomization.yml` file to get started:
+
+```sh
+kubectl apply -k .
+```
+
+Check the status of the traefik service to confirm ingress access will be active:
+
+```sh
+kubectl get svc traefik -n traefik
+```
+
+Add the `--watch` or `-w` flag to watch
+
+If the traefik service is running and is accessible, you should see the following output:
+
+```
+NAME      TYPE           CLUSTER-IP       EXTERNAL-IP   PORT(S)                         AGE
+traefik   LoadBalancer   10.102.205.250   127.0.0.1     8080:30824/TCP,8443:31245/TCP   88s
+```
+
+**Note**: The "External IP" will show as pending without a local tunnel running. See [Ingress Access](#ingress-access) for further detail.
+
 
 ## minikube 
 
@@ -60,3 +82,17 @@ If it worked correctly, you should receive an output similar to the following:
 ```
 
 The traefik service has been setup to expose HTTP port as 8080 and HTTPS port as 8443.
+
+## Known Issues
+
+### Cert Manager webhook service not found
+
+During initial apply, the cert manager deployment may fail due to an error such as the following:
+
+```sh
+Error from server (InternalError): error when creating ".": Internal error occurred: failed calling webhook "webhook.cert-manager.io": failed to call webhook: Post "https://cert-manager-webhook.cert-manager.svc:443/validate?timeout=30s": service "cert-manager-webhook" not found
+```
+
+This seems like it could be related to not having a local tunnel available when using minikube.
+
+Start the tunnel before apply and it should then work. See [Ingress Access](#ingress-access) for further details.

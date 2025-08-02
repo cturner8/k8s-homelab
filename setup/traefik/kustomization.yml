@@ -7,4 +7,4 @@ generatorOptions:
     app.kubernetes.io/managed-by: kustomize
 
 resources:
-  - tls.yml
+  - certificates.yml

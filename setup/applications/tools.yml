@@ -2,19 +2,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: nginx
-  namespace: argocd
+  name: tools
 spec:
   project: default
 
   source:
     repoURL: https://github.com/cturner8/k8s-homelab.git
-    targetRevision: argocd-apps
-    path: apps/nginx
+    targetRevision: main
+    path: apps/tools
 
   destination:
     name: in-cluster
-    namespace: nginx
+    namespace: tools
 
   syncPolicy:
     automated:

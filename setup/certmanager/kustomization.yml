@@ -12,5 +12,5 @@ secretGenerator:
       - secrets/cloudflare-api-token.env
 
 resources:
+  - namespace.yml
   - issuers.yml
-  - certificates.yml

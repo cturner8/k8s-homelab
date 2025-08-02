@@ -1,0 +1,6 @@
+---
+namespace: argocd
+
+resources:
+  - certmanager
+  - traefik
