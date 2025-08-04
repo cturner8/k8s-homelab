@@ -2,7 +2,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: homepage-config
+  name: homepage-config-logs
 spec:
   accessModes:
     - ReadWriteOnce
