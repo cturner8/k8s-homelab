@@ -1,6 +1,10 @@
 ---
 namespace: redlib
 
+labels:
+  - pairs:
+      app.kubernetes.io/managed-by: argocd
+
 generatorOptions:
   disableNameSuffixHash: true
   labels:
