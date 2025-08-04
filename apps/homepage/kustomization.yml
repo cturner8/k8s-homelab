@@ -13,11 +13,11 @@ generatorOptions:
 configMapGenerator:
   - name: homepage-config-files
     files:
-      - kubernetes.yaml=config/kubernetes.yaml
-      - services.yaml=config/services.yaml
-      - bookmarks.yaml=config/bookmarks.yaml
-      - settings.yaml=config/settings.yaml
-      - widgets.yaml=config/widgets.yaml
+      - config/kubernetes.yaml
+      - config/services.yaml
+      - config/bookmarks.yaml
+      - config/settings.yaml
+      - config/widgets.yaml
 
 resources:
   - volume.yml
