@@ -1,0 +1,47 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adguard
+  template:
+    metadata:
+      labels:
+        app: adguard
+    spec:
+      containers:
+        - name: adguard
+          image: "adguard/adguardhome:v0.107.64"
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            tcpSocket:
+              port: 3000
+            initialDelaySeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 3000
+            initialDelaySeconds: 10
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "125m"
+              memory: "128Mi"
+          volumeMounts:
+            - mountPath: /opt/adguardhome/work
+              name: adguard-work
+            - mountPath: /opt/adguardhome/conf
+              name: adguard-conf
+      volumes:
+        - name: adguard-work
+          persistentVolumeClaim:
+            claimName: adguard-work
+        - name: adguard-conf
+          persistentVolumeClaim:
+            claimName: adguard-conf
