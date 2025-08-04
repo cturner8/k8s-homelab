@@ -41,5 +41,5 @@ spec:
               name: homepage-config
       volumes:
         - name: homepage-config
-          persistentVolumeClaim:
-            claimName: homepage-config
+          configMap:
+            name: homepage-config
