@@ -19,7 +19,6 @@ configMapGenerator:
       - widgets.yaml=config/widgets.yaml
 
 resources:
-  - volume.yml
   - deployment.yml
   - service.yml
   - ingress.yml
