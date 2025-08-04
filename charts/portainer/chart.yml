@@ -16,9 +16,18 @@ spec:
         service:
           type: ClusterIP
         tls:
-          force: true
+          force: false
         image:
           tag: lts
+        ingress:
+          enabled: true
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: websecure
+            traefik.ingress.kubernetes.io/router.tls: "true"
+          hosts:
+            - host: portainer.kube.dev.cturner.xyz
+              paths:
+                - path: /
 
   destination:
     name: in-cluster
