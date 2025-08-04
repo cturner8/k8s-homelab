@@ -1,0 +1,22 @@
+---
+namespace: speedtest
+
+labels:
+  - pairs:
+      app.kubernetes.io/managed-by: argocd
+
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+
+secretGenerator:
+  - name: speedtest-app-key-secret
+    envs:
+      - secrets/speedtest-app-key.env
+
+resources:
+  - volume.yml
+  - deployment.yml
+  - service.yml
+  - ingress.yml
