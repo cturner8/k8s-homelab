@@ -38,8 +38,15 @@ spec:
               memory: "128Mi"
           volumeMounts:
             - mountPath: /app/config
+              name: homepage-config-files
+              readOnly: true
+            - mountPath: /app/config
               name: homepage-config
+              readOnly: false
       volumes:
-        - name: homepage-config
+        - name: homepage-config-files
           configMap:
-            name: homepage-config
+            name: homepage-config-files
+        - name: homepage-config
+          persistentVolumeClaim:
+            claimName: homepage-config

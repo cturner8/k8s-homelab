@@ -11,7 +11,7 @@ generatorOptions:
     app.kubernetes.io/managed-by: kustomize
 
 configMapGenerator:
-  - name: homepage-config
+  - name: homepage-config-files
     files:
       - services.yaml=config/services.yaml
       - bookmarks.yaml=config/bookmarks.yaml
@@ -19,6 +19,7 @@ configMapGenerator:
       - widgets.yaml=config/widgets.yaml
 
 resources:
+  - volume.yml
   - deployment.yml
   - service.yml
   - ingress.yml
