@@ -28,6 +28,35 @@ Generate a new value using `openssl`:
 echo -n 'base64:'; openssl rand -base64 32;
 ```
 
+### authentik-postgres-credentials
+
+`username` and `password` properties:
+
+```env
+username=authentik
+password=random_password
+```
+
+Generate a unique password using openssl:
+
+```sh
+openssl rand 60 | base64 -w 0
+```
+
+### authentik-secret-key
+
+Single `key` property:
+
+```env
+key=random_secret_key
+```
+
+Generate a unique key using openssl:
+
+```sh
+openssl rand 60 | base64 -w 0
+```
+
 ## Secret Deployment
 
 The secrets are deployed using a standard kustomize file:
