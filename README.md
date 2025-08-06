@@ -29,7 +29,11 @@ Each app sub-folder would then be registered within ArgoCD as an application, ta
 
 ## Deployment
 
-Apply the root `kustomization.yml` file to get started:
+First, setup the deployment secrets, see [secrets/README.md](./secrets/README.md) for full instructions.
+
+**Note**: the secrets deployment is intentionally not included within the root `kustomization.yml` to ensure the main deployment can be fully automated within ArgoCD.
+
+Next, Apply the root `kustomization.yml` file:
 
 ```sh
 kubectl apply -k .
@@ -81,7 +85,7 @@ If it worked correctly, you should receive an output similar to the following:
 🏃  Starting tunnel for service traefik.
 ```
 
-The traefik service has been setup to expose HTTP port as 8080 and HTTPS port as 8443.
+The traefik service has been setup to expose HTTP port as `8080` and HTTPS port as `8443`, overriding the default `80` and `443` to avoid the elevation requirement to expose these ports locally.
 
 ## Known Issues
 
