@@ -1,0 +1,65 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: speedtest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: speedtest
+  template:
+    metadata:
+      labels:
+        app: speedtest
+    spec:
+      containers:
+        - name: speedtest
+          image: "lscr.io/linuxserver/speedtest-tracker:v1.5.0-ls91"
+          env:
+            - name: TZ
+              value: "Europe/London"
+            - name: APP_URL
+              value: "https://speedtest.kube.dev.cturner.xyz:8443"
+            - name: DB_CONNECTION
+              value: sqlite
+            - name: SPEEDTEST_SCHEDULE
+              value: "0 * * * *" # Run hourly
+            - name: DISPLAY_TIMEZONE
+              value: "Europe/London"
+            - name: PUBLIC_DASHBOARD
+              value: "true"
+            - name: APP_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: speedtest-app-key-secret
+                  key: app_key
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 80
+            initialDelaySeconds: 10
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "125m"
+              memory: "128Mi"
+          volumeMounts:
+            - mountPath: /config
+              name: speedtest-config
+            - mountPath: /config/keys
+              name: speedtest-keys
+      volumes:
+        - name: speedtest-keys
+          persistentVolumeClaim:
+            claimName: speedtest-keys
+        - name: speedtest-config
+          persistentVolumeClaim:
+            claimName: speedtest-config
