@@ -8,3 +8,4 @@ resources:
   - redlib.yml
   - homepage.yml
   - adguard.yml
+  - speedtest.yml
