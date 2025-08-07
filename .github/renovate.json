@@ -4,6 +4,6 @@
   "addLabels": ["{{categories}}", "{{depType}}", "{{manager}}"],
   "assignees": ["cturner8"],
   "kubernetes": {
-    "managerFilePatterns": ["/\\.yaml$/"]
+    "managerFilePatterns": ["/\\.yml$/"]
   }
 }
