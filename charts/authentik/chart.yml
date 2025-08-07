@@ -57,6 +57,9 @@ spec:
               readOnly: true
         postgresql:
           enabled: true
+          global:
+            auth:
+              existingSecret: authentik-postgres-credentials
           auth:
             existingSecret: authentik-postgres-credentials
         redis:
