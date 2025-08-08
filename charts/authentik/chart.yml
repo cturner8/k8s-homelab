@@ -16,7 +16,7 @@ spec:
         authentik:
           secret_key: file:///secrets/secret-key/key
           postgresql:
-            user: file:///secrets/postgres-creds/username
+            user: authentik
             password: file:///secrets/postgres-creds/password
         server:
           ingress:
@@ -57,10 +57,9 @@ spec:
               readOnly: true
         postgresql:
           enabled: true
-          global:
-            auth:
-              existingSecret: authentik-postgres-credentials
           auth:
+            enablePostgresUser: false
+            username: authentik
             existingSecret: authentik-postgres-credentials
         redis:
           enabled: true
