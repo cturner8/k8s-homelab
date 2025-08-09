@@ -7,7 +7,7 @@ data:
   url: "https://argocd.kube.dev.cturner.xyz:8443"
   oidc.config: |
     name: "Authentik"
-    issuer: "https://auth.cturner.xyz/application/o/argocd-dev/"
-    clientID: "akKx3Qt0xnIowT6jciQEZ2cYuYPvXf13eaaQISO8"
+    issuer: "https://auth.cturner.xyz/application/o/argo-cd-dev/"
+    clientID: "rBY7fRlKdIlXp0lAd168GpgXAkIkax1cxARIcB75"
     enablePKCEAuthentication: true
     requestedScopes: ["openid", "profile", "email"]
