@@ -2,6 +2,12 @@
 
 Kustomization deployment for Cert Manager.
 
+Initialises cluster certificate issuers. 
+
+ACME DNS Cloudflare API Token is registered within the [secrets](../../secrets/README.md) deployment. 
+
+Actual certificate manifests are kept outwith the core cert manager deployment.
+
 ## ACME DNS Challenge Troubleshooting
 
 Steps to try and debug any DNS challenge issues when generating certs.

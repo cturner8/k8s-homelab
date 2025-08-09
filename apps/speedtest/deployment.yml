@@ -32,7 +32,7 @@ spec:
             - name: APP_KEY
               valueFrom:
                 secretKeyRef:
-                  name: speedtest-app-key-secret
+                  name: speedtest-app-key
                   key: app_key
           ports:
             - containerPort: 80
