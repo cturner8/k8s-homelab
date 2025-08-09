@@ -10,4 +10,4 @@ data:
     issuer: "https://auth.cturner.xyz/application/o/argo-cd-dev/"
     clientID: "rBY7fRlKdIlXp0lAd168GpgXAkIkax1cxARIcB75"
     enablePKCEAuthentication: true
-    requestedScopes: ["openid", "profile", "email"]
+    requestedScopes: ["openid", "profile", "email", "offline_access"]
