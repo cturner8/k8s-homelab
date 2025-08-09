@@ -2,6 +2,8 @@
 
 Kustomize based app deployment for ArgoCD.
 
+Also enables ingress access, applies required patch files to remove HTTPS access enforcement for reverse proxy compatibility and enables SSO with OIDC.
+
 ## Deployment Steps
 
 To deploy ArgoCD into the cluster, apply the kustomization file into the `argocd` namespace:
