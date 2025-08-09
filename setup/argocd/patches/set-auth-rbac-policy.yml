@@ -8,4 +8,3 @@ data:
     g, argocd-admins-sg, role:admin
     g, argocd-sg, role:readonly
   policy.default: "role:readonly"
-  scopes: "[profile, email]"
