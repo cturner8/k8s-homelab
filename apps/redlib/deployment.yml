@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: redlib
-          image: "quay.io/redlib/redlib:latest@sha256:3908c592bba4a17d32516277504c42284600bd826cf1c1f9a309fdedc7bdd27a"
+          image: "quay.io/redlib/redlib:latest@sha256:25dbb5466ebd22e58277d4aa54897899b044f02f7219ca3054784aecc0be34e1"
           securityContext:
             capabilities:
               drop:
