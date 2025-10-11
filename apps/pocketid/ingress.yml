@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`pocketid.kube.local.gd`)
+    - match: Host(`pocketid.dev.cturner.xyz`)
       kind: Rule
       services:
         - name: pocketid
