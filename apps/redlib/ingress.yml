@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`redlib.kube.dev.cturner.xyz`)
+    - match: Host(`redlib.kube.local.gd`)
       kind: Rule
       services:
         - name: redlib
