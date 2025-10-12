@@ -1,0 +1,93 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: miniflux
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: miniflux
+  template:
+    metadata:
+      labels:
+        app: miniflux
+    spec:
+      containers:
+        - name: miniflux
+          image: "ghcr.io/miniflux/miniflux:2.2.13"
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: miniflux-db
+                  key: url
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 10
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "125m"
+              memory: "128Mi"
+          volumeMounts:
+            - mountPath: /etc/miniflux
+              name: miniflux-conf
+        - name: db
+          image: "public.ecr.aws/docker/library/postgres:18.0-alpine"
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: miniflux
+            - name: POSTGRES_USER
+              value: miniflux
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: miniflux-db
+                  key: password
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "125m"
+              memory: "128Mi"
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - miniflux
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - miniflux
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 3
+          volumeMounts:
+            - mountPath: /var/lib/postgresql
+              name: miniflux-data
+      volumes:
+        - name: miniflux-conf
+          configMap:
+            name: miniflux-conf
+        - name: miniflux-data
+          persistentVolumeClaim:
+            claimName: miniflux-data

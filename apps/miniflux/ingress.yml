@@ -1,0 +1,15 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: miniflux
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`miniflux.kube.local.gd`)
+      kind: Rule
+      services:
+        - name: miniflux
+          port: 8080
+  tls: {}
