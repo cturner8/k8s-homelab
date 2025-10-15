@@ -26,7 +26,8 @@
   },
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "minikube start --addons=dashboard,metrics-server",
+  // "postCreateCommand": "minikube start --addons=dashboard,metrics-server",
+  "postStartCommand": "minikube start --addons=dashboard,metrics-server",
 
   // Configure tool-specific properties.
   "customizations": {
