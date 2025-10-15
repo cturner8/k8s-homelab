@@ -2,7 +2,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: miniflux-data
+  name: miniflux-db-data
 spec:
   accessModes:
     - ReadWriteOnce
