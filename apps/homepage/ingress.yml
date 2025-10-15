@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`homepage.kube.dev.cturner.xyz`)
+    - match: Host(`homepage.kube.local.gd`)
       kind: Rule
       services:
         - name: homepage
