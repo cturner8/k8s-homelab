@@ -13,9 +13,30 @@ spec:
       labels:
         app: miniflux
     spec:
+      initContainers:
+        - name: wait-for-db
+          image: "public.ecr.aws/docker/library/postgres:18.0-alpine"
+          command:
+            - sh
+            - -c
+            - |
+              until pg_isready -h db -U miniflux >/dev/null 2>&1; do
+                sleep 2
+              done
+          env:
+            - name: POSTGRES_DB
+              value: miniflux
+            - name: POSTGRES_USER
+              value: miniflux
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: miniflux-db
+                  key: password
       containers:
         - name: miniflux
           image: "ghcr.io/miniflux/miniflux:2.2.13"
+          command: ["miniflux", "-c", "/etc/miniflux/miniflux.conf"]
           env:
             - name: DATABASE_URL
               valueFrom:
@@ -42,6 +63,26 @@ spec:
           volumeMounts:
             - mountPath: /etc/miniflux
               name: miniflux-conf
+      volumes:
+        - name: miniflux-conf
+          configMap:
+            name: miniflux-conf
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
         - name: db
           image: "public.ecr.aws/docker/library/postgres:18.0-alpine"
           ports:
@@ -83,11 +124,8 @@ spec:
             failureThreshold: 3
           volumeMounts:
             - mountPath: /var/lib/postgresql
-              name: miniflux-data
+              name: miniflux-db-data
       volumes:
-        - name: miniflux-conf
-          configMap:
-            name: miniflux-conf
-        - name: miniflux-data
+        - name: miniflux-db-data
           persistentVolumeClaim:
-            claimName: miniflux-data
+            claimName: miniflux-db-data
