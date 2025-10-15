@@ -11,3 +11,4 @@ resources:
   - speedtest.yml
   - linkding.yml
   - miniflux.yml
+  - tinyauth.yml
