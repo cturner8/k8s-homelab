@@ -25,7 +25,7 @@ spec:
               traefik.ingress.kubernetes.io/router.entrypoints: websecure
               traefik.ingress.kubernetes.io/router.tls: "true"
             hosts:
-              - authentik.kube.dev.cturner.xyz
+              - authentik.kube.kube.local.gd
           volumes:
             - name: postgres-creds
               secret:
