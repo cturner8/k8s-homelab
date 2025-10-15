@@ -10,3 +10,4 @@ resources:
   - adguard.yml
   - speedtest.yml
   - linkding.yml
+  - miniflux.yml
