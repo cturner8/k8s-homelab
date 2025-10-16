@@ -12,3 +12,4 @@ resources:
   - linkding.yml
   - miniflux.yml
   - tinyauth.yml
+  - uptime.yml
