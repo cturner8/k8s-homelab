@@ -47,6 +47,14 @@ spec:
               value: "true"
             - name: "DISABLE_ANALYTICS"
               value: "true"
+          livenessProbe:
+            tcpSocket:
+              port: 3000
+            initialDelaySeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 3000
+            initialDelaySeconds: 10
           resources:
             limits:
               cpu: "500m"
