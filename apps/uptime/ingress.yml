@@ -12,6 +12,9 @@ spec:
       services:
         - name: uptime
           port: 3001
+      middlewares:
+        - name: oidc-auth
+          namespace: traefik
     - match: Host(`status.kube.local.gd`)
       kind: Rule
       services:
