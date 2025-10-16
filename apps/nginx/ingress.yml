@@ -7,9 +7,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`nginx.kube.dev.cturner.xyz`)
+    - match: Host(`nginx.kube.local.gd`)
       kind: Rule
       services:
         - name: nginx
           port: 80
+      middlewares:
+        - name: oidc-auth
+          namespace: traefik
   tls: {}

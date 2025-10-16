@@ -1,0 +1,21 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tinyauth
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/cturner8/k8s-homelab.git
+    targetRevision: main
+    path: apps/tinyauth
+
+  destination:
+    name: in-cluster
+    namespace: tinyauth
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

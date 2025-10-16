@@ -12,7 +12,7 @@ To deploy ArgoCD into the cluster, apply the kustomization file into the `argocd
 kubectl apply -k setup/argocd
 ```
 
-Once ArgoCD is up and running, ensure the `minikube tunnel` is running and access via `https://argocd.kube.dev.cturner.xyz:8443`
+Once ArgoCD is up and running, ensure the `minikube tunnel` is running and access via `https://argocd.kube.kube.local.gd:8443`
 
 Get the initial admin password from the `argocd-initial-admin-secret` secret using kubectl:
 
