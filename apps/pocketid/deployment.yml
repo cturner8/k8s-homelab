@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pocketid
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pocketid
+  template:
+    metadata:
+      labels:
+        app: pocketid
+    spec:
+      containers:
+        - name: pocketid
+          image: "ghcr.io/pocket-id/pocket-id:v1"
+          env:
+            - name: APP_URL
+              value: https://pocketid.kube.local.gd:8443
+            - name: INTERNAL_APP_URL
+              value: http://pocketid.pocketid.svc.cluster.local:1411
+            - name: TRUST_PROXY
+              value: "true"
+            - name: ENCRYPTION_KEY_FILE
+              value: /run/secrets/encryption_key/key
+          ports:
+            - containerPort: 1411
+          livenessProbe:
+            tcpSocket:
+              port: 1411
+            initialDelaySeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 1411
+            initialDelaySeconds: 10
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "125m"
+              memory: "128Mi"
+          volumeMounts:
+            - mountPath: /app/data
+              name: pocketid-data
+            - mountPath: /run/secrets/encryption_key
+              name: pocketid-encryption-key
+      volumes:
+        - name: pocketid-data
+          persistentVolumeClaim:
+            claimName: pocketid-data
+        - name: pocketid-encryption-key
+          secret:
+            secretName: pocketid-encryption-key

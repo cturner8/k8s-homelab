@@ -1,0 +1,43 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uptime
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uptime
+  template:
+    metadata:
+      labels:
+        app: uptime
+    spec:
+      containers:
+        - name: uptime
+          # TODO: switch to stable tag when released
+          image: "ghcr.io/louislam/uptime-kuma:2.0.0-beta-slim.4"
+          ports:
+            - containerPort: 3001
+          livenessProbe:
+            tcpSocket:
+              port: 3001
+            initialDelaySeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 3001
+            initialDelaySeconds: 10
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "125m"
+              memory: "128Mi"
+          volumeMounts:
+            - mountPath: /app/data
+              name: uptime-data
+      volumes:
+        - name: uptime-data
+          persistentVolumeClaim:
+            claimName: uptime-data

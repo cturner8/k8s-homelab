@@ -1,0 +1,21 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: speedtest
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/cturner8/k8s-homelab.git
+    targetRevision: main
+    path: apps/speedtest
+
+  destination:
+    name: in-cluster
+    namespace: speedtest
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

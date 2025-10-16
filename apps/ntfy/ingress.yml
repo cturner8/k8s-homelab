@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`ntfy.kube.dev.cturner.xyz`)
+    - match: Host(`ntfy.kube.local.gd`)
       kind: Rule
       services:
         - name: ntfy

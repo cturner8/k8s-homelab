@@ -17,6 +17,8 @@ spec:
         providers:
           kubernetesGateway:
             enabled: true
+          kubernetesCRD:
+            allowCrossNamespace: true
         gateway:
           namespacePolicy: All
         ports:
@@ -33,7 +35,7 @@ spec:
         ingressRoute:
           dashboard:
             enabled: true
-            matchRule: Host(`traefik.kube.dev.cturner.xyz`)
+            matchRule: Host(`traefik.kube.local.gd`)
             entryPoints:
               - websecure
             tls: {}
@@ -45,6 +47,15 @@ spec:
               - secretName: local-gd-tls
               - secretName: cturner-xyz-tls
         extraObjects:
+          # Middlewares
+          - # Forward authentication to tinyauth
+            apiVersion: traefik.io/v1alpha1
+            kind: Middleware
+            metadata:
+              name: oidc-auth
+            spec:
+              forwardAuth:
+                address: http://tinyauth.tinyauth.svc.cluster.local:3000/api/auth/traefik
           # Cert Manager Certificates
           - apiVersion: cert-manager.io/v1
             kind: Certificate

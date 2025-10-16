@@ -1,0 +1,74 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: authentik
+spec:
+  project: default
+
+  source:
+    chart: authentik
+    repoURL: https://charts.goauthentik.io
+    targetRevision: 2025.6.4
+    helm:
+      releaseName: authentik
+      valuesObject:
+        authentik:
+          secret_key: file:///secrets/secret-key/key
+          postgresql:
+            user: authentik
+            password: file:///secrets/postgres-creds/password
+        server:
+          ingress:
+            enabled: true
+            annotations:
+              traefik.ingress.kubernetes.io/router.entrypoints: websecure
+              traefik.ingress.kubernetes.io/router.tls: "true"
+            hosts:
+              - authentik.kube.local.gd
+          volumes:
+            - name: postgres-creds
+              secret:
+                secretName: authentik-postgres-credentials
+            - name: secret-key
+              secret:
+                secretName: authentik-secret-key
+          volumeMounts:
+            - name: postgres-creds
+              mountPath: /secrets/postgres-creds
+              readOnly: true
+            - name: secret-key
+              mountPath: /secrets/secret-key
+              readOnly: true
+        worker:
+          volumes:
+            - name: postgres-creds
+              secret:
+                secretName: authentik-postgres-credentials
+            - name: secret-key
+              secret:
+                secretName: authentik-secret-key
+          volumeMounts:
+            - name: postgres-creds
+              mountPath: /secrets/postgres-creds
+              readOnly: true
+            - name: secret-key
+              mountPath: /secrets/secret-key
+              readOnly: true
+        postgresql:
+          enabled: true
+          auth:
+            enablePostgresUser: false
+            username: authentik
+            existingSecret: authentik-postgres-credentials
+        redis:
+          enabled: true
+
+  destination:
+    name: in-cluster
+    namespace: authentik
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

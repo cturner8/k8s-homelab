@@ -8,3 +8,8 @@ resources:
   - redlib.yml
   - homepage.yml
   - adguard.yml
+  - speedtest.yml
+  - linkding.yml
+  - miniflux.yml
+  - tinyauth.yml
+  - uptime.yml

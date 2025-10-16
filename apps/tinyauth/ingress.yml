@@ -1,0 +1,15 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: tinyauth
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`tinyauth.kube.local.gd`)
+      kind: Rule
+      services:
+        - name: tinyauth
+          port: 3000
+  tls: {}

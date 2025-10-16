@@ -12,7 +12,7 @@ spec:
       services:
         - name: demo
           port: 80
-    - match: Host(`demo.kube.dev.cturner.xyz`)
+    - match: Host(`demo.kube.local.gd`)
       kind: Rule
       services:
         - name: demo
