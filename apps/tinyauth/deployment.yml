@@ -47,14 +47,6 @@ spec:
               value: "true"
             - name: "DISABLE_ANALYTICS"
               value: "true"
-          # livenessProbe:
-          #   httpGet:
-          #     path: /api/healthcheck
-          #     port: 3000
-          # readinessProbe:
-          #   httpGet:
-          #     path: /api/healthcheck
-          #     port: 3000
           resources:
             limits:
               cpu: "500m"
