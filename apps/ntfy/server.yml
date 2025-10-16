@@ -1,0 +1,16 @@
+# Access
+base-url: "https://ntfy.kube.local.gd:8443"
+upstream-base-url: "https://ntfy.sh"
+behind-proxy: true
+
+# Caching
+cache-file: "/var/cache/ntfy/server.db"
+attachment-cache-dir: "/var/cache/ntfy/attachments"
+
+# Authentication
+enable-login: true
+require-login: true
+auth-file: "/var/lib/ntfy/user.db"
+auth-default-access: "deny-all"
+auth-users:
+  - "cturner:$2a$10$nFj0V1ktKvUaRq/VmAUzvu3rd8gVrKXS02F5kiVWo5nLiUy9dYeSq:admin"
