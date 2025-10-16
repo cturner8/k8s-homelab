@@ -38,14 +38,19 @@ spec:
               cpu: "125m"
               memory: "128Mi"
           volumeMounts:
-            - mountPath: /etc/ntfy
-              name: ntfy-config
+            - mountPath: /var/lib/ntfy
+              name: ntfy-data
             - mountPath: /var/cache/ntfy
               name: ntfy-cache
+            - mountPath: /etc/ntfy
+              name: ntfy-conf
       volumes:
+        - name: ntfy-data
+          persistentVolumeClaim:
+            claimName: ntfy-data
         - name: ntfy-cache
           persistentVolumeClaim:
             claimName: ntfy-cache
-        - name: ntfy-config
-          persistentVolumeClaim:
-            claimName: ntfy-config
+        - name: ntfy-conf
+          configMap:
+            name: ntfy-conf

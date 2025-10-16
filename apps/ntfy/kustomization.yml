@@ -10,6 +10,11 @@ generatorOptions:
   labels:
     app.kubernetes.io/managed-by: kustomize
 
+configMapGenerator:
+  - name: ntfy-conf
+    files:
+      - server.yml
+
 resources:
   - volume.yml
   - deployment.yml
