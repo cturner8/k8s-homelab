@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: redlib
+        app.kubernetes.io/name: redlib
     spec:
       containers:
         - name: redlib

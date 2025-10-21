@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: demo
+        app.kubernetes.io/name: demo
     spec:
       containers:
         - name: demo
