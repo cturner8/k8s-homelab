@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: adguard
+        app.kubernetes.io/name: adguard
     spec:
       containers:
         - name: adguard

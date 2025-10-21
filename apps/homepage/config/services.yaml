@@ -1,0 +1,18 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services
+
+# Define service groups ordering
+# Actual services will be registered via dynamic discovery
+
+- Access: []
+
+- Networking: []
+
+- Monitoring: []
+
+- Containers: []
+
+- Tools: []
+
+- Social: []

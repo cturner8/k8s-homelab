@@ -24,6 +24,13 @@ spec:
             annotations:
               traefik.ingress.kubernetes.io/router.entrypoints: websecure
               traefik.ingress.kubernetes.io/router.tls: "true"
+              gethomepage.dev/enabled: "true"
+              gethomepage.dev/name: Authentik
+              gethomepage.dev/href: "https://auth.kube.local.gd:8443"
+              gethomepage.dev/group: Access
+              gethomepage.dev/icon: sh-authentik
+              gethomepage.dev/namespace: authentik
+              gethomepage.dev/app: authentik
             hosts:
               - authentik.kube.local.gd
           volumes:

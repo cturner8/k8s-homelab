@@ -10,8 +10,23 @@ generatorOptions:
   labels:
     app.kubernetes.io/managed-by: kustomize
 
+configMapGenerator:
+  - name: homepage-config-files
+    files:
+      - config/docker.yaml
+      - config/kubernetes.yaml
+      - config/proxmox.yaml
+      - config/services.yaml
+      - config/bookmarks.yaml
+      - config/settings.yaml
+      - config/widgets.yaml
+      - config/custom.css
+      - config/custom.js
+
 resources:
   - volume.yml
+  - service-account.yml
+  - role.yml
   - deployment.yml
   - service.yml
   - ingress.yml

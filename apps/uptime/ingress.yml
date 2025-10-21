@@ -2,7 +2,15 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: uptime
+  name: uptime-dashboard
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Uptime Kuma (Dashboard)
+    gethomepage.dev/href: "https://uptime.kube.local.gd:8443"
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/icon: uptime-kuma
+    gethomepage.dev/namespace: uptime
+    gethomepage.dev/app: uptime
 spec:
   entryPoints:
     - websecure
@@ -15,6 +23,24 @@ spec:
       middlewares:
         - name: oidc-auth
           namespace: traefik
+  tls: {}
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: uptime-status
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Uptime Kuma (Status Page)
+    gethomepage.dev/href: "https://status.kube.local.gd:8443"
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/icon: uptime-kuma
+    gethomepage.dev/namespace: uptime
+    gethomepage.dev/app: uptime
+spec:
+  entryPoints:
+    - websecure
+  routes:
     - match: Host(`status.kube.local.gd`)
       kind: Rule
       services:

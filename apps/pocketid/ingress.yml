@@ -3,6 +3,14 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: pocketid
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: PocketID
+    gethomepage.dev/href: "https://pocketid.kube.local.gd:8443"
+    gethomepage.dev/group: Access
+    gethomepage.dev/icon: sh-pocket-id
+    gethomepage.dev/namespace: pocketid
+    gethomepage.dev/app: pocketid
 spec:
   entryPoints:
     - websecure

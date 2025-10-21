@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: tinyauth
+        app.kubernetes.io/name: tinyauth
     spec:
       containers:
         - name: tinyauth

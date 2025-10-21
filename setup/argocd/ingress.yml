@@ -3,6 +3,14 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
       name: argocd-server
+      annotations:
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/name: ArgoCD
+            gethomepage.dev/href: "https://argocd.kube.local.gd:8443"
+            gethomepage.dev/group: Containers
+            gethomepage.dev/icon: sh-argo-cd
+            gethomepage.dev/namespace: argocd
+            gethomepage.dev/app: argocd-server
 spec:
       entryPoints:
             - websecure

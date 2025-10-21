@@ -1,0 +1,24 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/service-widgets
+
+- resources:
+      cpu: true
+      memory: true
+      disk: /
+
+- search:
+      provider: brave
+      target: _blank
+
+- kubernetes:
+      cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+      nodes:
+          show: false
+          cpu: true
+          memory: true
+          showLabel: true

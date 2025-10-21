@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: tools
+        app.kubernetes.io/name: tools
     spec:
       containers:
         - name: tools

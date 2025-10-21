@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: pocketid
+        app.kubernetes.io/name: pocketid
     spec:
       containers:
         - name: pocketid

@@ -12,7 +12,10 @@ spec:
     metadata:
       labels:
         app: homepage
+        app.kubernetes.io/name: homepage
     spec:
+      automountServiceAccountToken: true
+      serviceAccountName: homepage
       containers:
         - name: homepage
           image: "ghcr.io/gethomepage/homepage:v1.5.0"
@@ -38,8 +41,13 @@ spec:
               memory: "128Mi"
           volumeMounts:
             - mountPath: /app/config
-              name: homepage-config
+              name: homepage-config-files
+            - mountPath: /app/config/logs
+              name: homepage-config-logs
       volumes:
-        - name: homepage-config
+        - name: homepage-config-files
+          configMap:
+            name: homepage-config-files
+        - name: homepage-config-logs
           persistentVolumeClaim:
-            claimName: homepage-config
+            claimName: homepage-config-logs

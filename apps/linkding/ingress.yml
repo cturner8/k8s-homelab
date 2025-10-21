@@ -3,6 +3,14 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: linkding
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Linkding
+    gethomepage.dev/href: "https://linkding.kube.local.gd:8443"
+    gethomepage.dev/group: Tools
+    gethomepage.dev/icon: sh-linkding
+    gethomepage.dev/namespace: linkding
+    gethomepage.dev/app: linkding
 spec:
   entryPoints:
     - websecure

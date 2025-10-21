@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: linkding
+        app.kubernetes.io/name: linkding
     spec:
       containers:
         - name: linkding

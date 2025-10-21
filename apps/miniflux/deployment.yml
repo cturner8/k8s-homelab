@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: miniflux
+        app.kubernetes.io/name: miniflux
     spec:
       initContainers:
         - name: wait-for-db
@@ -81,6 +82,7 @@ spec:
     metadata:
       labels:
         app: db
+        app.kubernetes.io/name: db
     spec:
       containers:
         - name: db

@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: ntfy
+        app.kubernetes.io/name: ntfy
     spec:
       containers:
         - name: ntfy
