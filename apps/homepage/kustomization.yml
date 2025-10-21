@@ -25,6 +25,8 @@ configMapGenerator:
 
 resources:
   - volume.yml
+  - service-account.yml
+  - role.yml
   - deployment.yml
   - service.yml
   - ingress.yml

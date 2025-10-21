@@ -13,6 +13,8 @@ spec:
       labels:
         app: homepage
     spec:
+      automountServiceAccountToken: true
+      serviceAccountName: homepage
       containers:
         - name: homepage
           image: "ghcr.io/gethomepage/homepage:v1.5.0"
@@ -39,10 +41,8 @@ spec:
           volumeMounts:
             - mountPath: /app/config
               name: homepage-config-files
-              readOnly: true
             - mountPath: /app/config/logs
               name: homepage-config-logs
-              readOnly: false
       volumes:
         - name: homepage-config-files
           configMap:
