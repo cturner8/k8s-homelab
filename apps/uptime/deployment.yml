@@ -12,11 +12,11 @@ spec:
     metadata:
       labels:
         app: uptime
+        app.kubernetes.io/name: uptime
     spec:
       containers:
         - name: uptime
-          # TODO: switch to stable tag when released
-          image: "ghcr.io/louislam/uptime-kuma:2.0.0-beta-slim.4"
+          image: "ghcr.io/louislam/uptime-kuma:2.0.1-slim"
           ports:
             - containerPort: 3001
           livenessProbe:
