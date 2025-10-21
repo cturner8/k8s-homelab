@@ -24,6 +24,13 @@ spec:
           annotations:
             traefik.ingress.kubernetes.io/router.entrypoints: websecure
             traefik.ingress.kubernetes.io/router.tls: "true"
+            gethomepage.dev/enabled: "true"
+            gethomepage.dev/name: Portainer
+            gethomepage.dev/href: "https://portainer.kube.local.gd:8443"
+            gethomepage.dev/group: Containers
+            gethomepage.dev/icon: sh-portainer
+            gethomepage.dev/namespace: portainer
+            gethomepage.dev/app: portainer
           hosts:
             - host: portainer.kube.local.gd
               paths:

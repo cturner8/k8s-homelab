@@ -2,50 +2,17 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/configs/services
 
-- Access:
-      - Authentik:
-            href: https://auth.kube.dev.cturner.xyz:8443
-            icon: sh-authentik
+# Define service groups ordering
+# Actual services will be registered via dynamic discovery
 
-- Networking:
-      - AdGuard Home:
-            href: https://adguard.kube.dev.cturner.xyz:8443
-            icon: sh-adguard-home
-      - Speedtest Tracker:
-            href: https://speed.kube.dev.cturner.xyz:8443
-            icon: sh-speedtest-tracker
+- Access: []
 
-- Monitoring:
-      - Uptime Kuma (Dashboard):
-            href: https://uptime.kube.dev.cturner.xyz:8443
-            icon: uptime-kuma
-      - Uptime Kuma (Status Page):
-            href: https://status.kube.dev.cturner.xyz:8443
-            icon: uptime-kuma
-      - Ntfy:
-            href: https://ntfy.kube.dev.cturner.xyz:8443
-            icon: ntfy
+- Networking: []
 
-- Containers:
-      - ArgoCD:
-            href: https://argocd.kube.dev.cturner.xyz:8443
-            icon: sh-argo-cd
-      - Portainer:
-            href: https://portainer.kube.dev.cturner.xyz:8443
-            icon: sh-portainer
+- Monitoring: []
 
-- Tools:
-      - IT Tools:
-            href: https://tools.kube.dev.cturner.xyz:8443
-            icon: sh-it-tools
-      - Miniflux:
-            href: https://miniflux.kube.dev.cturner.xyz:8443
-            icon: sh-miniflux
-      - Linkding:
-            href: https://linkding.kube.dev.cturner.xyz:8443
-            icon: sh-linkding
+- Containers: []
 
-- Social:
-      - Redlib:
-            href: https://redlib.kube.dev.cturner.xyz:8443
-            icon: sh-redlib
+- Tools: []
+
+- Social: []
