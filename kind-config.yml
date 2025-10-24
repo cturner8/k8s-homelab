@@ -1,0 +1,12 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: k8s-homelab
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      - containerPort: 8000
+        hostPort: 8000
+      - containerPort: 8080
+        hostPort: 8080
+      - containerPort: 8443
+        hostPort: 8443
