@@ -46,6 +46,8 @@ spec:
             matchRule: Host(`traefik.kube.local.gd`)
             entryPoints:
               - websecure
+            middlewares:
+              - name: oidc-auth
             tls: {}
         tlsStore:
           default:
