@@ -4,14 +4,17 @@ Recreation of my Docker Compose based Homelab using Kubernetes and ArgoCD
 ## Quickstart
 
 A devcontainer configuration file has been pre-configured to install the following tools for local Kubernetes development:
-- minikube
 - kubectl
 - kustomize (pre-installed with newer versions of kubectl)
 - helm
 
+Separate devcontainers have been defined depending on which tool to use for local development:
+- minikube
+- kind
+
 The devcontainer is also configured to enable "Docker in Docker" to allow spinning up containers from inside the devcontainer.
 
-A local minikube cluster will be created automatically on container startup.
+A local cluster will be created automatically on container startup, depending on which configuration you selected.
 
 If you have Docker installed already, follow [Quick start: Open an existing folder in a container](https://code.visualstudio.com/docs/devcontainers/containers#_quick-start-open-an-existing-folder-in-a-container) to get started.
 
@@ -86,6 +89,18 @@ If it worked correctly, you should receive an output similar to the following:
 ```
 
 The traefik service has been setup to expose HTTP port as `8080` and HTTPS port as `8443`, overriding the default `80` and `443` to avoid the elevation requirement to expose these ports locally.
+
+## kind
+
+### Ingress Access
+
+Once traefik is ready, port forward `8080` and `8443` from the traefik service:
+
+```sh
+kubectl port-forward svc/traefik 8080 8443 -n traefik
+```
+
+This will expose locally on `8080` and `8443`.
 
 ## Known Issues
 
