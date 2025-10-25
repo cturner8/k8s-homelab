@@ -35,6 +35,14 @@ spec:
         ingressRoute:
           dashboard:
             enabled: true
+            annotations:
+              gethomepage.dev/enabled: "true"
+              gethomepage.dev/name: Traefik Dashboard
+              gethomepage.dev/href: "https://traefik.kube.local.gd:8443"
+              gethomepage.dev/group: Networking
+              gethomepage.dev/icon: sh-traefik
+              gethomepage.dev/namespace: traefik
+              gethomepage.dev/app: traefik
             matchRule: Host(`traefik.kube.local.gd`)
             entryPoints:
               - websecure
