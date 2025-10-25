@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
         - name: tinyauth
-          image: ghcr.io/steveiliop56/tinyauth:v4.0.1
+          # Switch to nightlty tag for new env variable app label support
+          image: ghcr.io/steveiliop56/tinyauth:nightly
           ports:
             - containerPort: 3000
           env:
@@ -48,6 +49,9 @@ spec:
               value: "true"
             - name: "DISABLE_ANALYTICS"
               value: "true"
+            # App Configurations
+            - name: "TINYAUTH_APPS_TRAEFIK_OAUTH_GROUPS"
+              value: "admins"
           livenessProbe:
             tcpSocket:
               port: 3000
