@@ -5,4 +5,4 @@ resources:
   - certmanager
   - traefik
   - portainer
-  # - authentik
+  - dashboard

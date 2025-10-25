@@ -1,0 +1,44 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubernetes-dashboard
+spec:
+  project: default
+
+  source:
+    chart: kubernetes-dashboard
+    repoURL: https://kubernetes.github.io/dashboard
+    targetRevision: 7.13.0
+    helm:
+      releaseName: kubernetes-dashboard
+      valuesObject:
+        app:
+          ingress:
+            enabled: true
+            useDefaultAnnotations: false
+            annotations:
+              traefik.ingress.kubernetes.io/router.entrypoints: websecure
+              traefik.ingress.kubernetes.io/router.tls: "true"
+              gethomepage.dev/enabled: "true"
+              gethomepage.dev/name: Kubernetes Dashboard
+              gethomepage.dev/href: "https://dashboard.kube.local.gd:8443"
+              gethomepage.dev/group: Containers
+              gethomepage.dev/icon: sh-kubernetes
+              gethomepage.dev/namespace: kubernetes-dashboard
+              gethomepage.dev/app: kubernetes-dashboard
+            hosts:
+              - dashboard.kube.local.gd
+            tls:
+              enabled: false
+
+  destination:
+    name: in-cluster
+    namespace: kubernetes-dashboard
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
