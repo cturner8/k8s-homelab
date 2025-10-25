@@ -1,5 +1,7 @@
 # Authentik Helm Chart
 
+> Work in Progress, not currently in use
+
 Authentik helm chart deployment via ArgoCD app.
 
 ## Debug Command
