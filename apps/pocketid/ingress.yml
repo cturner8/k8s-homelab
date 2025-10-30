@@ -20,4 +20,9 @@ spec:
       services:
         - name: pocketid
           port: 1411
+    - match: Host(`pocketid.10.240.222.170.sslip.io`)
+      kind: Rule
+      services:
+        - name: pocketid
+          port: 1411
   tls: {}
