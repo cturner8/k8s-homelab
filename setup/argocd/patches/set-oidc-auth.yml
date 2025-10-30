@@ -7,7 +7,7 @@ data:
   url: "https://argocd.kube.local.gd:8443"
   oidc.config: |
     name: "PocketID"
-    issuer: "https://pocketid.kube.local.gd:8443/"
-    clientID: "b7c17fa0-878c-4a0d-a1a5-eb24fb6ca567"
+    issuer: "https://pocketid.10.240.222.170.sslip.io:8443"
+    clientID: "d6780869-507e-4689-8a04-f38c39ca4c0c"
     enablePKCEAuthentication: true
     requestedScopes: ["openid", "profile", "email", "groups", "offline_access"]
