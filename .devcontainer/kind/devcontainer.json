@@ -29,7 +29,7 @@
   },
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "kind create cluster --config=kind-config.yml",
+  // "postCreateCommand": "kind create cluster --config=kind-config.yml",
 
   // Configure tool-specific properties.
   "customizations": {
