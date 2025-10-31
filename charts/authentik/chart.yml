@@ -70,6 +70,39 @@ spec:
             existingSecret: authentik-postgres-credentials
         redis:
           enabled: true
+        additionalObjects:
+          - apiVersion: generators.external-secrets.io/v1alpha1
+            kind: Password
+            metadata:
+              name: authentik-generator
+            spec:
+              length: 60
+              encoding: base64
+              allowRepeat: true
+          - apiVersion: external-secrets.io/v1
+            kind: ExternalSecret
+            metadata:
+              name: authentik-postgres-credentials
+            spec:
+              refreshPolicy: OnChange
+              dataFrom:
+                - sourceRef:
+                    generatorRef:
+                      apiVersion: generators.external-secrets.io/v1alpha1
+                      kind: Password
+                      name: authentik-generator
+          - apiVersion: external-secrets.io/v1
+            kind: ExternalSecret
+            metadata:
+              name: authentik-secret-key
+            spec:
+              refreshPolicy: OnChange
+              dataFrom:
+                - sourceRef:
+                    generatorRef:
+                      apiVersion: generators.external-secrets.io/v1alpha1
+                      kind: Password
+                      name: authentik-generator
 
   destination:
     name: in-cluster
@@ -79,3 +112,5 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
