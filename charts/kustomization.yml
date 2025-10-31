@@ -4,5 +4,6 @@ namespace: argocd
 resources:
   - certmanager
   - traefik
+  - authentik
   - portainer
   - dashboard
