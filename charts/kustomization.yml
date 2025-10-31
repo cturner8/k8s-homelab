@@ -2,6 +2,7 @@
 namespace: argocd
 
 resources:
+  - secrets
   - certmanager
   - traefik
   - authentik
