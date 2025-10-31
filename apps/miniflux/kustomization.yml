@@ -16,6 +16,7 @@ configMapGenerator:
       - miniflux.conf
 
 resources:
+  - secret.yml
   - volume.yml
   - deployment.yml
   - service.yml
