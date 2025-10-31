@@ -6,7 +6,7 @@ metadata:
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/name: IT Tools
-    gethomepage.dev/href: "https://tools.kube.local.gd:8443"
+    gethomepage.dev/href: "https://tools.kube.dev.cturner.xyz:8443"
     gethomepage.dev/group: Tools
     gethomepage.dev/icon: sh-it-tools
     gethomepage.dev/namespace: tools
@@ -15,7 +15,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`tools.kube.local.gd`)
+    - match: Host(`tools.kube.dev.cturner.xyz`)
       kind: Rule
       services:
         - name: tools

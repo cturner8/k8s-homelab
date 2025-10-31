@@ -6,7 +6,7 @@ metadata:
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/name: Speedtest Tracker
-    gethomepage.dev/href: "https://speedtest.kube.local.gd:8443"
+    gethomepage.dev/href: "https://speedtest.kube.dev.cturner.xyz:8443"
     gethomepage.dev/group: Networking
     gethomepage.dev/icon: sh-speedtest-tracker
     gethomepage.dev/namespace: speedtest
@@ -15,7 +15,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`speedtest.kube.local.gd`)
+    - match: Host(`speedtest.kube.dev.cturner.xyz`)
       kind: Rule
       services:
         - name: speedtest

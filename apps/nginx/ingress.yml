@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`nginx.kube.local.gd`)
+    - match: Host(`nginx.kube.dev.cturner.xyz`)
       kind: Rule
       services:
         - name: nginx

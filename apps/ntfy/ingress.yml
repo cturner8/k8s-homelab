@@ -6,7 +6,7 @@ metadata:
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/name: Ntfy
-    gethomepage.dev/href: "https://ntfy.kube.local.gd:8443"
+    gethomepage.dev/href: "https://ntfy.kube.dev.cturner.xyz:8443"
     gethomepage.dev/group: Monitoring
     gethomepage.dev/icon: ntfy
     gethomepage.dev/namespace: ntfy
@@ -15,7 +15,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`ntfy.kube.local.gd`)
+    - match: Host(`ntfy.kube.dev.cturner.xyz`)
       kind: Rule
       services:
         - name: ntfy

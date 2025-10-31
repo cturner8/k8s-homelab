@@ -6,7 +6,7 @@ metadata:
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/name: Uptime Kuma (Dashboard)
-    gethomepage.dev/href: "https://uptime.kube.local.gd:8443"
+    gethomepage.dev/href: "https://uptime.kube.dev.cturner.xyz:8443"
     gethomepage.dev/group: Monitoring
     gethomepage.dev/icon: uptime-kuma
     gethomepage.dev/namespace: uptime
@@ -15,7 +15,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`uptime.kube.local.gd`)
+    - match: Host(`uptime.kube.dev.cturner.xyz`)
       kind: Rule
       services:
         - name: uptime
@@ -32,7 +32,7 @@ metadata:
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/name: Uptime Kuma (Status Page)
-    gethomepage.dev/href: "https://status.kube.local.gd:8443"
+    gethomepage.dev/href: "https://status.kube.dev.cturner.xyz:8443"
     gethomepage.dev/group: Monitoring
     gethomepage.dev/icon: uptime-kuma
     gethomepage.dev/namespace: uptime
@@ -41,7 +41,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`status.kube.local.gd`)
+    - match: Host(`status.kube.dev.cturner.xyz`)
       kind: Rule
       services:
         - name: uptime

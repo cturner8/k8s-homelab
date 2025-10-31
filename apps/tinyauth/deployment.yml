@@ -21,7 +21,7 @@ spec:
             - containerPort: 3000
           env:
             - name: APP_URL
-              value: "https://tinyauth.kube.local.gd:8443"
+              value: "https://tinyauth.kube.dev.cturner.xyz:8443"
             - name: PROVIDERS_POCKETID_CLIENT_ID
               valueFrom:
                 secretKeyRef:
@@ -33,11 +33,11 @@ spec:
                   name: tinyauth-oidc-credentials
                   key: client_secret
             - name: PROVIDERS_POCKETID_AUTH_URL
-              value: "https://pocketid.kube.local.gd:8443/authorize"
+              value: "https://pocketid.kube.dev.cturner.xyz:8443/authorize"
             - name: PROVIDERS_POCKETID_TOKEN_URL
-              value: "http://pocketid.pocketid.svc.cluster.local:1411/api/oidc/token"
+              value: "http://pocketid.kube.dev.cturner.xyz:8443/api/oidc/token"
             - name: PROVIDERS_POCKETID_USER_INFO_URL
-              value: "http://pocketid.pocketid.svc.cluster.local:1411/api/oidc/userinfo"
+              value: "http://pocketid.kube.dev.cturner.xyz:8443/api/oidc/userinfo"
             - name: PROVIDERS_POCKETID_SCOPES
               value: "openid email profile groups"
             - name: PROVIDERS_POCKETID_NAME

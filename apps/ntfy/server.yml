@@ -1,5 +1,5 @@
 # Access
-base-url: "https://ntfy.kube.local.gd:8443"
+base-url: "https://ntfy.kube.dev.cturner.xyz:8443"
 upstream-base-url: "https://ntfy.sh"
 behind-proxy: true
 
