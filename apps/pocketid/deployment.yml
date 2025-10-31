@@ -23,7 +23,7 @@ spec:
             - name: TRUST_PROXY
               value: "true"
             - name: ENCRYPTION_KEY_FILE
-              value: /run/secrets/encryption_key/key
+              value: /run/secrets/encryption_key/password
           ports:
             - containerPort: 1411
           livenessProbe:
