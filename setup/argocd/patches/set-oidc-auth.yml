@@ -6,8 +6,8 @@ metadata:
 data:
   url: "https://argocd.kube.dev.cturner.xyz:8443"
   oidc.config: |
-    name: "PocketID"
-    issuer: "https://pocketid.kube.dev.cturner.xyz:8443"
-    clientID: "d6780869-507e-4689-8a04-f38c39ca4c0c"
+    name: "authentik"
+    issuer: "https://auth.kube.dev.cturner.xyz:8443/application/o/argocd/"
+    clientID: "nLsdZ95h0gDpiqT2a9U72xKrXxViirJLpYXDE2ML"
     enablePKCEAuthentication: true
-    requestedScopes: ["openid", "profile", "email", "groups", "offline_access"]
+    requestedScopes: ["openid", "profile", "email", "offline_access"]
