@@ -12,22 +12,6 @@ Single `api-key` property:
 api-token=placeholder_api_token
 ```
 
-### speedtest-app-key
-
-Single `app-key` property:
-
-```env
-app_key=base64:kiioX1ZhC3PmoAN+1wY9tdBN9wWzkBybbmXS16ENrg4=
-```
-
-Value should be base64 encoded.
-
-Generate a new value using `openssl`:
-
-```sh
-echo -n 'base64:'; openssl rand -base64 32;
-```
-
 ### authentik-postgres-credentials
 
 `username` and `password` properties:
