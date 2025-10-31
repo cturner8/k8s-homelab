@@ -50,10 +50,10 @@ spec:
         tlsStore:
           default:
             defaultCertificate:
-              secretName: cturner-xyz-tls
+              secretName: cturner-xyz-staging-tls
             certificates:
               - secretName: local-gd-tls
-              - secretName: cturner-xyz-tls
+              - secretName: cturner-xyz-staging-tls
               - secretName: sslip-io-tls
         extraObjects:
           # Middlewares
@@ -94,7 +94,7 @@ spec:
             metadata:
               name: cturner-xyz
             spec:
-              secretName: cturner-xyz-tls
+              secretName: cturner-xyz-staging-tls
 
               privateKey:
                 rotationPolicy: Always
@@ -104,8 +104,7 @@ spec:
                 - "*.kube.dev.cturner.xyz"
 
               issuerRef:
-                name: selfsigned-cluster-issuer
-                # name: acme-cluster-issuer
+                name: acme-staging-cluster-issuer
                 kind: ClusterIssuer
           - apiVersion: cert-manager.io/v1
             kind: Certificate
@@ -123,7 +122,6 @@ spec:
 
               issuerRef:
                 name: selfsigned-cluster-issuer
-                # name: acme-cluster-issuer
                 kind: ClusterIssuer
 
   destination:
