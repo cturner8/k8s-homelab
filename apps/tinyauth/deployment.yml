@@ -35,9 +35,9 @@ spec:
             - name: PROVIDERS_POCKETID_AUTH_URL
               value: "https://pocketid.kube.dev.cturner.xyz:8443/authorize"
             - name: PROVIDERS_POCKETID_TOKEN_URL
-              value: "http://pocketid.kube.dev.cturner.xyz:8443/api/oidc/token"
+              value: "https://pocketid.kube.dev.cturner.xyz:8443/api/oidc/token"
             - name: PROVIDERS_POCKETID_USER_INFO_URL
-              value: "http://pocketid.kube.dev.cturner.xyz:8443/api/oidc/userinfo"
+              value: "https://pocketid.kube.dev.cturner.xyz:8443/api/oidc/userinfo"
             - name: PROVIDERS_POCKETID_SCOPES
               value: "openid email profile groups"
             - name: PROVIDERS_POCKETID_NAME
