@@ -6,4 +6,3 @@ resources:
   - traefik
   - authentik
   - portainer
-  - dashboard
