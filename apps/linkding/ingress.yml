@@ -6,7 +6,7 @@ metadata:
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/name: Linkding
-    gethomepage.dev/href: "https://linkding.kube.local.gd:8443"
+    gethomepage.dev/href: "https://linkding.kube.dev.cturner.xyz:8443"
     gethomepage.dev/group: Tools
     gethomepage.dev/icon: sh-linkding
     gethomepage.dev/namespace: linkding
@@ -15,7 +15,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`linkding.kube.local.gd`)
+    - match: Host(`linkding.kube.dev.cturner.xyz`)
       kind: Rule
       services:
         - name: linkding

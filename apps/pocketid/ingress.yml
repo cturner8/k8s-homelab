@@ -6,7 +6,7 @@ metadata:
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/name: PocketID
-    gethomepage.dev/href: "https://pocketid.kube.local.gd:8443"
+    gethomepage.dev/href: "https://pocketid.kube.dev.cturner.xyz:8443"
     gethomepage.dev/group: Access
     gethomepage.dev/icon: sh-pocket-id
     gethomepage.dev/namespace: pocketid
@@ -15,7 +15,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`pocketid.kube.local.gd`)
+    - match: Host(`pocketid.kube.dev.cturner.xyz`)
       kind: Rule
       services:
         - name: pocketid

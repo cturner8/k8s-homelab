@@ -35,17 +35,26 @@ spec:
         ingressRoute:
           dashboard:
             enabled: true
-            matchRule: Host(`traefik.kube.local.gd`)
+            annotations:
+              gethomepage.dev/enabled: "true"
+              gethomepage.dev/name: Traefik Dashboard
+              gethomepage.dev/href: "https://traefik.kube.dev.cturner.xyz:8443"
+              gethomepage.dev/group: Networking
+              gethomepage.dev/icon: sh-traefik
+              gethomepage.dev/namespace: traefik
+              gethomepage.dev/app: traefik
+            matchRule: Host(`traefik.kube.dev.cturner.xyz`)
             entryPoints:
               - websecure
             tls: {}
         tlsStore:
           default:
             defaultCertificate:
-              secretName: cturner-xyz-tls
+              secretName: cturner-xyz-prod-tls
             certificates:
               - secretName: local-gd-tls
-              - secretName: cturner-xyz-tls
+              - secretName: cturner-xyz-prod-tls
+              - secretName: sslip-io-tls
         extraObjects:
           # Middlewares
           - # Forward authentication to tinyauth
@@ -55,7 +64,9 @@ spec:
               name: oidc-auth
             spec:
               forwardAuth:
-                address: http://tinyauth.tinyauth.svc.cluster.local:3000/api/auth/traefik
+                address: http://authentik-server.authentik.svc.cluster.local/outpost.goauthentik.io/auth/traefik
+                trustForwardHeader: true
+                authResponseHeadersRegex: X-Authentik-*
           # Cert Manager Certificates
           - apiVersion: cert-manager.io/v1
             kind: Certificate
@@ -79,7 +90,7 @@ spec:
             metadata:
               name: cturner-xyz
             spec:
-              secretName: cturner-xyz-tls
+              secretName: cturner-xyz-prod-tls
 
               privateKey:
                 rotationPolicy: Always
@@ -89,8 +100,24 @@ spec:
                 - "*.kube.dev.cturner.xyz"
 
               issuerRef:
+                name: acme-prod-cluster-issuer
+                kind: ClusterIssuer
+          - apiVersion: cert-manager.io/v1
+            kind: Certificate
+            metadata:
+              name: sslip-io
+            spec:
+              secretName: sslip-io-tls
+
+              privateKey:
+                rotationPolicy: Always
+
+              dnsNames:
+                - 10.240.222.170.sslip.io
+                - "*.10.240.222.170.sslip.io"
+
+              issuerRef:
                 name: selfsigned-cluster-issuer
-                # name: acme-cluster-issuer
                 kind: ClusterIssuer
 
   destination:

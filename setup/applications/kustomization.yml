@@ -11,6 +11,4 @@ resources:
   - speedtest.yml
   - linkding.yml
   - miniflux.yml
-  - pocketid.yml
-  - tinyauth.yml
   - uptime.yml

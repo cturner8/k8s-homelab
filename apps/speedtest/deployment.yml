@@ -21,7 +21,7 @@ spec:
             - name: TZ
               value: "Europe/London"
             - name: APP_URL
-              value: "https://speedtest.kube.local.gd:8443"
+              value: "https://speedtest.kube.dev.cturner.xyz:8443"
             - name: DB_CONNECTION
               value: sqlite
             - name: SPEEDTEST_SCHEDULE

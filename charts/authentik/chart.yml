@@ -9,7 +9,7 @@ spec:
   source:
     chart: authentik
     repoURL: https://charts.goauthentik.io
-    targetRevision: 2025.6.4
+    targetRevision: 2025.8.4
     helm:
       releaseName: authentik
       valuesObject:
@@ -26,13 +26,13 @@ spec:
               traefik.ingress.kubernetes.io/router.tls: "true"
               gethomepage.dev/enabled: "true"
               gethomepage.dev/name: Authentik
-              gethomepage.dev/href: "https://auth.kube.local.gd:8443"
+              gethomepage.dev/href: "https://auth.kube.dev.cturner.xyz:8443"
               gethomepage.dev/group: Access
               gethomepage.dev/icon: sh-authentik
               gethomepage.dev/namespace: authentik
               gethomepage.dev/app: authentik
             hosts:
-              - authentik.kube.local.gd
+              - auth.kube.dev.cturner.xyz
           volumes:
             - name: postgres-creds
               secret:

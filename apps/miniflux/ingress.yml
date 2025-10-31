@@ -6,7 +6,7 @@ metadata:
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/name: Miniflux
-    gethomepage.dev/href: "https://miniflux.kube.local.gd:8443"
+    gethomepage.dev/href: "https://miniflux.kube.dev.cturner.xyz:8443"
     gethomepage.dev/group: Tools
     gethomepage.dev/icon: sh-miniflux
     gethomepage.dev/namespace: miniflux
@@ -15,7 +15,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`miniflux.kube.local.gd`)
+    - match: Host(`miniflux.kube.dev.cturner.xyz`)
       kind: Rule
       services:
         - name: miniflux

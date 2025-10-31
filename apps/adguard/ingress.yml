@@ -6,7 +6,7 @@ metadata:
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/name: AdGuard Home
-    gethomepage.dev/href: "https://adguard.kube.local.gd:8443"
+    gethomepage.dev/href: "https://adguard.kube.dev.cturner.xyz:8443"
     gethomepage.dev/group: Networking
     gethomepage.dev/icon: sh-adguard-home
     gethomepage.dev/namespace: adguard
@@ -15,7 +15,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`adguard.kube.local.gd`)
+    - match: Host(`adguard.kube.dev.cturner.xyz`)
       kind: Rule
       services:
         - name: adguard

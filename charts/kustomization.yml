@@ -4,5 +4,5 @@ namespace: argocd
 resources:
   - certmanager
   - traefik
+  - authentik
   - portainer
-  # - authentik

@@ -19,9 +19,7 @@ spec:
           image: "ghcr.io/pocket-id/pocket-id:v1"
           env:
             - name: APP_URL
-              value: https://pocketid.kube.local.gd:8443
-            - name: INTERNAL_APP_URL
-              value: http://pocketid.pocketid.svc.cluster.local:1411
+              value: https://pocketid.kube.dev.cturner.xyz:8443
             - name: TRUST_PROXY
               value: "true"
             - name: ENCRYPTION_KEY_FILE

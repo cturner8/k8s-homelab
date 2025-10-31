@@ -12,7 +12,7 @@ To deploy ArgoCD into the cluster, apply the kustomization file into the `argocd
 kubectl apply -k setup/argocd
 ```
 
-Once ArgoCD is up and running, ensure either the minikube tunnel or traefik port forward is active and access via `https://argocd.kube.kube.local.gd:8443`
+Once ArgoCD is up and running, ensure either the minikube tunnel or traefik port forward is active and access via `https://argocd.kube.kube.dev.cturner.xyz:8443`
 
 Get the initial admin password from the `argocd-initial-admin-secret` secret using kubectl:
 
@@ -41,4 +41,3 @@ The OIDC configuration for ArgoCD SSO is fairly limited in the sense that it doe
 In practice this means it is not possible to have a "split" configuration where some of these OIDC endpoints point to the external access URL's (e.g. `https://auth.cturner.xyz`) and others pointing to internal cluster service URL's (e.g. `http://server.auth.svc.cluster.local:9000`) which would help avoid any potential DNS related issues, depending on how the relevant DNS for the external access URL is configured.
 
 As a result of the above, the current configuration **does not** utilise the in cluster authentik service, instead opting to use an external, pre-existing authentik deployment due to DNS difficulties when running within the local cluster. This likely would not be an issue when running in a cloud-based cluster deployment.
-
