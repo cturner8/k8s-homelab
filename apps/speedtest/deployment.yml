@@ -34,7 +34,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: speedtest-app-key
-                  key: app_key
+                  key: password
           ports:
             - containerPort: 80
           livenessProbe:
