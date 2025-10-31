@@ -9,7 +9,7 @@ spec:
   source:
     chart: authentik
     repoURL: https://charts.goauthentik.io
-    targetRevision: 2025.6.4
+    targetRevision: 2025.8.4
     helm:
       releaseName: authentik
       valuesObject:
@@ -32,7 +32,7 @@ spec:
               gethomepage.dev/namespace: authentik
               gethomepage.dev/app: authentik
             hosts:
-              - authentik.kube.dev.cturner.xyz
+              - auth.kube.dev.cturner.xyz
           volumes:
             - name: postgres-creds
               secret:
