@@ -22,6 +22,22 @@ spec:
               enabled: true
         extras:
           manifests:
+            - apiVersion: v1
+              kind: ServiceAccount
+              metadata:
+                name: kubernetes-dashboard-admin
+            - apiVersion: rbac.authorization.k8s.io/v1
+              kind: ClusterRoleBinding
+              metadata:
+                name: kubernetes-dashboard-admin
+              roleRef:
+                apiGroup: rbac.authorization.k8s.io
+                kind: ClusterRole
+                name: cluster-admin
+              subjects:
+                - kind: ServiceAccount
+                  name: kubernetes-dashboard-admin
+                  namespace: kubernetes-dashboard
             - apiVersion: traefik.io/v1alpha1
               kind: IngressRoute
               metadata:
@@ -29,20 +45,23 @@ spec:
                 annotations:
                   gethomepage.dev/enabled: "true"
                   gethomepage.dev/name: Kubernetes Dashboard
-                  gethomepage.dev/href: "https://dashboard.kube.local.gd:8443"
+                  gethomepage.dev/href: "https://dashboard.kube.dev.cturner.xyz:8443"
                   gethomepage.dev/group: Containers
                   gethomepage.dev/icon: sh-kubernetes
                   gethomepage.dev/namespace: kubernetes-dashboard
-                  gethomepage.dev/app: kubernetes-dashboard
+                  gethomepage.dev/app: kubernetes-dashboard-kong
               spec:
                 entryPoints:
                   - websecure
                 routes:
-                  - match: Host(`dashboard.kube.local.gd`)
+                  - match: Host(`dashboard.kube.dev.cturner.xyz`)
                     kind: Rule
                     services:
                       - name: kubernetes-dashboard-kong-proxy
                         port: 80
+                    middlewares:
+                      - name: oidc-auth
+                        namespace: traefik
                 tls: {}
 
   destination:
