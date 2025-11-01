@@ -14,6 +14,17 @@ Single `token` property:
 token=placeholder_api_token
 ```
 
+### tinyauth-oidc-credentials
+
+Tinyauth OIDC credentials for PocketID integration.
+
+```env
+client_id=
+client_secret=
+```
+
+**Note**: pending migration to authentik ESO webhook external secret
+
 ## Secret Deployment
 
 The secrets are deployed using a standard kustomize file:
