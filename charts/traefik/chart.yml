@@ -66,7 +66,7 @@ spec:
               name: oidc-auth
             spec:
               forwardAuth:
-                address: http://authentik-server.authentik.svc.cluster.local/outpost.goauthentik.io/auth/traefik
+                address: http://authentik-server.authentik.svc/outpost.goauthentik.io/auth/traefik
                 trustForwardHeader: true
                 authResponseHeadersRegex: X-Authentik-*
           # Cert Manager Certificates
