@@ -14,7 +14,7 @@ spec:
       releaseName: authentik
       valuesObject:
         authentik:
-          secret_key: file:///secrets/secret-key/key
+          secret_key: file:///secrets/secret-key/password
           postgresql:
             user: authentik
             password: file:///secrets/postgres-creds/password
