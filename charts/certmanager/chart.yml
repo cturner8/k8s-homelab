@@ -12,7 +12,6 @@ spec:
     targetRevision: v1.18.2
     helm:
       releaseName: cert-manager
-      skipCrds: true
       valuesObject:
         crds:
           enabled: false

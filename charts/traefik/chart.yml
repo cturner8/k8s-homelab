@@ -12,7 +12,6 @@ spec:
     targetRevision: 37.0.0
     helm:
       releaseName: traefik
-      skipCrds: true
       valuesObject:
         providers:
           kubernetesGateway:
