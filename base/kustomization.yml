@@ -12,7 +12,7 @@ generatorOptions:
 resources:
   - namespace.yml
   - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-  - ingress.yml
+  # - ingress.yml
   - application.yml
 
 patches:
