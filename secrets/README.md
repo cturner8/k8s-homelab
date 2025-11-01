@@ -4,12 +4,14 @@ Given the kustomize secret files are not synced to git, any app specific secrets
 
 ## Secret Definitions
 
-### cloudflare-api-token
+### op-api-token
 
-Single `api-key` property:
+1Password Service Account API token for External Secrets integration.
+
+Single `token` property:
 
 ```env
-api-token=placeholder_api_token
+token=placeholder_api_token
 ```
 
 ## Secret Deployment
