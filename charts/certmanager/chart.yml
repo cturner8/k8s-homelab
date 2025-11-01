@@ -18,6 +18,70 @@ spec:
           enabled: false
         dns01RecursiveNameserversOnly: true
         dns01RecursiveNameservers: "8.8.8.8:53,1.1.1.1:53"
+        extraObjects:
+          # External Secrets
+          - |
+            apiVersion: external-secrets.io/v1
+            kind: ExternalSecret
+            metadata:
+              name: cloudflare-api-token
+            spec:
+              refreshPolicy: OnChange
+              secretStoreRef:
+                name: op-secret-store
+                kind: ClusterSecretStore
+              data:
+                - secretKey: api-token
+                  remoteRef:
+                    key: "Cloudflare DNS Kube API Token/credential"
+          # Cluster Issuers
+          - |
+            apiVersion: cert-manager.io/v1
+            kind: ClusterIssuer
+            metadata:
+              name: selfsigned-cluster-issuer
+            spec:
+              selfSigned: {}
+          - |
+            apiVersion: cert-manager.io/v1
+            kind: ClusterIssuer
+            metadata:
+              name: acme-staging-cluster-issuer
+            spec:
+              acme:
+                email: "alerts@cturner.xyz"
+                server: "https://acme-staging-v02.api.letsencrypt.org/directory"
+                privateKeySecretRef:
+                  name: acme-staging-cluster-issuer-account-key
+                solvers:
+                  - selector:
+                      dnsZones:
+                        - kube.dev.cturner.xyz
+                    dns01:
+                      cloudflare:
+                        apiTokenSecretRef:
+                          name: cloudflare-api-token
+                          key: api-token
+          - |
+            apiVersion: cert-manager.io/v1
+            kind: ClusterIssuer
+            metadata:
+              name: acme-prod-cluster-issuer
+            spec:
+              acme:
+                email: "alerts@cturner.xyz"
+                server: "https://acme-v02.api.letsencrypt.org/directory"
+                privateKeySecretRef:
+                  name: acme-prod-cluster-issuer-account-key
+                solvers:
+                  - selector:
+                      dnsZones:
+                        - kube.dev.cturner.xyz
+                    dns01:
+                      cloudflare:
+                        apiTokenSecretRef:
+                          name: cloudflare-api-token
+                          key: api-token
 
   destination:
     name: in-cluster
@@ -27,3 +91,5 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

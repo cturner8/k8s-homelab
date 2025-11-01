@@ -4,58 +4,26 @@ Given the kustomize secret files are not synced to git, any app specific secrets
 
 ## Secret Definitions
 
-### cloudflare-api-token
+### op-api-token
 
-Single `api-key` property:
+1Password Service Account API token for External Secrets integration.
 
-```env
-api-token=placeholder_api_token
-```
-
-### speedtest-app-key
-
-Single `app-key` property:
+Single `token` property:
 
 ```env
-app_key=base64:kiioX1ZhC3PmoAN+1wY9tdBN9wWzkBybbmXS16ENrg4=
+token=placeholder_api_token
 ```
 
-Value should be base64 encoded.
+### tinyauth-oidc-credentials
 
-Generate a new value using `openssl`:
-
-```sh
-echo -n 'base64:'; openssl rand -base64 32;
-```
-
-### authentik-postgres-credentials
-
-`username` and `password` properties:
+Tinyauth OIDC credentials for PocketID integration.
 
 ```env
-username=authentik
-password=random_password
+client_id=
+client_secret=
 ```
 
-Generate a unique password using openssl:
-
-```sh
-openssl rand 60 | base64 -w 0
-```
-
-### authentik-secret-key
-
-Single `key` property:
-
-```env
-key=random_secret_key
-```
-
-Generate a unique key using openssl:
-
-```sh
-openssl rand 60 | base64 -w 0
-```
+**Note**: pending migration to authentik ESO webhook external secret
 
 ## Secret Deployment
 
