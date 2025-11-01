@@ -1,6 +1,5 @@
 ---
 resources:
   - crds
-  - certmanager
   - argocd
   - applications
