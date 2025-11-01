@@ -103,6 +103,19 @@ spec:
                       apiVersion: generators.external-secrets.io/v1alpha1
                       kind: Password
                       name: authentik-generator
+          - apiVersion: external-secrets.io/v1
+            kind: ExternalSecret
+            metadata:
+              name: authentik-api-token
+            spec:
+              refreshPolicy: OnChange
+              secretStoreRef:
+                name: op-secret-store
+                kind: ClusterSecretStore
+              data:
+                - secretKey: api-token
+                  remoteRef:
+                    key: "Authentik Admin API Token/credential"
 
   destination:
     name: in-cluster

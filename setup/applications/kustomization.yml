@@ -2,13 +2,13 @@
 namespace: argocd
 
 resources:
-  - nginx.yml
-  - tools.yml
-  - ntfy.yml
-  - redlib.yml
+  # - nginx.yml
+  # - tools.yml
+  # - ntfy.yml
+  # - redlib.yml
   - homepage.yml
-  - adguard.yml
-  - speedtest.yml
-  - linkding.yml
+  # - adguard.yml
+  # - speedtest.yml
+  # - linkding.yml
   - miniflux.yml
-  - uptime.yml
+  # - uptime.yml
