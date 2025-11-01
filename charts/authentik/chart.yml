@@ -71,6 +71,7 @@ spec:
         redis:
           enabled: true
         additionalObjects:
+          # External Secrets
           - apiVersion: generators.external-secrets.io/v1alpha1
             kind: Password
             metadata:
@@ -107,13 +108,16 @@ spec:
             kind: ExternalSecret
             metadata:
               name: authentik-api-token
+              labels:
+                # Needed to allow webhook to use this secret
+                external-secrets.io/type: webhook
             spec:
               refreshPolicy: OnChange
               secretStoreRef:
                 name: op-secret-store
                 kind: ClusterSecretStore
               data:
-                - secretKey: api-token
+                - secretKey: token
                   remoteRef:
                     key: "Authentik Admin API Token/credential"
 
