@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+
+resources:
+  - namespace.yml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+  - ingress.yml
+  - application.yml
+
+patches:
+  - path: patches/set-server-insecure.yml
+  - path: patches/set-auth-rbac-policy.yml
+  - path: patches/set-oidc-auth.yml

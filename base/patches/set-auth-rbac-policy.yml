@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+data:
+  policy.csv: |
+    g, argocd-admins-sg, role:admin
+    g, argocd-sg, role:readonly
+  policy.default: "role:readonly"
