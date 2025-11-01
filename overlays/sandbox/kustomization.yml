@@ -6,6 +6,7 @@ namespace: argocd
 
 resources:
   - ../../base
+  - ../../charts/secrets
   - ../../charts/certmanager
   - ../../charts/traefik
 
