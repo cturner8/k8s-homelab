@@ -14,12 +14,8 @@ spec:
       releaseName: traefik
       valuesObject:
         providers:
-          kubernetesGateway:
-            enabled: true
           kubernetesCRD:
             allowCrossNamespace: true
-        gateway:
-          namespacePolicy: All
         ports:
           web:
             exposedPort: 8080
@@ -57,6 +53,38 @@ spec:
               - secretName: cturner-xyz-prod-tls
               - secretName: sslip-io-tls
         extraObjects:
+          # Ingress Routes
+          - apiVersion: traefik.io/v1alpha1
+            kind: IngressRoute
+            metadata:
+              name: argocd-server
+              namespace: argocd
+              annotations:
+                gethomepage.dev/enabled: "true"
+                gethomepage.dev/name: ArgoCD
+                gethomepage.dev/href: "https://argocd.kube.dev.cturner.xyz:8443"
+                gethomepage.dev/group: Containers
+                gethomepage.dev/icon: sh-argo-cd
+                gethomepage.dev/namespace: argocd
+                gethomepage.dev/app: argocd-server
+            spec:
+              entryPoints:
+                - websecure
+              routes:
+                - kind: Rule
+                  match: Host(`argocd.kube.dev.cturner.xyz`)
+                  priority: 10
+                  services:
+                    - name: argocd-server
+                      port: 80
+                - kind: Rule
+                  match: Host(`argocd.kube.dev.cturner.xyz`) && Header(`Content-Type`, `application/grpc`)
+                  priority: 11
+                  services:
+                    - name: argocd-server
+                      port: 80
+                      scheme: h2c
+              tls: {}
           # Middlewares
           - # Forward authentication to tinyauth
             apiVersion: traefik.io/v1alpha1
