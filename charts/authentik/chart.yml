@@ -120,7 +120,24 @@ spec:
                 - secretKey: token
                   remoteRef:
                     key: "Authentik Admin API Token/credential"
-
+          # - apiVersion: external-secrets.io/v1
+          #   kind: ClusterSecretStore
+          #   metadata:
+          #     name: authentik-oauth-store
+          #   spec:
+          #     provider:
+          #       webhook:
+          #         url: "http://authentik-server.authentik.svc/api/v3/providers/oauth2/?name={{ .remoteRef.key }}"
+          #         headers:
+          #           Content-Type: application/json
+          #           Authorization: "Bearer {{ .auth.token }}"
+          #         result:
+          #           jsonPath: "$.results[0]"
+          #         secrets:
+          #           - name: auth
+          #             secretRef:
+          #               name: authentik-api-token
+          #               namespace: authentik
   destination:
     name: in-cluster
     namespace: authentik
