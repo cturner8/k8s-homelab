@@ -14,7 +14,7 @@ spec:
       releaseName: authentik
       valuesObject:
         authentik:
-          secret_key: file:///secrets/secret-key/key
+          secret_key: file:///secrets/secret-key/password
           postgresql:
             user: authentik
             password: file:///secrets/postgres-creds/password
@@ -70,7 +70,74 @@ spec:
             existingSecret: authentik-postgres-credentials
         redis:
           enabled: true
-
+        additionalObjects:
+          # External Secrets
+          - apiVersion: generators.external-secrets.io/v1alpha1
+            kind: Password
+            metadata:
+              name: authentik-generator
+            spec:
+              length: 60
+              encoding: base64
+              allowRepeat: true
+          - apiVersion: external-secrets.io/v1
+            kind: ExternalSecret
+            metadata:
+              name: authentik-postgres-credentials
+            spec:
+              refreshPolicy: OnChange
+              dataFrom:
+                - sourceRef:
+                    generatorRef:
+                      apiVersion: generators.external-secrets.io/v1alpha1
+                      kind: Password
+                      name: authentik-generator
+          - apiVersion: external-secrets.io/v1
+            kind: ExternalSecret
+            metadata:
+              name: authentik-secret-key
+            spec:
+              refreshPolicy: OnChange
+              dataFrom:
+                - sourceRef:
+                    generatorRef:
+                      apiVersion: generators.external-secrets.io/v1alpha1
+                      kind: Password
+                      name: authentik-generator
+          - apiVersion: external-secrets.io/v1
+            kind: ExternalSecret
+            metadata:
+              name: authentik-api-token
+              labels:
+                # Needed to allow webhook to use this secret
+                external-secrets.io/type: webhook
+            spec:
+              refreshPolicy: OnChange
+              secretStoreRef:
+                name: op-secret-store
+                kind: ClusterSecretStore
+              data:
+                - secretKey: token
+                  remoteRef:
+                    key: "Authentik Admin API Token/credential"
+          # - apiVersion: external-secrets.io/v1
+          #   kind: ClusterSecretStore
+          #   metadata:
+          #     name: authentik-oauth-store
+          #   spec:
+          #     provider:
+          #       webhook:
+          #         url: "http://authentik-server.authentik.svc/api/v3/providers/oauth2/?name={{ .remoteRef.key }}"
+          #         headers:
+          #           Content-Type: application/json
+          #           Authorization: "Bearer {{ .auth.token }}"
+          #         result:
+          #           jsonPath: "$.results[0]"
+          #         secrets:
+          #           - name: auth
+          #             secretRef:
+          #               name: authentik-api-token
+          #               namespace: authentik
   destination:
     name: in-cluster
     namespace: authentik
@@ -79,3 +146,5 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -11,6 +11,7 @@ generatorOptions:
     app.kubernetes.io/managed-by: kustomize
 
 resources:
+  - secret.yml
   - volume.yml
   - deployment.yml
   - service.yml
