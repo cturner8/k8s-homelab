@@ -6,7 +6,7 @@ metadata:
   annotations:
     gethomepage.dev/enabled: "true"
     gethomepage.dev/name: TinyAuth
-    gethomepage.dev/href: "https://tinyauth.kube.dev.cturner.xyz:8443"
+    gethomepage.dev/href: "https://tinyauth.kube.dev.cturner.xyz"
     gethomepage.dev/group: Access
     gethomepage.dev/icon: sh-tinyauth
     gethomepage.dev/namespace: tinyauth
