@@ -24,7 +24,7 @@ If you chose not to use a devcontainer, you'll need to install these tools manua
 
 ## Directory Structure
 
-App deployments are organised into sub-folders of the `apps` directory. 
+App deployments are organised into sub-folders of the `apps` directory.
 
 The content of these app sub-folders can be any application tool supported by ArgoCD (e.g. manifests, kustomize, helm etc.).
 
@@ -36,11 +36,21 @@ First, setup the deployment secrets, see [secrets/README.md](./secrets/README.md
 
 **Note**: the secrets deployment is intentionally not included within the root `kustomization.yml` to ensure the main deployment can be fully automated within ArgoCD.
 
-Next, Apply the root `kustomization.yml` file:
+Next, Apply the relevant deployment.
+
+For the full dev deployment:
 
 ```sh
-kubectl apply -k .
+kubectl apply -k deployments/dev
 ```
+
+For the sandbox deployment:
+
+```sh
+kubectl apply -k deployments/sandbox
+```
+
+See [deployments/README.md](./deployments/README.md) for full details.
 
 Check the status of the traefik service to confirm ingress access will be active:
 
@@ -60,7 +70,7 @@ traefik   LoadBalancer   10.102.205.250   127.0.0.1     8080:30824/TCP,8443:3124
 **Note**: The "External IP" will show as pending without a local tunnel running. See [Ingress Access](#ingress-access) for further detail.
 
 
-## minikube 
+## minikube
 
 ### Dashboard Access
 
@@ -70,7 +80,7 @@ minikube dashboard --port 8000
 
 ### Ingress Access
 
-When running inside the devcontainer, ingress access via Traefik won't resolve by default. 
+When running inside the devcontainer, ingress access via Traefik won't resolve by default.
 
 When starting a tunnel, you need to ensure to set the bind address to a wildcard value:
 

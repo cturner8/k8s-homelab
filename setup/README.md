@@ -4,7 +4,6 @@ ArgoCD setup `kustomize` deployment which creates an ArgoCD deployment and any a
 
 The deployment currently consists of the following components:
 
-- [crds](./crds/README.md)
 - [certmanager](./certmanager/README.md)
 - [argocd](./argocd/README.md)
 - [applications](./argocd/README.md)
