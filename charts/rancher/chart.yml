@@ -28,6 +28,7 @@ spec:
             gethomepage.dev/icon: sh-rancher
             gethomepage.dev/namespace: cattle-system
             gethomepage.dev/app: rancher
+            gethomepage.dev/pod-selector: app=rancher
 
   destination:
     name: in-cluster
