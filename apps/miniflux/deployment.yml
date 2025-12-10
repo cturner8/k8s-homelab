@@ -36,7 +36,7 @@ spec:
                   key: password
       containers:
         - name: miniflux
-          image: "ghcr.io/miniflux/miniflux:2.2.14"
+          image: "ghcr.io/miniflux/miniflux:2.2.15"
           command: ["miniflux", "-c", "/etc/miniflux/miniflux.conf"]
           env:
             - name: DATABASE_URL
