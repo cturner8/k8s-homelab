@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: pocketid
-          image: "ghcr.io/pocket-id/pocket-id:v1"
+          image: "ghcr.io/pocket-id/pocket-id:v2"
           env:
             - name: APP_URL
               value: https://pocketid.kube.dev.cturner.xyz
