@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: linkding
-          image: "ghcr.io/sissbruecker/linkding:1.44.2"
+          image: "ghcr.io/sissbruecker/linkding:1.45.0"
           env:
             - name: LD_CSRF_TRUSTED_ORIGINS
               value: "https://linkding.kube.dev.cturner.xyz:8443"
