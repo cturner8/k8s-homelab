@@ -16,7 +16,7 @@ spec:
     spec:
       initContainers:
         - name: wait-for-db
-          image: "public.ecr.aws/docker/library/postgres:18.1-alpine"
+          image: "public.ecr.aws/docker/library/postgres:18.2-alpine"
           command:
             - sh
             - -c
@@ -86,7 +86,7 @@ spec:
     spec:
       containers:
         - name: db
-          image: "public.ecr.aws/docker/library/postgres:18.1-alpine"
+          image: "public.ecr.aws/docker/library/postgres:18.2-alpine"
           ports:
             - containerPort: 5432
           env:
