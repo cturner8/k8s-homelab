@@ -7,9 +7,9 @@
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
-    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
-      "minikube": "none"
-    },
+    // "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
+    //   "minikube": "none"
+    // },
     "ghcr.io/devcontainers/features/azure-cli:1": {
       "installBicep": true
     },
@@ -24,7 +24,7 @@
   },
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  // "postCreateCommand": "kind create cluster --config=kind-config.yml",
+  "postCreateCommand": "sudo az aks install-cli",
 
   // Configure tool-specific properties.
   "customizations": {
