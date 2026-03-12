@@ -7,9 +7,11 @@ module "aks" {
   parent_id = data.azurerm_resource_group.rg.id
 
   default_agent_pool = {
-    name       = "agentpool"
-    vm_size    = "Standard_DS3_v2"
-    node_count = 3
+    enable_auto_scaling = true
+    min_count           = 1
+    max_count           = 2
+    vm_size             = "Standard_B2ls_v2"
+    zones               = ["1"]
   }
 
   addon_profile_key_vault_secrets_provider = {
@@ -28,6 +30,16 @@ module "aks" {
 
   storage_profile = {
     blob_csi_driver = {
+      enabled = true
+    }
+  }
+
+  security_profile = {
+    image_cleaner = {
+      enabled        = true
+      interval_hours = 24
+    }
+    workload_identity = {
       enabled = true
     }
   }
