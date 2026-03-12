@@ -7,7 +7,7 @@ param environmentName string = 'dev'
 
 @minLength(1)
 @description('Primary location for all resources')
-param location string = 'uksouth'
+param location string = 'ukwest'
 
 @minLength(1)
 @description('GitHub branch name to grant deployment identity access from.')
