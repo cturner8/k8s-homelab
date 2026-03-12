@@ -10,7 +10,10 @@ terraform {
 provider "azurerm" {
   storage_use_azuread = true
   features {}
-  resource_provider_registrations = "none"
 }
 
 data "azurerm_client_config" "current" {}
+
+data "azurerm_resource_group" "rg" {
+  name = var.resource_group_name
+}
