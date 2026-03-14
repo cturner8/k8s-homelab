@@ -9,6 +9,7 @@ generatorOptions:
 
 resources:
   - namespace.yml
+  - volume.yml
   - deployment.yml
   - service.yml
   - ingress.yml
