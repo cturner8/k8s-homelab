@@ -1,3 +1,5 @@
+// TODO: add cloudflare dns integration for registration of Azure DNS nameservers
+
 module "dns" {
   source  = "Azure/avm-res-network-dnszone/azurerm"
   version = "0.2.1"
