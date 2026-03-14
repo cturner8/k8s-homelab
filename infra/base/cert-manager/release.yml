@@ -59,3 +59,18 @@ spec:
                       clientID: d68a0a72-8506-4be6-9e9f-a2341c5f221e
                 selector:
                   dnsZones: ["cloud.cturner.xyz"]
+      - |
+        apiVersion: cert-manager.io/v1
+        kind: Certificate
+        metadata:
+          name: cturner-xyz
+        spec:
+          secretName: cturner-xyz-staging-tls
+          privateKey:
+            rotationPolicy: Always
+          dnsNames:
+            - cloud.cturner.xyz
+            - "*.cloud.cturner.xyz"
+          issuerRef:
+            name: letsencrypt-staging
+            kind: ClusterIssuer
