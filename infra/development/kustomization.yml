@@ -3,3 +3,25 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../base/cert-manager
+patches:
+  - target:
+      group: cert-manager.io
+      version: v1
+      kind: ClusterIssuer
+    patch: |-
+      - op: replace
+        path: /spec/acme/email
+        value: alerts@cturner.xyz
+      - op: replace
+        path: /spec/acme/solvers/0/selector/dnsZones
+        value: ["cloud.cturner.xyz"]
+      - op: replace
+        path: /spec/acme/solvers/0/dns01
+        value:
+          azureDNS:
+            resourceGroupName: rg-k8s-homelab-dev
+            subscriptionID: a07f2721-d5d5-4d59-b27b-25487605e452
+            hostedZoneName: cloud.cturner.xyz
+            environment: AzurePublicCloud
+            managedIdentity:
+              clientID: d68a0a72-8506-4be6-9e9f-a2341c5f221e
