@@ -1,6 +1,6 @@
 module "aks" {
   source  = "Azure/avm-res-containerservice-managedcluster/azurerm"
-  version = "0.5.2"
+  version = "~> 0.5.2"
 
   name      = module.naming.kubernetes_cluster.name
   location  = data.azurerm_resource_group.rg.location

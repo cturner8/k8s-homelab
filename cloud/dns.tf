@@ -2,7 +2,7 @@
 
 module "dns" {
   source  = "Azure/avm-res-network-dnszone/azurerm"
-  version = "0.2.1"
+  version = "~> 0.2.1"
 
   name                = var.domain_name
   resource_group_name = data.azurerm_resource_group.rg.name
@@ -11,7 +11,7 @@ module "dns" {
 
 module "dns_role_assignment" {
   source  = "Azure/avm-res-authorization-roleassignment/azurerm"
-  version = "0.3.0"
+  version = "~> 0.3.0"
 
   enable_telemetry = false
   role_definitions = {

@@ -1,6 +1,6 @@
 module "storage" {
   source  = "Azure/avm-res-storage-storageaccount/azurerm"
-  version = "0.6.7"
+  version = "~> 0.6.7"
 
   name                            = module.naming.storage_account.name
   resource_group_name             = data.azurerm_resource_group.rg.name
