@@ -9,6 +9,28 @@ resource "azurerm_kubernetes_cluster_extension" "flux" {
   ]
 }
 
+resource "azurerm_kubernetes_flux_configuration" "infra" {
+  name       = "infra"
+  cluster_id = module.aks.resource_id
+  namespace  = "flux-system"
+  scope      = "cluster"
+
+  git_repository {
+    url             = "https://github.com/cturner8/k8s-homelab.git"
+    reference_type  = "branch"
+    reference_value = "azure"
+  }
+
+  kustomizations {
+    name                       = "infra"
+    path                       = "./infra/development"
+    recreating_enabled         = true
+    garbage_collection_enabled = true
+  }
+
+  depends_on = [azurerm_kubernetes_cluster_extension.flux]
+}
+
 resource "azurerm_kubernetes_flux_configuration" "apps" {
   name       = "apps"
   cluster_id = module.aks.resource_id
@@ -16,17 +38,18 @@ resource "azurerm_kubernetes_flux_configuration" "apps" {
   scope      = "cluster"
 
   git_repository {
-    url                      = "https://github.com/cturner8/k8s-homelab.git"
-    reference_type           = "branch"
-    reference_value          = "azure"
-    sync_interval_in_seconds = 300
+    url             = "https://github.com/cturner8/k8s-homelab.git"
+    reference_type  = "branch"
+    reference_value = "azure"
   }
 
   kustomizations {
-    name                       = "flux-system"
+    name                       = "apps"
     path                       = "./apps/development"
     recreating_enabled         = true
     garbage_collection_enabled = true
+
+    # depends_on = ["infra"]
   }
 
   depends_on = [azurerm_kubernetes_cluster_extension.flux]
