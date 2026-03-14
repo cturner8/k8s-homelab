@@ -20,7 +20,8 @@ module "dns_role_assignment" {
     }
   }
   user_assigned_managed_identities_by_principal_id = {
-    aks_ingress_identity = module.aks.ingress_profile_web_app_routing_identity.objectId
+    aks_ingress_identity  = module.aks.ingress_profile_web_app_routing_identity.objectId
+    cert_manager_identity = module.cert_manager_identity.principal_id
   }
   role_assignments_for_resources = {
     dns_zone = {
@@ -30,7 +31,8 @@ module "dns_role_assignment" {
         dns_contributor = {
           role_definition = "dns_contributor"
           user_assigned_managed_identities = [
-            "aks_ingress_identity"
+            "aks_ingress_identity",
+            "cert_manager_identity"
           ]
         }
       }
