@@ -15,3 +15,47 @@ spec:
       enabled: true
     podLabels:
       azure.workload.identity/use: "true"
+    extraObjects:
+      - |
+        apiVersion: cert-manager.io/v1
+        kind: ClusterIssuer
+        metadata:
+          name: letsencrypt-staging
+        spec:
+          acme:
+            email: alerts@cturner.xyz
+            server: https://acme-staging-v02.api.letsencrypt.org/directory
+            privateKeySecretRef:
+              name: letsencrypt-staging
+            solvers:
+              - dns01:
+                  azureDNS:
+                    resourceGroupName: rg-k8s-homelab-dev
+                    subscriptionID: a07f2721-d5d5-4d59-b27b-25487605e452
+                    hostedZoneName: cloud.cturner.xyz
+                    environment: AzurePublicCloud
+                    managedIdentity:
+                      clientID: d68a0a72-8506-4be6-9e9f-a2341c5f221e
+                selector:
+                  dnsZones: ["cloud.cturner.xyz"]
+      - |
+        apiVersion: cert-manager.io/v1
+        kind: ClusterIssuer
+        metadata:
+          name: letsencrypt-production
+        spec:
+          acme:
+            server: https://acme-v02.api.letsencrypt.org/directory
+            privateKeySecretRef:
+              name: letsencrypt-production
+            solvers:
+              - dns01:
+                  azureDNS:
+                    resourceGroupName: rg-k8s-homelab-dev
+                    subscriptionID: a07f2721-d5d5-4d59-b27b-25487605e452
+                    hostedZoneName: cloud.cturner.xyz
+                    environment: AzurePublicCloud
+                    managedIdentity:
+                      clientID: d68a0a72-8506-4be6-9e9f-a2341c5f221e
+                selector:
+                  dnsZones: ["cloud.cturner.xyz"]
