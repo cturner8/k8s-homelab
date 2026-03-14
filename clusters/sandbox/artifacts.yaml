@@ -1,6 +1,6 @@
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: ArtifactGenerator
+kind: ExternalArtifact
 metadata:
   name: flux-system
   namespace: flux-system
