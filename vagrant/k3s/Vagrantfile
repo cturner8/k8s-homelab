@@ -23,6 +23,14 @@ Vagrant.configure("2") do |config|
 
      echo "Installed helm"
 
+     echo "Installing flux..."
+
+     curl -s https://fluxcd.io/install.sh | bash
+
+     flux --version
+
+     echo "Installed flux"
+
      echo "Installing k3s..."
 
      ufw disable
