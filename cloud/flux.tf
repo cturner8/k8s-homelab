@@ -16,9 +16,10 @@ resource "azurerm_kubernetes_flux_configuration" "apps" {
   scope      = "cluster"
 
   git_repository {
-    url             = "https://github.com/cturner8/k8s-homelab.git"
-    reference_type  = "branch"
-    reference_value = "azure"
+    url                      = "https://github.com/cturner8/k8s-homelab.git"
+    reference_type           = "branch"
+    reference_value          = "azure"
+    sync_interval_in_seconds = 300
   }
 
   kustomizations {
