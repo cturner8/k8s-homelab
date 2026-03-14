@@ -13,10 +13,9 @@ patches:
       - op: replace
         path: /spec/rules/0/host
         value: nginx.cloud.cturner.xyz
-  - target:
-      version: v1
-      kind: PersistentVolumeClaim
-    patch: |-
       - op: replace
-        path: /spec/storageClassName
-        value: azureblob-fuse-premium
+        path: /spec/tls/0/hosts/0
+        value: nginx.cloud.cturner.xyz
+      - op: replace
+        path: /spec/tls/0/secretName
+        value: cturner-xyz-staging-tls
