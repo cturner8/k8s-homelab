@@ -11,7 +11,8 @@
     //   "minikube": "none"
     // },
     "ghcr.io/devcontainers/features/azure-cli:1": {
-      "installBicep": true
+      "installBicep": true,
+      "extensions": "k8s-extension,k8s-configuration"
     },
     "ghcr.io/devcontainers-extra/features/gh-release": {
       "repo": "derailed/k9s",
@@ -20,7 +21,8 @@
     "ghcr.io/devcontainers/features/terraform:1": {
       "tflint": "none",
       "terragrunt": "none"
-    }
+    },
+    "ghcr.io/goldsam/dev-container-features/flux2:1": {}
   },
 
   // Use 'postCreateCommand' to run commands after the container is created.
