@@ -14,6 +14,12 @@ module "aks" {
     zones               = ["1"]
   }
 
+  ingress_profile = {
+    web_app_routing = {
+      enabled = true
+    }
+  }
+
   addon_profile_key_vault_secrets_provider = {
     enabled = true
   }
