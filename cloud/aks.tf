@@ -16,7 +16,8 @@ module "aks" {
 
   ingress_profile = {
     web_app_routing = {
-      enabled = true
+      enabled               = true
+      dns_zone_resource_ids = [module.dns.resource_id]
     }
   }
 
