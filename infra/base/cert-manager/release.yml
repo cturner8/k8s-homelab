@@ -30,14 +30,14 @@ spec:
             solvers:
               - dns01:
                   azureDNS:
-                    resourceGroupName: rg-k8s-homelab-dev
-                    subscriptionID: a07f2721-d5d5-4d59-b27b-25487605e452
-                    hostedZoneName: cloud.cturner.xyz
+                    resourceGroupName: ${AZURE_RESOURCE_GROUP_NAME}
+                    subscriptionID: ${AZURE_SUBSCRIPTION_ID}
+                    hostedZoneName: ${DOMAIN_NAME}
                     environment: AzurePublicCloud
                     managedIdentity:
-                      clientID: d68a0a72-8506-4be6-9e9f-a2341c5f221e
+                      clientID: ${CERT_MANAGER_IDENTITY_CLIENT_ID}
                 selector:
-                  dnsZones: ["cloud.cturner.xyz"]
+                  dnsZones: ["${DOMAIN_NAME}"]
       - |
         apiVersion: cert-manager.io/v1
         kind: ClusterIssuer
@@ -51,14 +51,14 @@ spec:
             solvers:
               - dns01:
                   azureDNS:
-                    resourceGroupName: rg-k8s-homelab-dev
-                    subscriptionID: a07f2721-d5d5-4d59-b27b-25487605e452
-                    hostedZoneName: cloud.cturner.xyz
+                    resourceGroupName: ${AZURE_RESOURCE_GROUP_NAME}
+                    subscriptionID: ${AZURE_SUBSCRIPTION_ID}
+                    hostedZoneName: ${DOMAIN_NAME}
                     environment: AzurePublicCloud
                     managedIdentity:
-                      clientID: d68a0a72-8506-4be6-9e9f-a2341c5f221e
+                      clientID: ${CERT_MANAGER_IDENTITY_CLIENT_ID}
                 selector:
-                  dnsZones: ["cloud.cturner.xyz"]
+                  dnsZones: ["${DOMAIN_NAME}"]
       - |
         apiVersion: cert-manager.io/v1
         kind: Certificate
@@ -69,8 +69,8 @@ spec:
           privateKey:
             rotationPolicy: Always
           dnsNames:
-            - cloud.cturner.xyz
-            - "*.cloud.cturner.xyz"
+            - ${DOMAIN_NAME}
+            - "*.${DOMAIN_NAME}"
           issuerRef:
             name: letsencrypt-staging
             kind: ClusterIssuer

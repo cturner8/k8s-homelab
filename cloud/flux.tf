@@ -26,6 +26,15 @@ resource "azurerm_kubernetes_flux_configuration" "infra" {
     path                       = "./infra/development"
     recreating_enabled         = true
     garbage_collection_enabled = true
+
+    post_build {
+      substitute = {
+        AZURE_RESOURCE_GROUP_NAME          = data.azurerm_resource_group.rg.name
+        AZURE_SUBSCRIPTION_ID              = data.azurerm_client_config.current.subscription_id
+        DOMAIN_NAME                        = var.domain_name
+        CERT_MANAGER_IDENTITY_CLIENT_ID    = module.cert_manager_identity.client_id
+      }
+    }
   }
 
   depends_on = [azurerm_kubernetes_cluster_extension.flux]
