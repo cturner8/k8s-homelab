@@ -7,8 +7,10 @@ spec:
   chartRef:
     kind: OCIRepository
     name: cert-manager
-    namespace: cert-manager
+    namespace: flux-system
   interval: 10m
+  releaseName: cert-manager
+  targetNamespace: cert-manager
   values:
     crds:
       enabled: true
