@@ -1,2 +1,4 @@
 write-kubeconfig-mode: "0644"
 secrets-encryption: true
+tls-san:
+  - "192.168.0.88"
