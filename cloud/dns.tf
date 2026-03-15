@@ -38,4 +38,6 @@ module "dns_role_assignment" {
       }
     }
   }
+
+  depends_on = [module.dns]
 }
