@@ -5,7 +5,7 @@ resource "azurerm_kubernetes_cluster_extension" "flux" {
 
   depends_on = [
     azurerm_resource_provider_registration.kubernetes_configuration,
-    azurerm_resource_provider_registration.kubernetes
+    # azurerm_resource_provider_registration.kubernetes
   ]
 }
 
