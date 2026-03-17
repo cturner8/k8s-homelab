@@ -22,3 +22,9 @@ spec:
     serviceAccount:
       annotations: {}
     config: {}
+    ingress:
+      enabled: true
+      className: webapprouting.kubernetes.azure.com
+      annotations: {}
+      hosts: []
+      tls: []
