@@ -38,12 +38,21 @@ resource "azurerm_kubernetes_flux_configuration" "flux" {
   }
 
   kustomizations {
+    name                       = "configs"
+    path                       = "./infra/development/configs"
+    recreating_enabled         = true
+    garbage_collection_enabled = true
+
+    depends_on = ["infra"]
+  }
+
+  kustomizations {
     name                       = "apps"
     path                       = "./apps/development"
     recreating_enabled         = true
     garbage_collection_enabled = true
 
-    depends_on = ["infra"]
+    depends_on = ["infra", "configs"]
   }
 
   depends_on = [azurerm_kubernetes_cluster_extension.flux]
