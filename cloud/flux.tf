@@ -26,6 +26,13 @@ resource "azurerm_kubernetes_flux_configuration" "flux" {
     path                       = "./infra/development"
     recreating_enabled         = true
     garbage_collection_enabled = true
+  }
+
+  kustomizations {
+    name                       = "configs"
+    path                       = "./infra/development/configs"
+    recreating_enabled         = true
+    garbage_collection_enabled = true
 
     post_build {
       substitute = {
@@ -35,13 +42,6 @@ resource "azurerm_kubernetes_flux_configuration" "flux" {
         CERT_MANAGER_IDENTITY_CLIENT_ID = module.cert_manager_identity.client_id
       }
     }
-  }
-
-  kustomizations {
-    name                       = "configs"
-    path                       = "./infra/development/configs"
-    recreating_enabled         = true
-    garbage_collection_enabled = true
 
     depends_on = ["infra"]
   }
