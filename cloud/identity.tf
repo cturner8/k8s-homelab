@@ -9,3 +9,15 @@ module "cert_manager_identity" {
   service_account_name      = "cert-manager"
   service_account_namespace = "cert-manager"
 }
+
+module "oauth_proxy_identity" {
+  source = "./modules/workload-identity"
+
+  naming_suffixes     = [local.suffix, "oauthproxy"]
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+
+  oidc_issuer_url           = module.aks.oidc_issuer_profile_issuer_url
+  service_account_name      = "oauth2-proxy"
+  service_account_namespace = "oauth2-proxy"
+}
