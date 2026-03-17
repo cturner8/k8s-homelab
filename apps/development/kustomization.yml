@@ -20,3 +20,7 @@ patches:
       - op: replace
         path: /spec/tls/0/secretName
         value: cturner-xyz-staging-tls
+      - op: replace
+        path: /metadata/annotations
+        value: 
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
