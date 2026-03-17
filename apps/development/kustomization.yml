@@ -14,8 +14,9 @@ patches:
         path: /spec/rules/0/host
         value: nginx.cloud.cturner.xyz
       - op: replace
-        path: /spec/tls/0/hosts/0
-        value: nginx.cloud.cturner.xyz
+        path: /spec/tls/0/hosts
+        value: 
+          - nginx.cloud.cturner.xyz
       - op: replace
         path: /spec/tls/0/secretName
         value: cturner-xyz-staging-tls

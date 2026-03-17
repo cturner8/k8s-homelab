@@ -15,4 +15,5 @@ spec:
                   number: 80
             path: /
             pathType: Prefix
-  tls: []
+  tls:
+    - hosts: []
