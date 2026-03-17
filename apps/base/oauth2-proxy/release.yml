@@ -17,4 +17,12 @@ spec:
         name: oauth2-proxy
         namespace: flux-system
       interval: 10m
-  values: {}
+  values:
+    config:
+      configFile:
+        provider: "entra-id"
+        oidc_issuer_url: "https://login.microsoftonline.com/444ba3f3-3508-4cd5-821d-704859e285a0/v2.0"
+        client_id: "79c0b702-77c5-4dd4-b841-5a05ecae6004"
+        scope: "openid User.Read"
+        allowed_groups: ["5978c0bb-d923-4b27-bf6b-a977c589d4ca"]
+        entra_id_federated_token_auth: true

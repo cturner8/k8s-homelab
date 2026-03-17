@@ -6,12 +6,6 @@ generatorOptions:
   labels:
     app.kubernetes.io/managed-by: kustomize
 
-configMapGenerator:
-  - name: oauth2-proxy
-    namespace: oauth2-proxy
-    files:
-      - config/oauth2_proxy.cfg
-
 resources:
   - namespace.yml
   - repository.yml
