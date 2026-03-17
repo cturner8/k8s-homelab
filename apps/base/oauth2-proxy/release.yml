@@ -18,17 +18,7 @@ spec:
         namespace: flux-system
       interval: 10m
   values:
-    podLabels:
-      azure.workload.identity/use: "true"
+    podLabels: {}
     serviceAccount:
-      annotations:
-        azure.workload.identity/client-id: "a6759da2-00d9-4701-ac70-61468cf3e00c"
-    config:
-      configFile: |
-        provider="entra-id"
-        oidc_issuer_url="https://login.microsoftonline.com/444ba3f3-3508-4cd5-821d-704859e285a0/v2.0"
-        client_id="79c0b702-77c5-4dd4-b841-5a05ecae6004"
-        scope="openid User.Read"
-        allowed_groups=["5978c0bb-d923-4b27-bf6b-a977c589d4ca"]
-        entra_id_federated_token_auth=true
-        email_domains=["cturner.xyz"]
+      annotations: {}
+    config: {}

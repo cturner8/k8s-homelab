@@ -1,8 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../base/capacitor
   - ../base/nginx
+  - ../base/oauth2-proxy
 patches:
   - target:
       group: networking.k8s.io
@@ -24,3 +24,27 @@ patches:
         path: /metadata/annotations
         value: 
           cert-manager.io/cluster-issuer: "letsencrypt-staging"
+  - target:
+      group: helm.toolkit.fluxcd.io
+      version: v2
+      kind: HelmRelease
+      name: oauth2-proxy
+    patch: |-
+      - op: replace
+        path: /spec/values/podLabels
+        value: 
+          azure.workload.identity/use: "true"
+      - op: replace
+        path: /spec/values/serviceAccount/annotations
+        value: 
+          azure.workload.identity/client-id: "${OAUTH_PROXY_IDENTITY_CLIENT_ID}"
+      - op: replace
+        path: /spec/values/config/configFile
+        value: |
+          provider="entra-id"
+          oidc_issuer_url="https://login.microsoftonline.com/${AZURE_TENANT_ID}/v2.0"
+          client_id="${OAUTH_PROXY_CLIENT_ID}"
+          scope="openid User.Read"
+          allowed_groups=["${OAUTH_PROXY_ALLOWED_GROUP_ID}"]
+          entra_id_federated_token_auth=true
+          email_domains=["cturner.xyz"]
