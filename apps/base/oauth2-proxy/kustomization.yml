@@ -8,6 +8,7 @@ generatorOptions:
 
 configMapGenerator:
   - name: oauth2-proxy
+    namespace: oauth2-proxy
     files:
       - config/oauth2_proxy.cfg
 
