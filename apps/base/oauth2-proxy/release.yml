@@ -26,3 +26,4 @@ spec:
         scope: "openid User.Read"
         allowed_groups: ["5978c0bb-d923-4b27-bf6b-a977c589d4ca"]
         entra_id_federated_token_auth: true
+        email_domains: ["cturner.xyz"]
