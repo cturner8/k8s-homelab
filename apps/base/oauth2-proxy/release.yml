@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
+  releaseName: oauth2-proxy
+  targetNamespace: oauth2-proxy
   chart:
     spec:
       chart: oauth2-proxy
