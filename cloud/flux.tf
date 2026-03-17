@@ -52,6 +52,15 @@ resource "azurerm_kubernetes_flux_configuration" "flux" {
     recreating_enabled         = true
     garbage_collection_enabled = true
 
+    post_build {
+      substitute = {
+        AZURE_TENANT_ID                = data.azurerm_client_config.current.tenant_id
+        OAUTH_PROXY_IDENTITY_CLIENT_ID = module.oauth_proxy_identity.client_id
+        OAUTH_PROXY_ALLOWED_GROUP_ID   = var.admin_group_id
+        OAUTH_PROXY_CLIENT_ID          = "79c0b702-77c5-4dd4-b841-5a05ecae6004"
+      }
+    }
+
     depends_on = ["infra", "configs"]
   }
 
