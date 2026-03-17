@@ -1,0 +1,28 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/configs
+patches:
+  - target:
+      group: cert-manager.io
+      version: v1
+      kind: ClusterIssuer
+    patch: |-
+      - op: replace
+        path: /spec/acme/email
+        value: alerts@cturner.xyz
+      - op: replace
+        path: /spec/acme/solvers/0/selector/dnsZones
+        value: 
+          - ${DOMAIN_NAME}
+      - op: replace
+        path: /spec/acme/solvers/0/dns01
+        value:
+          azureDNS:
+            resourceGroupName: ${AZURE_RESOURCE_GROUP_NAME}
+            subscriptionID: ${AZURE_SUBSCRIPTION_ID}
+            hostedZoneName: ${DOMAIN_NAME}
+            environment: AzurePublicCloud
+            managedIdentity:
+              clientID: ${CERT_MANAGER_IDENTITY_CLIENT_ID}
