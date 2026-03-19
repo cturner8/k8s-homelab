@@ -26,6 +26,14 @@ resource "azurerm_kubernetes_flux_configuration" "flux" {
     path                       = "./infra/development"
     recreating_enabled         = true
     garbage_collection_enabled = true
+
+    post_build {
+      substitute = {
+        AZURE_TENANT_ID              = data.azurerm_client_config.current.tenant_id
+        KEY_VAULT_NAME               = module.vault.name
+        KEY_VAULT_IDENTITY_CLIENT_ID = module.aks.key_vault_secrets_provider_identity.clientId
+      }
+    }
   }
 
   kustomizations {
