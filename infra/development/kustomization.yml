@@ -2,27 +2,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../base/key-vault
   - ../base/cert-manager
-patches:
-  - target:
-      group: secrets-store.csi.x-k8s.io
-      version: v1
-      kind: SecretProviderClass
-    patch: |-
-      - op: replace
-        path: /metadata/namespace
-        value: oauth2-proxy
-      - op: replace
-        path: /spec/parameters
-        value: 
-          usePodIdentity: "false"
-          useVMManagedIdentity: "true"
-          userAssignedIdentityID: ${KEY_VAULT_IDENTITY_CLIENT_ID}
-          keyvaultName: ${KEY_VAULT_NAME}
-          tenantId: ${AZURE_TENANT_ID}
-          objects:  |
-            array:
-              - |
-                objectName: oauth-proxy-cookie-secret
-                objectType: secret
