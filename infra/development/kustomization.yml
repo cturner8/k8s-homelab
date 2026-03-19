@@ -18,3 +18,8 @@ patches:
           userAssignedIdentityID: ${KEY_VAULT_IDENTITY_CLIENT_ID}
           keyvaultName: ${KEY_VAULT_NAME}
           tenantId: ${AZURE_TENANT_ID}
+          objects:  |
+            array:
+              - |
+                objectName: oauth-proxy-cookie-secret
+                objectType: secret
