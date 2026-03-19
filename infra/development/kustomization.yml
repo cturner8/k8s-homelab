@@ -11,6 +11,9 @@ patches:
       kind: SecretProviderClass
     patch: |-
       - op: replace
+        path: /metadata/namespace
+        value: nginx
+      - op: replace
         path: /spec/parameters
         value: 
           usePodIdentity: "false"
