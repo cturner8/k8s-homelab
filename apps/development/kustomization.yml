@@ -58,6 +58,7 @@ patches:
           skip_provider_button=true
           reverse_proxy=true
           whitelist_domains=[".cloud.cturner.xyz"]
+          cookie_secret_file="/mnt/secrets-store/oauth-proxy-cookie-secret"
       - op: replace
         path: /spec/values/ingress/annotations
         value:
@@ -72,3 +73,18 @@ patches:
           - secretName: cturner-xyz-staging-tls
             hosts:
               - auth.cloud.cturner.xyz
+      - op: replace
+        path: /spec/values/extraVolumes
+        value: 
+        - name: secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "keyvault-csi"
+      - op: replace
+        path: /spec/values/extraVolumeMounts
+        value:
+        - name: secrets-store
+          mountPath: "/mnt/secrets-store"
+          readOnly: true
