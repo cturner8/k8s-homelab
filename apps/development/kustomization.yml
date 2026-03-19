@@ -54,7 +54,7 @@ patches:
           entra_id_federated_token_auth=true
           email_domains=["cturner.xyz"]
           pass_authorization_header=true
-          pass_user_headers=true
+          set_xauthrequest=true
           skip_provider_button=true
           reverse_proxy=true
           whitelist_domains=[".cloud.cturner.xyz"]
