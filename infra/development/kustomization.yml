@@ -12,7 +12,7 @@ patches:
     patch: |-
       - op: replace
         path: /metadata/namespace
-        value: nginx
+        value: oauth2-proxy
       - op: replace
         path: /spec/parameters
         value: 
