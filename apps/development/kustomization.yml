@@ -53,6 +53,10 @@ patches:
           allowed_groups=["${OAUTH_PROXY_ALLOWED_GROUP_ID}"]
           entra_id_federated_token_auth=true
           email_domains=["cturner.xyz"]
+          pass_authorization_header=true
+          pass_user_headers=true
+          skip_provider_button=true
+          reverse_proxy=true
       - op: replace
         path: /spec/values/ingress/annotations
         value:
