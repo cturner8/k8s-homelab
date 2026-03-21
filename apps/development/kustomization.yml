@@ -46,13 +46,7 @@ patches:
           allowed_groups=["${OAUTH_PROXY_ALLOWED_GROUP_ID}"]
           entra_id_federated_token_auth=true
           email_domains=["cturner.xyz"]
-          pass_authorization_header=true
-          pass_user_headers=true
-          pass_access_token=true
-          set_authorization_header=true
-          set_xauthrequest=true
           skip_provider_button=true
-          reverse_proxy=true
           whitelist_domains=["*.cloud.cturner.xyz"]
           cookie_domains=[".cloud.cturner.xyz"]
           cookie_secret_file="/run/secrets/oauth2-proxy-cookie-secret/password"
