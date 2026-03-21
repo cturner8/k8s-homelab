@@ -40,3 +40,11 @@ patches:
         value:
           - ${DOMAIN_NAME}
           - "*.${DOMAIN_NAME}"
+  - target:
+      group: approuting.kubernetes.azure.com
+      version: v1alpha1
+      kind: NginxIngressController
+    patch: |-
+      - op: replace
+        path: /spec/defaultSSLCertificate/secret/name
+        value: wc-cturner-xyz-staging-tls
