@@ -24,6 +24,9 @@ spec:
   interval: 10m
   releaseName: oauth2-proxy
   targetNamespace: oauth2-proxy
+  dependsOn:
+    - name: valkey
+      namespace: flux-system
   chart:
     spec:
       chart: oauth2-proxy
