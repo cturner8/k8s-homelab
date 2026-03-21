@@ -3,3 +3,57 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../base/oauth2-proxy
+generatorOptions:
+  disableNameSuffixHash: true
+secretGenerator:
+  - name: oauth2-proxy-secrets
+    namespace: oauth2-proxy
+    envs:
+      - env/oauth2_proxy.env
+configMapGenerator:
+  - name: oauth2-proxy-config
+    namespace: oauth2-proxy
+    files:
+      - config/oauth2_proxy.cfg
+patches:
+  - target:
+      group: helm.toolkit.fluxcd.io
+      version: v2
+      kind: HelmRelease
+      name: valkey
+    patch: |-
+      - op: replace
+        path: /spec/values/replica
+        value:
+          replicaCount: 0
+  - target:
+      group: helm.toolkit.fluxcd.io
+      version: v2
+      kind: HelmRelease
+      name: oauth2-proxy
+    patch: |-
+      - op: replace
+        path: /spec/values/redis
+        value: 
+          standalone:
+            connectionUrl: redis://oauth2-proxy-redis:6379
+      - op: replace
+        path: /spec/values/config
+        value: 
+          clientID: "79c0b702-77c5-4dd4-b841-5a05ecae6004"
+          existingConfig: oauth2-proxy-config
+      - op: replace
+        path: /spec/values/ingress/hosts
+        value:
+          - auth.localhost
+      - op: replace
+        path: /spec/values/extraVolumes
+        value: 
+        - name: oauth2-proxy-secrets
+          secret:
+            secretName: oauth2-proxy-secrets
+      - op: replace
+        path: /spec/values/extraVolumeMounts
+        value:
+        - mountPath: /run/secrets/oauth2-proxy-secrets
+          name: oauth2-proxy-secrets
