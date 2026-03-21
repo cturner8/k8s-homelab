@@ -15,4 +15,12 @@ module "storage" {
   lock = {
     kind = "CanNotDelete"
   }
+  // TODO: replace
+  role_assignments = {
+    kubelet = {
+      principal_id               = module.aks.kubelet_identity.objectId
+      role_definition_id_or_name = "Storage Blob Data Contributor"
+      principal_type             = "ServicePrincipal"
+    }
+  }
 }
