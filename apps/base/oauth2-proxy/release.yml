@@ -59,3 +59,24 @@ spec:
       - name: oauth2-proxy-cookie-secret
         mountPath: /run/secrets/oauth2-proxy-cookie-secret
         readOnly: true
+    extraObjects:
+      - apiVersion: generators.external-secrets.io/v1alpha1
+        kind: Password
+        metadata:
+          name: oauth2-proxy-generator
+        spec:
+          length: 60
+          encoding: base64
+          allowRepeat: true
+      - apiVersion: external-secrets.io/v1
+        kind: ExternalSecret
+        metadata:
+          name: oauth2-proxy-cookie-secret
+        spec:
+          refreshPolicy: OnChange
+          dataFrom:
+            - sourceRef:
+                generatorRef:
+                  apiVersion: generators.external-secrets.io/v1alpha1
+                  kind: Password
+                  name: oauth2-proxy-generator
