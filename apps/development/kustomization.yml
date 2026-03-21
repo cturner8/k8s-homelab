@@ -58,6 +58,7 @@ patches:
           skip_provider_button=true
           reverse_proxy=true
           whitelist_domains=["*.cloud.cturner.xyz"]
+          cookie_domains=[".cloud.cturner.xyz"]
       - op: replace
         path: /spec/values/ingress/annotations
         value:
