@@ -42,7 +42,7 @@ patches:
           provider="entra-id"
           oidc_issuer_url="https://login.microsoftonline.com/${AZURE_TENANT_ID}/v2.0"
           oidc_email_claim="preferred_username"
-          scope="openid profile email"
+          scope="6dae42f8-4368-4678-94ff-3960e28e3630/user.read openid profile email"
           allowed_groups=["${OAUTH_PROXY_ALLOWED_GROUP_ID}"]
           entra_id_federated_token_auth=true
           email_domains=["cturner.xyz"]
