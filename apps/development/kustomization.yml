@@ -72,3 +72,4 @@ patches:
         value: 
           nginx.ingress.kubernetes.io/auth-url: "https://auth.cloud.cturner.xyz/oauth2/auth"
           nginx.ingress.kubernetes.io/auth-signin: "https://auth.cloud.cturner.xyz/oauth2/start?rd=$scheme://$host$escaped_request_uri"
+          nginx.ingress.kubernetes.io/auth-response-headers: "Authorization"
