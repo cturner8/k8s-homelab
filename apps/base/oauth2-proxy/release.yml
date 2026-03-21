@@ -58,6 +58,7 @@ spec:
       reverse-proxy: true
       pass-authorization-header: true
       set-xauthrequest: true
+      skip-auth-strip-headers: false
     extraVolumes:
       - name: oauth2-proxy-cookie-secret
         secret:
