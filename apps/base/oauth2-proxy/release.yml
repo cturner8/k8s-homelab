@@ -51,5 +51,11 @@ spec:
       annotations: {}
       hosts: []
       tls: []
-    extraVolumes: []
-    extraVolumeMounts: []
+    extraVolumes:
+      - name: oauth2-proxy-cookie-secret
+        secret:
+          secretName: oauth2-proxy-cookie-secret
+    extraVolumeMounts:
+      - name: oauth2-proxy-cookie-secret
+        mountPath: /run/secrets/oauth2-proxy-cookie-secret
+        readOnly: true

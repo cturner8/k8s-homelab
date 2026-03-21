@@ -9,4 +9,6 @@ generatorOptions:
 resources:
   - namespace.yml
   - repository.yml
+  - password.yml
+  - secret.yml
   - release.yml
