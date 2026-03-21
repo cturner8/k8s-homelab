@@ -14,10 +14,6 @@ patches:
         path: /spec/rules/0/host
         value: nginx.cloud.cturner.xyz
       - op: replace
-        path: /spec/tls/0/hosts
-        value: 
-          - nginx.cloud.cturner.xyz
-      - op: replace
         path: /metadata/annotations
         value: 
           nginx.ingress.kubernetes.io/auth-url: "https://auth.cloud.cturner.xyz/oauth2/auth"
@@ -57,10 +53,21 @@ patches:
           cookie_domains=[".cloud.cturner.xyz"]
           cookie_secret_file="/run/secrets/oauth2-proxy-cookie-secret/password"
       - op: replace
-        path: /spec/values/ingress/annotations
-        value:
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
-      - op: replace
         path: /spec/values/ingress/hosts
         value:
           - auth.cloud.cturner.xyz
+  - target:
+      group: helm.toolkit.fluxcd.io
+      version: v2
+      kind: HelmRelease
+      name: headlamp
+    patch: |-
+      - op: replace
+      path: /spec/values/ingress/hosts
+      value:
+        - headlamp.cloud.cturner.xyz
+      - op: replace
+        path: /spec/values/ingress/annotations
+        value: 
+          nginx.ingress.kubernetes.io/auth-url: "https://auth.cloud.cturner.xyz/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: "https://auth.cloud.cturner.xyz/oauth2/start?rd=$scheme://$host$escaped_request_uri"
