@@ -2,8 +2,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: oauth2-proxy
+  name: external-secrets
   namespace: flux-system
 spec:
   interval: 5m0s
-  url: https://charts.external-secrets.io
+  url: https://charts.external-secrets.io/external-secrets
