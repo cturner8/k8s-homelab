@@ -46,14 +46,3 @@ patches:
         path: /spec/values/ingress/hosts
         value:
           - auth.localhost
-      - op: replace
-        path: /spec/values/extraVolumes
-        value: 
-        - name: oauth2-proxy-secrets
-          secret:
-            secretName: oauth2-proxy-secrets
-      - op: replace
-        path: /spec/values/extraVolumeMounts
-        value:
-        - mountPath: /run/secrets/oauth2-proxy-secrets
-          name: oauth2-proxy-secrets

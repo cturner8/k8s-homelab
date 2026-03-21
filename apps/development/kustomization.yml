@@ -59,7 +59,7 @@ patches:
           reverse_proxy=true
           whitelist_domains=["*.cloud.cturner.xyz"]
           cookie_domains=[".cloud.cturner.xyz"]
-          cookie_secret_file="/run/secrets/oauth2-proxy-secrets/cookie-secret"
+          cookie_secret_file="/run/secrets/oauth2-proxy-cookie-secret/password"
       - op: replace
         path: /spec/values/ingress/annotations
         value:
@@ -74,14 +74,3 @@ patches:
           - secretName: cturner-xyz-staging-tls
             hosts:
               - auth.cloud.cturner.xyz
-      - op: replace
-        path: /spec/values/extraVolumes
-        value: 
-        - name: oauth2-proxy-secrets
-          secret:
-            secretName: oauth2-proxy-secrets
-      - op: replace
-        path: /spec/values/extraVolumeMounts
-        value:
-        - mountPath: /run/secrets/oauth2-proxy-secrets
-          name: oauth2-proxy-secrets
