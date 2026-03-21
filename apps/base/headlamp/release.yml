@@ -17,4 +17,10 @@ spec:
         name: headlamp
         namespace: flux-system
       interval: 10m
-  values: {}
+  values:
+    ingress:
+      enabled: true
+      className: webapprouting.kubernetes.azure.com
+      annotations: {}
+      hosts: []
+      tls: []
