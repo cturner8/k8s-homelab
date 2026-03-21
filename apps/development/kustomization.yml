@@ -18,9 +18,6 @@ patches:
         value: 
           - nginx.cloud.cturner.xyz
       - op: replace
-        path: /spec/tls/0/secretName
-        value: wc-cturner-xyz-staging-tls
-      - op: replace
         path: /metadata/annotations
         value: 
           nginx.ingress.kubernetes.io/auth-url: "https://auth.cloud.cturner.xyz/oauth2/auth"
@@ -67,9 +64,3 @@ patches:
         path: /spec/values/ingress/hosts
         value:
           - auth.cloud.cturner.xyz
-      - op: replace
-        path: /spec/values/ingress/tls
-        value: 
-          - secretName: cturner-xyz-staging-tls
-            hosts:
-              - auth.cloud.cturner.xyz
