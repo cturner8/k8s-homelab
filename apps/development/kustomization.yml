@@ -69,6 +69,7 @@ patches:
           - host: headlamp.cloud.cturner.xyz
             paths:
              - path: /
+               type: Prefix
       - op: replace
         path: /spec/values/ingress/annotations
         value: 
