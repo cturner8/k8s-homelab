@@ -20,7 +20,7 @@ spec:
   values:
     ingress:
       enabled: true
-      className: webapprouting.kubernetes.azure.com
+      ingressClassName: webapprouting.kubernetes.azure.com
       annotations: {}
       hosts: []
       tls: []
