@@ -26,3 +26,17 @@ patches:
             environment: AzurePublicCloud
             managedIdentity:
               clientID: ${CERT_MANAGER_IDENTITY_CLIENT_ID}
+  - target:
+      group: cert-manager.io
+      version: v1
+      kind: Certificate
+      name: wc-cturner-xyz
+    patch: |-
+      - op: replace
+        path: /spec/issuerRef/name
+        value: letsencrypt-staging
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - ${DOMAIN_NAME}
+          - "*.${DOMAIN_NAME}"

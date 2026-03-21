@@ -1,0 +1,17 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wc-cturner-xyz
+  namespace: cert-manager
+spec:
+  secretName: wc-cturner-xyz-staging-tls
+
+  privateKey:
+    rotationPolicy: Always
+
+  dnsNames: []
+
+  issuerRef:
+    name: ""
+    kind: ClusterIssuer
