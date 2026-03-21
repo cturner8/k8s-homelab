@@ -67,6 +67,8 @@ patches:
         path: /spec/values/ingress/hosts
         value:
           - host: headlamp.cloud.cturner.xyz
+            paths:
+             - path: /
       - op: replace
         path: /spec/values/ingress/annotations
         value: 
