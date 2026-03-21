@@ -44,5 +44,7 @@ Vagrant.configure("2") do |config|
      echo "Installed k3s"
 
      echo "alias kubectl='k3s kubectl'" > /home/vagrant/.bash_aliases
+
+     cp /etc/rancher/k3s/k3s.yaml /home/vagrant/k8s/k3s/
   SHELL
 end
