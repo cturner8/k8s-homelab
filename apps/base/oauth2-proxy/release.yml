@@ -56,19 +56,9 @@ spec:
       tls: []
     extraArgs:
       reverse-proxy: true
-    alphaConfig:
-      enabled: true
-      configFile: |
-        injectRequestHeaders:
-          - name: Authorization
-            values:
-              - claim: access_token
-                prefix: "Bearer "
-        upstreamConfig:
-          upstreams:
-            - id: headlamp
-              path: /
-              uri: http://headlamp.kube-system.svc.cluster.local
+      set-authorization-header: true
+      set-xauthrequest: true
+      pass-access-token: true
     extraVolumes:
       - name: oauth2-proxy-cookie-secret
         secret:
