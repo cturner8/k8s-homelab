@@ -56,9 +56,8 @@ spec:
       tls: []
     extraArgs:
       reverse-proxy: true
-      set-authorization-header: true
       set-xauthrequest: true
-      pass-access-token: true
+      pass-user-headers: true
     extraVolumes:
       - name: oauth2-proxy-cookie-secret
         secret:
