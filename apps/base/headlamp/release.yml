@@ -25,6 +25,14 @@ spec:
         - ReadWriteMany
     config:
       watchPlugins: true
+      enableHelm: true
+      oidc:
+        usePKCE: true
+        secret:
+          create: false
+        externalSecret:
+          enabled: true
+          name: headlamp-oidc
     pluginsManager:
       enabled: true
       configContent: |
