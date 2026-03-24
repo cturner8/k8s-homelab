@@ -6,7 +6,16 @@ generatorOptions:
 resources:
   - ../base/nginx
   - ../base/headlamp
+  - ../base/homepage
 patches:
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+    patch: |-
+      - op: replace
+        path: /spec/ingressClassName
+        value: traefik
   - target:
       group: networking.k8s.io
       version: v1
@@ -14,17 +23,36 @@ patches:
       name: nginx
     patch: |-
       - op: replace
-        path: /spec/ingressClassName
-        value: traefik
+        path: /metadata/annotations
+        value:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.tls: "true"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: nginx.dev.cloud.cturner.xyz
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: homepage
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/env/0/value
+        value: "homepage.dev.cloud.cturner.xyz"
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: homepage
+    patch: |-
       - op: replace
         path: /metadata/annotations
         value:
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
           traefik.ingress.kubernetes.io/router.tls: "true"
       - op: replace
-        path: /spec/tls/0/hosts
-        value:
-          - nginx.dev.cloud.cturner.xyz
+        path: /spec/rules/0/host
+        value: homepage.dev.cloud.cturner.xyz
   - target:
       group: helm.toolkit.fluxcd.io
       version: v2

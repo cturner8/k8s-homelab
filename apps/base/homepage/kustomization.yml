@@ -1,10 +1,6 @@
 ---
 namespace: homepage
 
-labels:
-  - pairs:
-      app.kubernetes.io/managed-by: argocd
-
 generatorOptions:
   disableNameSuffixHash: true
   labels:
@@ -24,6 +20,7 @@ configMapGenerator:
       - config/custom.js
 
 resources:
+  - namespace.yml
   - volume.yml
   - service-account.yml
   - role.yml
