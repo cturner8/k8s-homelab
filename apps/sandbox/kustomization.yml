@@ -22,11 +22,15 @@ patches:
       kind: Ingress
       name: nginx
     patch: |-
-      - op: replace
-        path: /metadata/annotations
-        value:
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.tls: "true"
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://nginx.dev.cloud.cturner.xyz"
+      - op: add
+        path: /metadata/annotations/traefik.ingress.kubernetes.io~1router.entrypoints
+        value: websecure
+      - op: add
+        path: /metadata/annotations/traefik.ingress.kubernetes.io~1router.tls
+        value: "true"    
       - op: replace
         path:  /spec/rules/0/host
         value: nginx.dev.cloud.cturner.xyz
@@ -64,11 +68,15 @@ patches:
       - op: replace
         path: /spec/values/ingress/ingressClassName
         value: traefik
-      - op: replace
-        path: /spec/values/ingress/annotations
-        value: 
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.tls: "true"
+      - op: add
+        path: /spec/values/ingress/annotations/gethomepage.dev~1href
+        value: "https://headlamp.dev.cloud.cturner.xyz"
+      - op: add
+        path: /spec/values/ingress/annotations/traefik.ingress.kubernetes.io~1router.entrypoints
+        value: websecure
+      - op: add
+        path: /spec/values/ingress/annotations/traefik.ingress.kubernetes.io~1router.tls
+        value: "true"   
       - op: replace
         path: /spec/values/ingress/hosts
         value:

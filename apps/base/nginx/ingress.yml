@@ -3,7 +3,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx
-  annotations: {}
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Nginx
+    gethomepage.dev/group: Networking
+    gethomepage.dev/icon: sh-nginx
+    gethomepage.dev/namespace: nginx
+    gethomepage.dev/app: nginx
 spec:
   ingressClassName: webapprouting.kubernetes.azure.com
   rules:
