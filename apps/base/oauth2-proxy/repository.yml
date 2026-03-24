@@ -7,14 +7,3 @@ metadata:
 spec:
   interval: 5m0s
   url: https://oauth2-proxy.github.io/manifests
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: OCIRepository
-metadata:
-  name: valkey
-  namespace: flux-system
-spec:
-  interval: 5m0s
-  url: oci://registry-1.docker.io/bitnamicharts/valkey
-  ref:
-    semver: v5.4.8

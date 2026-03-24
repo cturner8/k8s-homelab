@@ -2,31 +2,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: valkey
-  namespace: flux-system
-spec:
-  chartRef:
-    kind: OCIRepository
-    name: valkey
-  interval: 10m
-  releaseName: valkey
-  targetNamespace: oauth2-proxy
-  values:
-    replica:
-      replicaCount: 0
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
   name: oauth2-proxy
   namespace: flux-system
 spec:
   interval: 10m
   releaseName: oauth2-proxy
   targetNamespace: oauth2-proxy
-  dependsOn:
-    - name: valkey
-      namespace: flux-system
   chart:
     spec:
       chart: oauth2-proxy
@@ -38,26 +19,30 @@ spec:
       interval: 10m
   values:
     sessionStorage:
-      type: redis
-      redis:
-        existingSecret: valkey
-        passwordKey: valkey-password
-        standalone:
-          connectionUrl: redis://valkey-primary:6379
-    podLabels: {}
+      type: cookie
     serviceAccount:
       annotations: {}
     config: {}
     ingress:
       enabled: true
-      className: webapprouting.kubernetes.azure.com
-      annotations: {}
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/name: OAuth2 Proxy
+        gethomepage.dev/group: Access
+        gethomepage.dev/icon: sh-oauth2-proxy
+        gethomepage.dev/namespace: oauth2-proxy
+        gethomepage.dev/app: oauth2-proxy
       hosts: []
       tls: []
     extraArgs:
       reverse-proxy: true
       set-xauthrequest: true
       pass-user-headers: true
+      skip-provider-button: true
+      cookie-secret-file: /run/secrets/oauth2-proxy-cookie-secret/password
+      email-domains: "cturner.xyz"
+      whitelist-domains: "*.cloud.cturner.xyz"
+      cookie-domains: ".cloud.cturner.xyz"
     extraVolumes:
       - name: oauth2-proxy-cookie-secret
         secret:
