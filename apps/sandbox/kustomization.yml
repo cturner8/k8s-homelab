@@ -4,8 +4,27 @@ kind: Kustomization
 generatorOptions:
   disableNameSuffixHash: true
 resources:
+  - ../base/nginx
   - ../base/headlamp
 patches:
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: nginx
+    patch: |-
+      - op: replace
+        path: /spec/ingressClassName
+        value: traefik
+      - op: replace
+        path: /metadata/annotations
+        value:
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.tls: "true"
+      - op: replace
+        path: /spec/tls/0/hosts
+        value:
+          - nginx.dev.cloud.cturner.xyz
   - target:
       group: helm.toolkit.fluxcd.io
       version: v2
