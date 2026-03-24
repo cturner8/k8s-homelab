@@ -9,16 +9,25 @@ patches:
       group: networking.k8s.io
       version: v1
       kind: Ingress
+    patch: |-
+      - op: replace
+        path: /spec/ingressClassName
+        value: webapprouting.kubernetes.azure.com
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
       name: nginx
     patch: |-
       - op: replace
         path: /spec/rules/0/host
         value: nginx.cloud.cturner.xyz
-      - op: replace
-        path: /metadata/annotations
-        value: 
-          nginx.ingress.kubernetes.io/auth-url: "https://auth.cloud.cturner.xyz/oauth2/auth"
-          nginx.ingress.kubernetes.io/auth-signin: "https://auth.cloud.cturner.xyz/oauth2/start?rd=$scheme://$host$escaped_request_uri"
+      - op: add
+        path: /metadata/annotations/nginx.ingress.kubernetes.io~1auth-url
+        value: "https://auth.cloud.cturner.xyz/oauth2/auth"
+      - op: add
+        path: /metadata/annotations/nginx.ingress.kubernetes.io~1auth-signin
+        value: "https://auth.cloud.cturner.xyz/oauth2/start?rd=$scheme://$host$escaped_request_uri"
   - target:
       group: helm.toolkit.fluxcd.io
       version: v2
@@ -45,15 +54,13 @@ patches:
           scope="openid profile email"
           allowed_groups=["${OAUTH_PROXY_ALLOWED_GROUP_ID}"]
           entra_id_federated_token_auth=true
-          email_domains=["cturner.xyz"]
-          skip_provider_button=true
-          whitelist_domains=["*.cloud.cturner.xyz"]
-          cookie_domains=[".cloud.cturner.xyz"]
-          cookie_secret_file="/run/secrets/oauth2-proxy-cookie-secret/password"
       - op: replace
         path: /spec/values/ingress/hosts
         value:
           - auth.cloud.cturner.xyz
+      - op: replace
+        path: /spec/values/ingress/className
+        value: webapprouting.kubernetes.azure.com
   - target:
       group: helm.toolkit.fluxcd.io
       version: v2
@@ -61,14 +68,18 @@ patches:
       name: headlamp
     patch: |-
       - op: replace
+        path: /spec/values/ingress/ingressClassName
+        value: webapprouting.kubernetes.azure.com
+      - op: replace
         path: /spec/values/ingress/hosts
         value:
           - host: headlamp.cloud.cturner.xyz
             paths:
              - path: /
                type: Prefix
-      - op: replace
-        path: /spec/values/ingress/annotations
-        value: 
-          nginx.ingress.kubernetes.io/auth-url: "https://auth.cloud.cturner.xyz/oauth2/auth"
-          nginx.ingress.kubernetes.io/auth-signin: "https://auth.cloud.cturner.xyz/oauth2/start?rd=$scheme://$host$escaped_request_uri"
+      - op: add
+        path: /spec/values/ingress/annotations/nginx.ingress.kubernetes.io~1auth-url
+        value: "https://auth.cloud.cturner.xyz/oauth2/auth"
+      - op: add
+        path: /spec/values/ingress/annotations/nginx.ingress.kubernetes.io~1auth-signin
+        value: "https://auth.cloud.cturner.xyz/oauth2/start?rd=$scheme://$host$escaped_request_uri"
