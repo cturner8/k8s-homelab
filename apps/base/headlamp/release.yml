@@ -48,7 +48,6 @@ spec:
           maxConcurrent: 2
     ingress:
       enabled: true
-      ingressClassName: webapprouting.kubernetes.azure.com
       annotations:
         gethomepage.dev/enabled: "true"
         gethomepage.dev/name: Headlamp
