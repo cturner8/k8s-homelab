@@ -5,11 +5,6 @@ generatorOptions:
   disableNameSuffixHash: true
 resources:
   - ../base/headlamp
-secretGenerator:
-  - name: headlamp-oidc
-    namespace: kube-system
-    envs:
-      - env/headlamp.env
 patches:
   - target:
       group: helm.toolkit.fluxcd.io
@@ -17,10 +12,20 @@ patches:
       kind: HelmRelease
       name: headlamp
     patch: |-
+      - op: remove
+        path: /spec/values/config/oidc
+      - op: replace
+        path: /spec/values/ingress/ingressClassName
+        value: traefik
+      - op: replace
+        path: /spec/values/ingress/annotations
+        value: 
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.tls: "true"
       - op: replace
         path: /spec/values/ingress/hosts
         value:
-          - host: headlamp.localhost
+          - host: headlamp.dev.cloud.cturner.xyz
             paths:
              - path: /
                type: Prefix
