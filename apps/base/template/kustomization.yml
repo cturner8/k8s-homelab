@@ -7,4 +7,5 @@ generatorOptions:
   labels:
     app.kubernetes.io/managed-by: kustomize
 
-resources: []
+resources:
+  - namespace.yml
