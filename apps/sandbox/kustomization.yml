@@ -13,6 +13,7 @@ resources:
   - ../base/homepage
   - ../base/oauth2-proxy
   - ../base/tools
+  - ../base/ntfy
 patches:
   - target:
       group: networking.k8s.io
@@ -146,3 +147,24 @@ patches:
       - op: replace
         path:  /spec/rules/0/host
         value: tools.dev.cloud.cturner.xyz
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: ntfy
+    patch: |-
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://ntfy.dev.cloud.cturner.xyz"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: ntfy.dev.cloud.cturner.xyz
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: ntfy
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/1/value
+        value: https://ntfy.dev.cloud.cturner.xyz
