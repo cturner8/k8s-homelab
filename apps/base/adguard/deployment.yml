@@ -21,11 +21,11 @@ spec:
             - containerPort: 80
           livenessProbe:
             tcpSocket:
-              port: 3000
+              port: 80
             initialDelaySeconds: 10
           readinessProbe:
             tcpSocket:
-              port: 3000
+              port: 80
             initialDelaySeconds: 10
           resources:
             limits:
