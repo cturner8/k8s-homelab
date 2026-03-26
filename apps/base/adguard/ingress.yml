@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: adguard
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: AdGuard Home
+    gethomepage.dev/group: Networking
+    gethomepage.dev/icon: sh-adguard-home
+    gethomepage.dev/namespace: adguard
+    gethomepage.dev/app: adguard
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: adguard
+                port:
+                  number: 3000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts: []
