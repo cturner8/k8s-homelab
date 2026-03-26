@@ -15,6 +15,7 @@ resources:
   - ../base/tools
   - ../base/ntfy
   - ../base/redlib
+  - ../base/uptime
 patches:
   - target:
       group: networking.k8s.io
@@ -181,3 +182,27 @@ patches:
       - op: replace
         path:  /spec/rules/0/host
         value: redlib.dev.cloud.cturner.xyz
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: uptime-dashboard
+    patch: |-
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://uptime.dev.cloud.cturner.xyz"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: uptime.dev.cloud.cturner.xyz
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: uptime-status
+    patch: |-
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://status.dev.cloud.cturner.xyz"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: status.dev.cloud.cturner.xyz
