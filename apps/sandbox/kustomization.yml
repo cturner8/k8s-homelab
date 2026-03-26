@@ -8,15 +8,8 @@ secretGenerator:
     envs:
       - env/oauth2_proxy.env
 resources:
-  - ../base/nginx
   - ../base/headlamp
   - ../base/homepage
-  - ../base/oauth2-proxy
-  - ../base/tools
-  - ../base/ntfy
-  - ../base/redlib
-  - ../base/uptime
-  - ../base/speedtest
 patches:
   - target:
       group: networking.k8s.io
@@ -228,3 +221,15 @@ patches:
       - op: add
         path: /spec/template/spec/containers/0/env/1/value
         value: https://speedtest.dev.cloud.cturner.xyz
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: adguard
+    patch: |-
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://adguard.dev.cloud.cturner.xyz"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: adguard.dev.cloud.cturner.xyz
