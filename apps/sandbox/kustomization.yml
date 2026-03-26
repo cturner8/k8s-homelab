@@ -12,6 +12,7 @@ resources:
   - ../base/headlamp
   - ../base/homepage
   - ../base/oauth2-proxy
+  - ../base/tools
 patches:
   - target:
       group: networking.k8s.io
@@ -133,3 +134,15 @@ patches:
           scope="openid profile email"
           allowed_groups=["5978c0bb-d923-4b27-bf6b-a977c589d4ca"]
           entra_id_federated_token_auth=true
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: tools
+    patch: |-
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://tools.dev.cloud.cturner.xyz"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: tools.dev.cloud.cturner.xyz
