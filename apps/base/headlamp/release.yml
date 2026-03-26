@@ -19,10 +19,7 @@ spec:
       interval: 10m
   values:
     persistentVolumeClaim:
-      enabled: true
-      size: 1Gi
-      accessModes:
-        - ReadWriteMany
+      enabled: false
     config:
       watchPlugins: true
       enableHelm: true
