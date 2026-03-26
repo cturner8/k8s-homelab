@@ -14,6 +14,7 @@ resources:
   - ../base/oauth2-proxy
   - ../base/tools
   - ../base/ntfy
+  - ../base/redlib
 patches:
   - target:
       group: networking.k8s.io
@@ -168,3 +169,15 @@ patches:
       - op: add
         path: /spec/template/spec/containers/0/env/1/value
         value: https://ntfy.dev.cloud.cturner.xyz
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: redlib
+    patch: |-
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://redlib.dev.cloud.cturner.xyz"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: redlib.dev.cloud.cturner.xyz
