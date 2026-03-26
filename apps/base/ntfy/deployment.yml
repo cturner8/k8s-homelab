@@ -21,6 +21,7 @@ spec:
           env:
             - name: TZ
               value: Europe/London
+            - name: NTFY_BASE_URL
           ports:
             - containerPort: 80
           livenessProbe:

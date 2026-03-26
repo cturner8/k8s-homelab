@@ -1,10 +1,6 @@
 ---
 namespace: ntfy
 
-labels:
-  - pairs:
-      app.kubernetes.io/managed-by: argocd
-
 generatorOptions:
   disableNameSuffixHash: true
   labels:
@@ -16,6 +12,7 @@ configMapGenerator:
       - server.yml
 
 resources:
+  - namespace.yml
   - volume.yml
   - deployment.yml
   - service.yml
