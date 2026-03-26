@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: redlib
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Redlib
+    gethomepage.dev/group: Social
+    gethomepage.dev/icon: sh-redlib
+    gethomepage.dev/namespace: redlib
+    gethomepage.dev/app: redlib
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: redlib
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts: []
