@@ -22,12 +22,6 @@ patches:
       - op: replace
         path: /spec/rules/0/host
         value: nginx.cloud.cturner.xyz
-      - op: add
-        path: /metadata/annotations/nginx.ingress.kubernetes.io~1auth-url
-        value: "https://auth.cloud.cturner.xyz/oauth2/auth"
-      - op: add
-        path: /metadata/annotations/nginx.ingress.kubernetes.io~1auth-signin
-        value: "https://auth.cloud.cturner.xyz/oauth2/start?rd=$scheme://$host$escaped_request_uri"
   - target:
       group: helm.toolkit.fluxcd.io
       version: v2
@@ -77,9 +71,3 @@ patches:
             paths:
              - path: /
                type: Prefix
-      - op: add
-        path: /spec/values/ingress/annotations/nginx.ingress.kubernetes.io~1auth-url
-        value: "https://auth.cloud.cturner.xyz/oauth2/auth"
-      - op: add
-        path: /spec/values/ingress/annotations/nginx.ingress.kubernetes.io~1auth-signin
-        value: "https://auth.cloud.cturner.xyz/oauth2/start?rd=$scheme://$host$escaped_request_uri"
