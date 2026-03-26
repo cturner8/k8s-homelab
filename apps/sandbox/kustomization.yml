@@ -16,6 +16,7 @@ resources:
   - ../base/ntfy
   - ../base/redlib
   - ../base/uptime
+  - ../base/speedtest
 patches:
   - target:
       group: networking.k8s.io
@@ -206,3 +207,24 @@ patches:
       - op: replace
         path:  /spec/rules/0/host
         value: status.dev.cloud.cturner.xyz
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: speedtest
+    patch: |-
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://speedtest.dev.cloud.cturner.xyz"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: speedtest.dev.cloud.cturner.xyz
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: speedtest
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/1/value
+        value: https://speedtest.dev.cloud.cturner.xyz
