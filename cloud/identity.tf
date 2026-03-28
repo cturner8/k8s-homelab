@@ -11,6 +11,7 @@ module "aks_identity" {
     vnet_contributor = {
       role_definition_id_or_name = "Network Contributor"
       description                = "Assign the Network Contributor role to the specified user assigned managed identity for AKS"
+      scope                      = module.aks_dns.resource_id
     }
   }
 }
