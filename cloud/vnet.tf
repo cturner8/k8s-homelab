@@ -40,6 +40,14 @@ resource "azurerm_public_ip" "admin_nat" {
   sku                 = "Standard"
 }
 
+resource "azurerm_public_ip" "bastion" {
+  name                = "${module.admin_naming.public_ip.name}-bastion"
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
 resource "azurerm_nat_gateway" "admin_gateway" {
   name                = module.admin_naming.nat_gateway.name
   location            = data.azurerm_resource_group.rg.location

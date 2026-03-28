@@ -16,15 +16,15 @@ module "bastion" {
   ip_configuration = {
     name                 = "bastion-ipconfig"
     subnet_id            = module.admin_vnet.subnets["bastion"].resource_id
-    public_ip_address_id = azurerm_public_ip.admin_nat.id
+    public_ip_address_id = azurerm_public_ip.bastion.id
     create_public_ip     = false
   }
-  sku = "Basic"
+  sku = "Standard"
 
   copy_paste_enabled = true
   tunneling_enabled  = true
 
-  zones = azurerm_public_ip.admin_nat.zones
+  zones = []
 }
 
 module "admin_vm" {
