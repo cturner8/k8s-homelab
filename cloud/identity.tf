@@ -16,6 +16,13 @@ module "admin_identity" {
   name                = module.admin_naming.user_assigned_identity.name
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
+
+  role_assignments = {
+    aks_cluster_admin = {
+      role_definition_id_or_name = "Azure Kubernetes Service RBAC Cluster Admin"
+      scope                      = module.aks.resource_id
+    }
+  }
 }
 
 module "cert_manager_identity" {
