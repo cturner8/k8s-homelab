@@ -6,12 +6,28 @@ module "aks" {
   location  = data.azurerm_resource_group.rg.location
   parent_id = data.azurerm_resource_group.rg.id
 
+  network_profile = {
+    network_plugin = "azure"
+  }
+
+  api_server_access_profile = {
+    enable_vnet_integration            = true
+    enable_private_cluster             = true
+    enable_private_cluster_public_fqdn = false
+    private_dns_zone                   = "system"
+    subnet_id                          = module.aks_vnet.subnets["apiserver"].resource_id
+  }
+
+  public_network_access = "Disabled"
+
   default_agent_pool = {
     enable_auto_scaling = true
     min_count           = 1
     max_count           = 2
     vm_size             = "Standard_B2ls_v2"
     zones               = ["1"]
+
+    vnet_subnet_id = module.aks_vnet.subnets["nodes"].resource_id
   }
 
   ingress_profile = {
