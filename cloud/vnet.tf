@@ -32,6 +32,26 @@ module "aks_vnet" {
   }
 }
 
+resource "azurerm_public_ip" "admin_nat" {
+  name                = "${module.admin_naming.public_ip.name}-nat"
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
+resource "azurerm_nat_gateway" "admin_gateway" {
+  name                = module.admin_naming.nat_gateway.name
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = data.azurerm_resource_group.rg.name
+  sku_name            = "Standard"
+}
+
+resource "azurerm_nat_gateway_public_ip_association" "admin_gateway_ip" {
+  nat_gateway_id       = azurerm_nat_gateway.admin_gateway.id
+  public_ip_address_id = azurerm_public_ip.admin_nat.id
+}
+
 module "admin_vnet" {
   source  = "Azure/avm-res-network-virtualnetwork/azurerm"
   version = "0.17.1"
@@ -46,6 +66,9 @@ module "admin_vnet" {
     admin = {
       name             = "snet-admin"
       address_prefixes = ["10.1.1.0/24"]
+      nat_gateway = {
+        id = azurerm_nat_gateway.admin_gateway.id
+      }
     }
     bastion = {
       name             = "AzureBastionSubnet"
