@@ -13,3 +13,9 @@ variable "domain_name" {
   type        = string
   description = "Domain name to use for the cluster public DNS Zone."
 }
+
+variable "enable_flux" {
+  type        = bool
+  default     = true
+  description = "Flag indicating if FluxCD integration should be enabled."
+}

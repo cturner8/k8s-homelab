@@ -1,4 +1,6 @@
 resource "azurerm_kubernetes_cluster_extension" "flux" {
+  count = var.enable_flux ? 1 : 0
+
   name           = "flux"
   cluster_id     = module.aks.resource_id
   extension_type = "microsoft.flux"
@@ -10,6 +12,8 @@ resource "azurerm_kubernetes_cluster_extension" "flux" {
 }
 
 resource "azurerm_kubernetes_flux_configuration" "flux" {
+  count = var.enable_flux ? 1 : 0
+
   name       = "flux-system"
   cluster_id = module.aks.resource_id
   namespace  = "flux-system"
