@@ -19,14 +19,6 @@ module "admin_vault" {
       role_definition_id_or_name = "Key Vault Administrator"
     }
   }
-
-  keys = {
-    admin_vm_ssh_key = {
-      name     = "admin-vm-ssh-key"
-      key_type = "RSA"
-      key_size = 4096
-    }
-  }
 }
 
 module "vault" {

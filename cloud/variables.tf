@@ -25,3 +25,8 @@ variable "admin_vm_size" {
   description = "SKU Size to use for the Admin Virtual Machine."
   default     = "Standard_D2pds_v6"
 }
+
+variable "admin_ssh_public_key" {
+  type        = string
+  description = "SSH public key to use for the Admin Virtual Machine."
+}

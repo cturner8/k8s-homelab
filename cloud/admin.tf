@@ -1,8 +1,8 @@
-data "azurerm_key_vault_key" "admin_vm_ssh_key" {
-  name         = "admin-vm-ssh-key"
-  key_vault_id = module.admin_vault.resource_id
-
-  depends_on = [module.admin_vault.keys]
+resource "azurerm_ssh_public_key" "admin_vm_ssh_key" {
+  name                = module.admin_naming.ssh_public_key.name_unique
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+  public_key          = var.admin_ssh_public_key
 }
 
 module "bastion" {
@@ -58,7 +58,7 @@ module "admin_vm" {
       username                           = "aks-homelab-admin"
       generate_admin_password_or_ssh_key = false
       password_authentication_disabled   = true
-      ssh_keys                           = [data.azurerm_key_vault_key.admin_vm_ssh_key.public_key_openssh]
+      ssh_keys                           = [azurerm_ssh_public_key.admin_vm_ssh_key.public_key]
     }
   }
 
