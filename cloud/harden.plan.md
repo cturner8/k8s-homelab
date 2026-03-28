@@ -59,16 +59,16 @@ Convert the existing public AKS cluster to a private cluster by enabling API Ser
 
 **Phase 2: Private AKS Cluster** — modify `cloud/aks.tf`
 
-- [ ] **Add `network_profile`** — set `network_plugin = "azure"`, configure `service_cidr`/`dns_service_ip` *(depends on 1)*
-- [ ] **Update `default_agent_pool`** — set `vnet_subnet_id` to the node subnet *(depends on 1)*
-- [ ] **Add `api_server_access_profile`** with:
+- [x] **Add `network_profile`** — set `network_plugin = "azure"`, configure `service_cidr`/`dns_service_ip` *(depends on 1)*
+- [x] **Update `default_agent_pool`** — set `vnet_subnet_id` to the node subnet *(depends on 1)*
+- [x] **Add `api_server_access_profile`** with:
    - `enable_private_cluster = true`
    - `enable_vnet_integration = true`
    - `subnet_id` = API server subnet ID
    - `private_dns_zone = "system"`
    - `enable_private_cluster_public_fqdn = false`
-- [ ] **Set `public_network_access = "Disabled"`** on the AKS module
-- [ ] **Switch to user-assigned managed identity** for AKS — required for BYO VNet + private DNS. Assign `Network Contributor` on both subnets. *(depends on 1)*
+- [x] **Set `public_network_access = "Disabled"`** on the AKS module
+- [x] **Switch to user-assigned managed identity** for AKS — required for BYO VNet + private DNS. Assign `Network Contributor` on both subnets. *(depends on 1)*
 
 **Phase 3: Private Endpoints** — modify `cloud/vault.tf`
 
