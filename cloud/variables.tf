@@ -19,3 +19,9 @@ variable "enable_flux" {
   default     = true
   description = "Flag indicating if FluxCD integration should be enabled."
 }
+
+variable "admin_vm_size" {
+  type        = string
+  description = "SKU Size to use for the Admin Virtual Machine."
+  default     = "Standard_D2pds_v6"
+}
