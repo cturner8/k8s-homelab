@@ -1,3 +1,13 @@
+module "admin_identity" {
+  source  = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
+  version = "~> 0.4.0"
+
+  enable_telemetry    = false
+  name                = module.admin_naming.user_assigned_identity.name
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+}
+
 module "cert_manager_identity" {
   source = "./modules/workload-identity"
 
