@@ -6,8 +6,15 @@ module "aks" {
   location  = data.azurerm_resource_group.rg.location
   parent_id = data.azurerm_resource_group.rg.id
 
+  managed_identities = {
+    system_assigned            = false
+    user_assigned_resource_ids = [module.aks_identity.resource_id]
+  }
+
   network_profile = {
     network_plugin = "azure"
+    service_cidr   = "172.16.0.0/16"
+    dns_service_ip = "172.16.0.10"
   }
 
   api_server_access_profile = {
@@ -77,4 +84,6 @@ module "aks" {
     name = "Base"
     tier = "Standard"
   }
+
+  depends_on = [module.aks_vnet]
 }
