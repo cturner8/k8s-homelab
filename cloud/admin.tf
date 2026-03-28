@@ -5,6 +5,28 @@ data "azurerm_key_vault_key" "admin_vm_ssh_key" {
   depends_on = [module.admin_vault.keys]
 }
 
+module "bastion" {
+  source  = "Azure/avm-res-network-bastionhost/azurerm"
+  version = "0.9.0"
+
+  location         = data.azurerm_resource_group.rg.location
+  name             = module.admin_naming.bastion_host.name_unique
+  parent_id        = data.azurerm_resource_group.rg.id
+  enable_telemetry = false
+  ip_configuration = {
+    name                 = "bastion-ipconfig"
+    subnet_id            = module.admin_vnet.subnets["bastion"].resource_id
+    public_ip_address_id = azurerm_public_ip.admin_nat.id
+    create_public_ip     = false
+  }
+  sku = "Basic"
+
+  copy_paste_enabled = true
+  tunneling_enabled  = true
+
+  zones = azurerm_public_ip.admin_nat.zones
+}
+
 module "admin_vm" {
   source  = "Azure/avm-res-compute-virtualmachine/azurerm"
   version = "0.20.0"
