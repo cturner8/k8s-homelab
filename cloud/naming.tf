@@ -5,3 +5,10 @@ module "naming" {
 
   suffix = [local.suffix]
 }
+
+module "admin_naming" {
+  source  = "Azure/naming/azurerm"
+  version = "~> 0.4.3"
+
+  suffix = [local.suffix, "admin"]
+}
