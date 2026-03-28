@@ -48,14 +48,14 @@ Convert the existing public AKS cluster to a private cluster by enabling API Ser
 
 **Phase 1: Networking Foundation** — new file `cloud/network.tf`
 
-- [ ] **Create AKS VNet** (`10.0.0.0/16`) using an AVM VNet module with subnets:
+- [x] **Create AKS VNet** (`10.0.0.0/16`) using an AVM VNet module with subnets:
    - `snet-aks-nodes` (`10.0.1.0/24`) — node pool
    - `snet-aks-apiserver` (`10.0.0.0/28`) — delegated to `Microsoft.ContainerService/managedClusters`
    - `snet-private-endpoints` (`10.0.2.0/24`) — for Key Vault + other private endpoints
-- [ ] **Create Admin VNet** (`10.1.0.0/16`) with subnets:
+- [x] **Create Admin VNet** (`10.1.0.0/16`) with subnets:
    - `AzureBastionSubnet` (`10.1.0.0/26`) — required name, min /26
    - `snet-admin` (`10.1.1.0/24`) — jumpbox VM
-- [ ] **Create bidirectional VNet peering** between AKS VNet and Admin VNet
+- [x] **Create bidirectional VNet peering** between AKS VNet and Admin VNet
 
 **Phase 2: Private AKS Cluster** — modify `cloud/aks.tf`
 
