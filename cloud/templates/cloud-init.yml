@@ -10,9 +10,16 @@ packages:
   - lsb-release
 
 runcmd:
+  # Wait for any apt locks to be released (package_update/upgrade or unattended-upgrades)
+  - cloud-init status --wait
+  - while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do sleep 5; done
   # Install Azure CLI
-  - curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+  - curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
   # Install kubectl and kubelogin using Azure CLI
-  - az aks install-cli
+  - az aks install-cli --install-location ~/.local/bin/kubectl --kubelogin-install-location ~/.local/bin/kubelogin
+  # Add local bin to path
+  - echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
   # Install Helm
   - curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-4 | bash
+  # Install k9s
+  - wget https://github.com/derailed/k9s/releases/latest/download/k9s_linux_arm64.deb && sudo apt install ./k9s_linux_arm64.deb && rm k9s_linux_arm64.deb
