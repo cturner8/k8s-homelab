@@ -6,14 +6,6 @@ module "aks_identity" {
   name                = module.naming.user_assigned_identity.name
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
-
-  role_assignments = {
-    vnet_contributor = {
-      role_definition_id_or_name = "Network Contributor"
-      description                = "Assign the Network Contributor role to the specified user assigned managed identity for AKS"
-      scope                      = module.aks_dns.resource_id
-    }
-  }
 }
 
 module "admin_identity" {

@@ -30,6 +30,13 @@ module "aks_vnet" {
       address_prefixes = ["10.0.2.0/24"]
     }
   }
+
+  role_assignments = {
+    aks_network_contributor = {
+      role_definition_id_or_name = "Network Contributor"
+      principal_id               = module.aks_identity.principal_id
+    }
+  }
 }
 
 resource "azurerm_public_ip" "admin_nat" {
@@ -94,7 +101,7 @@ module "admin_vnet" {
       use_remote_gateways                  = false
       create_reverse_peering               = true
       reverse_name                         = "aks-vnet-admin-vnet"
-      reverse_allow_virtual_network_access = true
+      reverse_allow_virtual_network_access = false
       reverse_allow_forwarded_traffic      = false
       reverse_allow_gateway_transit        = false
       reverse_use_remote_gateways          = false
