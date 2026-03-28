@@ -1,3 +1,20 @@
+module "aks_identity" {
+  source  = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
+  version = "~> 0.4.0"
+
+  enable_telemetry    = false
+  name                = module.naming.user_assigned_identity.name
+  resource_group_name = data.azurerm_resource_group.rg.name
+  location            = data.azurerm_resource_group.rg.location
+
+  role_assignments = {
+    vnet_contributor = {
+      role_definition_id_or_name = "Network Contributor"
+      description                = "Assign the Network Contributor role to the specified user assigned managed identity for AKS"
+    }
+  }
+}
+
 module "admin_identity" {
   source  = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
   version = "~> 0.4.0"

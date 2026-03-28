@@ -41,3 +41,28 @@ module "dns_role_assignment" {
 
   depends_on = [module.dns]
 }
+
+module "aks_dns" {
+  source  = "Azure/avm-res-network-privatednszone/azurerm"
+  version = "0.5.0"
+
+  domain_name      = "privatelink.${data.azurerm_resource_group.rg.location}.azmk8s.io"
+  parent_id        = data.azurerm_resource_group.rg.id
+  enable_telemetry = false
+
+  role_assignments = {
+    aks_dns_contributor = {
+      role_definition_id_or_name = "Private DNS Zone Contributor"
+      description                = "Assign the Private DNS Zone Contributor role to the specified user assigned managed identity for AKS"
+      principal_type             = "UserAssignedManagedIdentity"
+      principal_id               = module.aks_identity.principal_id
+    }
+  }
+
+  virtual_network_links = {
+    aks = {
+      name               = "aks-dns-link"
+      virtual_network_id = module.admin_vnet.id
+    }
+  }
+}
