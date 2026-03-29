@@ -15,4 +15,41 @@ module "storage" {
   lock = {
     kind = "CanNotDelete"
   }
+
+  public_network_access_enabled = false
+  network_rules = {
+    default_action = "Deny"
+  }
+
+  private_endpoints = {
+    file = {
+      private_dns_zone_resource_ids = [module.file_dns.resource_id]
+      subnet_resource_id            = module.aks_vnet.subnets["private_endpoints"].resource_id
+      subresource_name              = "file"
+    }
+    blob = {
+      private_dns_zone_resource_ids = [module.blob_dns.resource_id]
+      subnet_resource_id            = module.aks_vnet.subnets["private_endpoints"].resource_id
+      subresource_name              = "blob"
+    }
+  }
+
+  role_assignments = {
+    blob_data_contributor = {
+      principal_id               = data.azurerm_client_config.current.object_id
+      role_definition_id_or_name = "Storage Blob Data Contributor"
+    }
+    file_data_contributor = {
+      principal_id               = data.azurerm_client_config.current.object_id
+      role_definition_id_or_name = "Storage File Data Contributor"
+    }
+    admin_blob_data_contributor = {
+      principal_id               = module.admin_identity.principal_id
+      role_definition_id_or_name = "Storage Blob Data Contributor"
+    }
+    admin_file_data_contributor = {
+      principal_id               = module.admin_identity.principal_id
+      role_definition_id_or_name = "Storage File Data Contributor"
+    }
+  }
 }
