@@ -19,31 +19,15 @@ module "dns_role_assignment" {
 
   enable_telemetry = false
   role_definitions = {
-    private_dns_contributor = {
-      name = "Private DNS Zone Contributor"
-    }
     dns_contributor = {
       name = "DNS Zone Contributor"
     }
   }
   user_assigned_managed_identities_by_principal_id = {
-    aks_identity          = module.aks_identity.principal_id
     aks_ingress_identity  = module.aks.ingress_profile_web_app_routing_identity.objectId
     cert_manager_identity = module.cert_manager_identity.principal_id
   }
   role_assignments_for_resources = {
-    private_dns_zone = {
-      resource_name       = local.aks_zone_name
-      resource_group_name = data.azurerm_resource_group.rg.name
-      role_assignments = {
-        aks_private_dns_contributor = {
-          role_definition = "private_dns_contributor"
-          user_assigned_managed_identities = [
-            "aks_identity"
-          ]
-        }
-      }
-    }
     dns_zone = {
       resource_name       = var.domain_name
       resource_group_name = data.azurerm_resource_group.rg.name
@@ -74,6 +58,18 @@ module "aks_dns" {
     aks = {
       name               = "aks-dns-link"
       virtual_network_id = module.aks_vnet.resource_id
+    }
+    admin = {
+      name               = "admin-dns-link"
+      virtual_network_id = module.admin_vnet.resource_id
+    }
+  }
+
+  role_assignments = {
+    aks_private_dns_contributor = {
+      role_definition_id_or_name = "Private DNS Zone Contributor"
+      principal_id               = module.aks_identity.principal_id
+      principal_type             = "ServicePrincipal"
     }
   }
 }
