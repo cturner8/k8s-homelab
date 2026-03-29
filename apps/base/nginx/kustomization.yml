@@ -9,6 +9,7 @@ generatorOptions:
 
 resources:
   - namespace.yml
+  - secrets.yml
   - deployment.yml
   - service.yml
   - ingress.yml

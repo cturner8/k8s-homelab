@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - ../base/nginx
   # - ../base/oauth2-proxy
-  - ../base/headlamp
+  # - ../base/headlamp
 patches:
   - target:
       group: networking.k8s.io

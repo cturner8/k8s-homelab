@@ -17,6 +17,12 @@ spec:
       containers:
         - name: nginx
           image: "public.ecr.aws/nginx/nginx:alpine-slim"
+          env:
+            - name: COOKIE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: nginx-cookie-secret
+                  key: cookie-secret
           ports:
             - containerPort: 80
           livenessProbe:
