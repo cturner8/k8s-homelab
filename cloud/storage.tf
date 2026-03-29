@@ -23,11 +23,13 @@ module "storage" {
 
   private_endpoints = {
     file = {
+      name                          = "pe-storage-file"
       private_dns_zone_resource_ids = [module.file_dns.resource_id]
       subnet_resource_id            = module.aks_vnet.subnets["private_endpoints"].resource_id
       subresource_name              = "file"
     }
     blob = {
+      name                          = "pe-storage-blob"
       private_dns_zone_resource_ids = [module.blob_dns.resource_id]
       subnet_resource_id            = module.aks_vnet.subnets["private_endpoints"].resource_id
       subresource_name              = "blob"
@@ -41,7 +43,7 @@ module "storage" {
     }
     file_data_contributor = {
       principal_id               = data.azurerm_client_config.current.object_id
-      role_definition_id_or_name = "Storage File Data Contributor"
+      role_definition_id_or_name = "Storage File Data SMB Share Contributor"
     }
     admin_blob_data_contributor = {
       principal_id               = module.admin_identity.principal_id
@@ -49,7 +51,7 @@ module "storage" {
     }
     admin_file_data_contributor = {
       principal_id               = module.admin_identity.principal_id
-      role_definition_id_or_name = "Storage File Data Contributor"
+      role_definition_id_or_name = "Storage File Data SMB Share Contributor"
     }
   }
 }
