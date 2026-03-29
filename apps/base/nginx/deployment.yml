@@ -17,6 +17,10 @@ spec:
       containers:
         - name: nginx
           image: "public.ecr.aws/nginx/nginx:alpine-slim"
+          volumeMounts:
+            - name: nginx-keyvault-csi
+              mountPath: "/mnt/secrets-store"
+              readOnly: true
           env:
             - name: COOKIE_SECRET
               valueFrom:
@@ -40,3 +44,10 @@ spec:
             requests:
               cpu: "125m"
               memory: "128Mi"
+      volumes:
+        - name: nginx-keyvault-csi
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "nginx-keyvault-csi"
