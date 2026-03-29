@@ -72,11 +72,15 @@ Convert the existing public AKS cluster to a private cluster by enabling API Ser
 
 **Phase 3: Private Endpoints** — modify `cloud/vault.tf`
 
-- [ ] **Harden Key Vault** *(depends on 1)*:
+- [x] **Harden Key Vault** *(depends on 1)*:
    - Set `public_network_access_enabled = false`, `network_acls.default_action = "Deny"`
    - Add private endpoint in `snet-private-endpoints`
    - Create Private DNS Zone `privatelink.vaultcore.azure.net`, link to both VNets
 - [ ] **Replace vnet peering with API server private endpoint**
+- [ ] **Harden Storage Account**:
+   - Set `public_network_access_enabled = false`, `network_acls.default_action = "Deny"`
+   - Add private endpoint in `snet-private-endpoints`
+   - Create Private DNS Zones, link to both VNets
 
 **Phase 4: Admin Access** — new file `cloud/admin.tf`
 
