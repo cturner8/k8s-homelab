@@ -76,13 +76,13 @@ Convert the existing public AKS cluster to a private cluster by enabling API Ser
    - Set `public_network_access_enabled = false`, `network_acls.default_action = "Deny"`
    - Add private endpoint in `snet-private-endpoints`
    - Create Private DNS Zone `privatelink.vaultcore.azure.net`, link to both VNets
+- [ ] **Replace vnet peering with API server private endpoint**
 
 **Phase 4: Admin Access** — new file `cloud/admin.tf`
 
 - [x] **Deploy Azure Bastion** (Standard SKU) into `AzureBastionSubnet` with a Standard public IP *(depends on 2)*
 - [x] **Deploy Jumpbox VM** (`Standard_B2s`, Ubuntu 24.04) into `snet-admin` — no public IP, Bastion-only access. 
 - [ ] Cloud-init installs `az cli`, `kubectl`, `kubelogin`, `helm` *(depends on 2)*
-- [ ] Cloud-init sets env for path and MI ID
 - [ ] **Link Private DNS Zones to Admin VNet** — link the AKS private DNS zone (`privatelink.<region>.azmk8s.io`) and Key Vault DNS zone so the jumpbox can resolve private endpoints *(depends on 6, 9)*
 - [x] **RBAC for admin access** — grant admin users `Azure Kubernetes Service RBAC Cluster Admin` on the cluster *(depends on 6)*
 
