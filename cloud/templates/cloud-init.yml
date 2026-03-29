@@ -16,10 +16,8 @@ runcmd:
   # Install Azure CLI
   - curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
   # Install kubectl and kubelogin using Azure CLI
-  - az aks install-cli --install-location ~/.local/bin/kubectl --kubelogin-install-location ~/.local/bin/kubelogin
-  # Add local bin to path
-  - echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
+  - sudo az aks install-cli
   # Install Helm
-  - curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-4 | bash
+  - curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-4 | sudo bash
   # Install k9s
   - wget https://github.com/derailed/k9s/releases/latest/download/k9s_linux_arm64.deb && sudo apt install ./k9s_linux_arm64.deb && rm k9s_linux_arm64.deb
