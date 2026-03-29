@@ -88,7 +88,7 @@ Convert the existing public AKS cluster to a private cluster by enabling API Ser
 
 **Phase 5: Ingress Strategy** — impacts `apps/` K8s manifests
 
-- [ ] **Ingress decision** — two options:
+- [x] **Ingress decision** — two options:
 
     | | Option A: Public Ingress (Recommended) | Option B: Fully Private |
     |---|---|---|
@@ -104,11 +104,11 @@ Convert the existing public AKS cluster to a private cluster by enabling API Ser
 
 **Phase 6: CI/CD Considerations**
 
-- [ ] **Flux CD** — no changes needed. Flux runs inside the cluster and communicates with the API server internally. Re-enable when ready.
-- [ ] **GitHub Actions** — GitHub-hosted runners **cannot reach** a private API server. Options:
-    - `az aks command invoke` — runs kubectl commands via Azure's control plane (no VNet access needed)
-    - Self-hosted runner inside the VNet (pod via `actions-runner-controller` or on the jumpbox)
-    - **Terraform applies** continue to work — they use the ARM API, not the Kubernetes API
+- [ ] ~~**Flux CD** — no changes needed. Flux runs inside the cluster and communicates with the API server internally. Re-enable when ready.~~
+- [ ] ~~**GitHub Actions** — GitHub-hosted runners **cannot reach** a private API server. Options:~~
+    - ~~`az aks command invoke` — runs kubectl commands via Azure's control plane (no VNet access needed)~~
+    - ~~Self-hosted runner inside the VNet (pod via `actions-runner-controller` or on the jumpbox)~~
+    - ~~**Terraform applies** continue to work — they use the ARM API, not the Kubernetes API~~
 
 ---
 
@@ -151,3 +151,14 @@ Convert the existing public AKS cluster to a private cluster by enabling API Ser
 1. **Cluster recreation impact** — If the cluster has state you need to preserve, plan a migration strategy. Since Flux is off and workloads look stateless, a fresh cluster is simplest. Does the cluster currently have running workloads?
 2. **Self-hosted GitHub Actions runner** — needed only if CI/CD must run `kubectl` against the cluster. Terraform ARM operations work regardless. Defer unless needed.
 3. **Gateway API migration** — app routing NGINX supported through Nov 2026. Tackle independently after private cluster hardening is complete.
+
+### Known Issues / Workarounds
+
+- **Public IP limit reached**
+   - due to the restricted quota of 3 for Public IP addresses, the app routing ingress load balancer has been patched to reuse an existing Public IP. This patch can be applied with the following command:
+
+   ```sh
+   kubectl patch nginxingresscontroller default \
+      --type merge \
+      -p '{"spec":{"loadBalancerAnnotations":{"service.beta.kubernetes.io/azure-load-balancer-ipv4":"51.104.33.187"}}}'
+   ```
