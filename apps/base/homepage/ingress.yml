@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: homepage
+  annotations: {}
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: homepage
+                port:
+                  number: 3000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts: []

@@ -1,0 +1,25 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: speedtest
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Speedtest Tracker
+    gethomepage.dev/group: Networking
+    gethomepage.dev/icon: sh-speedtest-tracker
+    gethomepage.dev/namespace: speedtest
+    gethomepage.dev/app: speedtest
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: speedtest
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts: []

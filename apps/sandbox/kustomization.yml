@@ -1,0 +1,235 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+generatorOptions:
+  disableNameSuffixHash: true
+secretGenerator:
+  - name: oauth2-proxy-oidc-secret
+    envs:
+      - env/oauth2_proxy.env
+resources:
+  - ../base/headlamp
+  - ../base/homepage
+patches:
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+    patch: |-
+      - op: replace
+        path: /spec/ingressClassName
+        value: traefik
+      - op: add
+        path: /metadata/annotations/traefik.ingress.kubernetes.io~1router.entrypoints
+        value: websecure
+      - op: add
+        path: /metadata/annotations/traefik.ingress.kubernetes.io~1router.tls
+        value: "true"
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: nginx
+    patch: |-
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://nginx.dev.cloud.cturner.xyz"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: nginx.dev.cloud.cturner.xyz
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: homepage
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/env/0/value
+        value: "homepage.dev.cloud.cturner.xyz"
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: homepage
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: homepage.dev.cloud.cturner.xyz
+  - target:
+      group: helm.toolkit.fluxcd.io
+      version: v2
+      kind: HelmRelease
+      name: headlamp
+    patch: |-
+      - op: remove
+        path: /spec/values/config/oidc
+      - op: replace
+        path: /spec/values/ingress/ingressClassName
+        value: traefik
+      - op: add
+        path: /spec/values/ingress/annotations/gethomepage.dev~1href
+        value: "https://headlamp.dev.cloud.cturner.xyz"
+      - op: add
+        path: /spec/values/ingress/annotations/traefik.ingress.kubernetes.io~1router.entrypoints
+        value: websecure
+      - op: add
+        path: /spec/values/ingress/annotations/traefik.ingress.kubernetes.io~1router.tls
+        value: "true"   
+      - op: replace
+        path: /spec/values/ingress/hosts
+        value:
+          - host: headlamp.dev.cloud.cturner.xyz
+            paths:
+             - path: /
+               type: Prefix
+  - target:
+      group: helm.toolkit.fluxcd.io
+      version: v2
+      kind: HelmRelease
+      name: oauth2-proxy
+    patch: |-
+      - op: add
+        path: /spec/values/extraVolumes/-
+        value:
+          name: oauth2-proxy-oidc-secret
+          secret:
+            secretName: oauth2-proxy-oidc-secret
+      - op: add
+        path: /spec/values/extraVolumeMounts/-
+        value:
+          name: oauth2-proxy-oidc-secret
+          mountPath: /run/secrets/oauth2-proxy-oidc-secret
+          readOnly: true
+      - op: add
+        path: /spec/values/ingress/className
+        value: traefik
+      - op: replace
+        path: /spec/values/ingress/hosts
+        value:
+          - auth.dev.cloud.cturner.xyz
+      - op: add
+        path: /spec/values/ingress/annotations/traefik.ingress.kubernetes.io~1router.entrypoints
+        value: websecure
+      - op: add
+        path: /spec/values/ingress/annotations/traefik.ingress.kubernetes.io~1router.tls
+        value: "true"
+      - op: add
+        path: /spec/values/ingress/annotations/gethomepage.dev~1href
+        value: "https://auth.dev.cloud.cturner.xyz"
+      - op: replace
+        path: /spec/values/config/clientID
+        value: "79c0b702-77c5-4dd4-b841-5a05ecae6004"
+      - op: replace
+        path: /spec/values/config/client_secret_file
+        value: /run/secrets/oauth2-proxy-oidc-secret/client_secret
+      - op: replace
+        path: /spec/values/config/configFile
+        value: |
+          provider="entra-id"
+          oidc_issuer_url="https://login.microsoftonline.com/444ba3f3-3508-4cd5-821d-704859e285a0/v2.0"
+          oidc_email_claim="preferred_username"
+          scope="openid profile email"
+          allowed_groups=["5978c0bb-d923-4b27-bf6b-a977c589d4ca"]
+          entra_id_federated_token_auth=true
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: tools
+    patch: |-
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://tools.dev.cloud.cturner.xyz"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: tools.dev.cloud.cturner.xyz
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: ntfy
+    patch: |-
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://ntfy.dev.cloud.cturner.xyz"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: ntfy.dev.cloud.cturner.xyz
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: ntfy
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/1/value
+        value: https://ntfy.dev.cloud.cturner.xyz
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: redlib
+    patch: |-
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://redlib.dev.cloud.cturner.xyz"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: redlib.dev.cloud.cturner.xyz
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: uptime-dashboard
+    patch: |-
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://uptime.dev.cloud.cturner.xyz"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: uptime.dev.cloud.cturner.xyz
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: uptime-status
+    patch: |-
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://status.dev.cloud.cturner.xyz"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: status.dev.cloud.cturner.xyz
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: speedtest
+    patch: |-
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://speedtest.dev.cloud.cturner.xyz"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: speedtest.dev.cloud.cturner.xyz
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: speedtest
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/1/value
+        value: https://speedtest.dev.cloud.cturner.xyz
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: adguard
+    patch: |-
+      - op: add
+        path: /metadata/annotations/gethomepage.dev~1href
+        value: "https://adguard.dev.cloud.cturner.xyz"
+      - op: replace
+        path:  /spec/rules/0/host
+        value: adguard.dev.cloud.cturner.xyz

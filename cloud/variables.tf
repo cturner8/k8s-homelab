@@ -1,0 +1,32 @@
+variable "resource_group_name" {
+  type        = string
+  description = "Azure Resource Group to use for deployments."
+  default     = "rg-k8s-homelab-dev"
+}
+
+variable "admin_group_id" {
+  type        = string
+  description = "Microsoft Entra ID group to provide AKS admin access to."
+}
+
+variable "domain_name" {
+  type        = string
+  description = "Domain name to use for the cluster public DNS Zone."
+}
+
+variable "enable_flux" {
+  type        = bool
+  default     = true
+  description = "Flag indicating if FluxCD integration should be enabled."
+}
+
+variable "admin_vm_size" {
+  type        = string
+  description = "SKU Size to use for the Admin Virtual Machine."
+  default     = "Standard_D2pds_v6"
+}
+
+variable "admin_ssh_public_key" {
+  type        = string
+  description = "SSH public key to use for the Admin Virtual Machine."
+}

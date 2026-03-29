@@ -1,0 +1,73 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../base/nginx
+  # - ../base/oauth2-proxy
+  # - ../base/headlamp
+patches:
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+    patch: |-
+      - op: replace
+        path: /spec/ingressClassName
+        value: webapprouting.kubernetes.azure.com
+  - target:
+      group: networking.k8s.io
+      version: v1
+      kind: Ingress
+      name: nginx
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: nginx.cloud.cturner.xyz
+  - target:
+      group: helm.toolkit.fluxcd.io
+      version: v2
+      kind: HelmRelease
+      name: oauth2-proxy
+    patch: |-
+      - op: replace
+        path: /spec/values/podLabels
+        value: 
+          azure.workload.identity/use: "true"
+      - op: replace
+        path: /spec/values/serviceAccount/annotations
+        value: 
+          azure.workload.identity/client-id: "${OAUTH_PROXY_IDENTITY_CLIENT_ID}"
+      - op: replace
+        path: /spec/values/config/clientID
+        value: "${OAUTH_PROXY_CLIENT_ID}"
+      - op: replace
+        path: /spec/values/config/configFile
+        value: |
+          provider="entra-id"
+          oidc_issuer_url="https://login.microsoftonline.com/${AZURE_TENANT_ID}/v2.0"
+          oidc_email_claim="preferred_username"
+          scope="openid profile email"
+          allowed_groups=["${OAUTH_PROXY_ALLOWED_GROUP_ID}"]
+          entra_id_federated_token_auth=true
+      - op: replace
+        path: /spec/values/ingress/hosts
+        value:
+          - auth.cloud.cturner.xyz
+      - op: replace
+        path: /spec/values/ingress/className
+        value: webapprouting.kubernetes.azure.com
+  - target:
+      group: helm.toolkit.fluxcd.io
+      version: v2
+      kind: HelmRelease
+      name: headlamp
+    patch: |-
+      - op: replace
+        path: /spec/values/ingress/ingressClassName
+        value: webapprouting.kubernetes.azure.com
+      - op: replace
+        path: /spec/values/ingress/hosts
+        value:
+          - host: headlamp.cloud.cturner.xyz
+            paths:
+             - path: /
+               type: Prefix

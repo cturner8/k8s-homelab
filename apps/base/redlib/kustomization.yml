@@ -1,0 +1,13 @@
+---
+namespace: redlib
+
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+
+resources:
+  - namespace.yml
+  - deployment.yml
+  - service.yml
+  - ingress.yml

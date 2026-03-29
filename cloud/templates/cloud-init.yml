@@ -1,0 +1,23 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+
+runcmd:
+  # Wait for any apt locks to be released (package_update/upgrade or unattended-upgrades)
+  - cloud-init status --wait
+  - while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do sleep 5; done
+  # Install Azure CLI
+  - curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+  # Install kubectl and kubelogin using Azure CLI
+  - sudo az aks install-cli
+  # Install Helm
+  - curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-4 | sudo bash
+  # Install k9s
+  - wget https://github.com/derailed/k9s/releases/latest/download/k9s_linux_arm64.deb && sudo apt install ./k9s_linux_arm64.deb && rm k9s_linux_arm64.deb

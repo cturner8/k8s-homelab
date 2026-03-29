@@ -1,0 +1,50 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: uptime-dashboard
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Uptime Kuma (Dashboard)
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/icon: uptime-kuma
+    gethomepage.dev/namespace: uptime
+    gethomepage.dev/app: uptime
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: uptime
+                port:
+                  number: 3001
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts: []
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: uptime-status
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/name: Uptime Kuma (Status Page)
+    gethomepage.dev/group: Monitoring
+    gethomepage.dev/icon: uptime-kuma
+    gethomepage.dev/namespace: uptime
+    gethomepage.dev/app: uptime
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: uptime
+                port:
+                  number: 3001
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts: []

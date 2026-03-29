@@ -1,0 +1,74 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: oauth2-proxy
+  namespace: flux-system
+spec:
+  interval: 10m
+  releaseName: oauth2-proxy
+  targetNamespace: oauth2-proxy
+  chart:
+    spec:
+      chart: oauth2-proxy
+      version: "10.1.4"
+      sourceRef:
+        kind: HelmRepository
+        name: oauth2-proxy
+        namespace: flux-system
+      interval: 10m
+  values:
+    sessionStorage:
+      type: cookie
+    serviceAccount:
+      annotations: {}
+    config: {}
+    ingress:
+      enabled: true
+      annotations:
+        gethomepage.dev/enabled: "true"
+        gethomepage.dev/name: OAuth2 Proxy
+        gethomepage.dev/group: Access
+        gethomepage.dev/icon: sh-oauth2-proxy
+        gethomepage.dev/namespace: oauth2-proxy
+        gethomepage.dev/app: oauth2-proxy
+      hosts: []
+      tls: []
+    extraArgs:
+      reverse-proxy: true
+      set-xauthrequest: true
+      pass-user-headers: true
+      skip-provider-button: true
+      cookie-secret-file: /run/secrets/oauth2-proxy-cookie-secret/password
+      email-domains: "cturner.xyz"
+      whitelist-domains: "*.cloud.cturner.xyz"
+      cookie-domains: ".cloud.cturner.xyz"
+    extraVolumes:
+      - name: oauth2-proxy-cookie-secret
+        secret:
+          secretName: oauth2-proxy-cookie-secret
+    extraVolumeMounts:
+      - name: oauth2-proxy-cookie-secret
+        mountPath: /run/secrets/oauth2-proxy-cookie-secret
+        readOnly: true
+    extraObjects:
+      - apiVersion: generators.external-secrets.io/v1alpha1
+        kind: Password
+        metadata:
+          name: oauth2-proxy-generator
+        spec:
+          length: 60
+          encoding: base64
+          allowRepeat: true
+      - apiVersion: external-secrets.io/v1
+        kind: ExternalSecret
+        metadata:
+          name: oauth2-proxy-cookie-secret
+        spec:
+          refreshPolicy: OnChange
+          dataFrom:
+            - sourceRef:
+                generatorRef:
+                  apiVersion: generators.external-secrets.io/v1alpha1
+                  kind: Password
+                  name: oauth2-proxy-generator
