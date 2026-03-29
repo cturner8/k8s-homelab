@@ -2,6 +2,16 @@
 
 locals {
   aks_zone_name = "privatelink.${data.azurerm_resource_group.rg.location}.azmk8s.io"
+  virtual_network_links = {
+    aks = {
+      name               = "aks-dns-link"
+      virtual_network_id = module.aks_vnet.resource_id
+    }
+    admin = {
+      name               = "admin-dns-link"
+      virtual_network_id = module.admin_vnet.resource_id
+    }
+  }
 }
 
 module "dns" {
@@ -54,16 +64,7 @@ module "aks_dns" {
   parent_id        = data.azurerm_resource_group.rg.id
   enable_telemetry = false
 
-  virtual_network_links = {
-    aks = {
-      name               = "aks-dns-link"
-      virtual_network_id = module.aks_vnet.resource_id
-    }
-    admin = {
-      name               = "admin-dns-link"
-      virtual_network_id = module.admin_vnet.resource_id
-    }
-  }
+  virtual_network_links = local.virtual_network_links
 
   role_assignments = {
     aks_private_dns_contributor = {
@@ -72,4 +73,15 @@ module "aks_dns" {
       principal_type             = "ServicePrincipal"
     }
   }
+}
+
+module "vault_dns" {
+  source  = "Azure/avm-res-network-privatednszone/azurerm"
+  version = "0.5.0"
+
+  domain_name      = "privatelink.vaultcore.azure.net"
+  parent_id        = data.azurerm_resource_group.rg.id
+  enable_telemetry = false
+
+  virtual_network_links = local.virtual_network_links
 }
