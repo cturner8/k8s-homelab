@@ -21,7 +21,7 @@ module "aks" {
     enable_vnet_integration            = true
     enable_private_cluster             = true
     enable_private_cluster_public_fqdn = false
-    private_dns_zone                   = "system"
+    private_dns_zone                   = module.aks_dns.resource_id
     subnet_id                          = module.aks_vnet.subnets["apiserver"].resource_id
   }
 
