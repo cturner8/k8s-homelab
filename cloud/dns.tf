@@ -85,3 +85,25 @@ module "vault_dns" {
 
   virtual_network_links = local.virtual_network_links
 }
+
+module "blob_dns" {
+  source  = "Azure/avm-res-network-privatednszone/azurerm"
+  version = "0.5.0"
+
+  domain_name      = "privatelink.blob.core.windows.net"
+  parent_id        = data.azurerm_resource_group.rg.id
+  enable_telemetry = false
+
+  virtual_network_links = local.virtual_network_links
+}
+
+module "file_dns" {
+  source  = "Azure/avm-res-network-privatednszone/azurerm"
+  version = "0.5.0"
+
+  domain_name      = "privatelink.file.core.windows.net"
+  parent_id        = data.azurerm_resource_group.rg.id
+  enable_telemetry = false
+
+  virtual_network_links = local.virtual_network_links
+}
