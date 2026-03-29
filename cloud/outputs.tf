@@ -17,3 +17,19 @@ output "admin_identity_client_id" {
 output "admin_identity_resource_id" {
   value = module.admin_identity.resource_id
 }
+
+output "admin_kv_url" {
+  value = module.admin_vault.uri
+}
+
+output "kv_url" {
+  value = module.vault.uri
+}
+
+output "aks_api_url" {
+  value = module.aks.private_fqdn
+}
+
+output "storage_urls" {
+  value = module.storage.fqdn
+}
