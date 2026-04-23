@@ -1,6 +1,6 @@
 module "identity" {
   source  = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
-  version = "~> 0.4.0"
+  version = "~> 0.5.0"
 
   enable_telemetry    = false
   name                = module.naming.user_assigned_identity.name

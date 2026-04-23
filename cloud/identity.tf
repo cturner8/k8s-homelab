@@ -1,6 +1,6 @@
 module "aks_identity" {
   source  = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
-  version = "~> 0.4.0"
+  version = "~> 0.5.0"
 
   enable_telemetry    = false
   name                = module.naming.user_assigned_identity.name
@@ -10,7 +10,7 @@ module "aks_identity" {
 
 module "admin_identity" {
   source  = "Azure/avm-res-managedidentity-userassignedidentity/azurerm"
-  version = "~> 0.4.0"
+  version = "~> 0.5.0"
 
   enable_telemetry    = false
   name                = module.admin_naming.user_assigned_identity.name
