@@ -29,7 +29,7 @@ module "bastion" {
 
 module "admin_vm" {
   source  = "Azure/avm-res-compute-virtualmachine/azurerm"
-  version = "0.20.0"
+  version = "0.21.0"
 
   location = data.azurerm_resource_group.rg.location
   name     = module.admin_naming.virtual_machine.name_unique
