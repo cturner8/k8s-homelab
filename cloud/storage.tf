@@ -3,11 +3,10 @@ module "storage" {
   version = "~> 0.7.0"
 
   name                            = module.naming.storage_account.name_unique
-  resource_group_name             = data.azurerm_resource_group.rg.name
+  parent_id                       = data.azurerm_resource_group.rg.id
   location                        = data.azurerm_resource_group.rg.location
   account_kind                    = "StorageV2"
-  account_tier                    = "Standard"
-  account_replication_type        = "LRS"
+  account_sku_name                = "Standard_LRS"
   default_to_oauth_authentication = true
   local_user_enabled              = false
   https_traffic_only_enabled      = true
