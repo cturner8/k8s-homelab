@@ -1,6 +1,6 @@
 module "aks_vnet" {
   source  = "Azure/avm-res-network-virtualnetwork/azurerm"
-  version = "0.17.1"
+  version = "0.19.0"
 
   location         = data.azurerm_resource_group.rg.location
   parent_id        = data.azurerm_resource_group.rg.id
@@ -69,7 +69,7 @@ resource "azurerm_nat_gateway_public_ip_association" "admin_gateway_ip" {
 
 module "admin_vnet" {
   source  = "Azure/avm-res-network-virtualnetwork/azurerm"
-  version = "0.17.1"
+  version = "0.19.0"
 
   location         = data.azurerm_resource_group.rg.location
   parent_id        = data.azurerm_resource_group.rg.id
