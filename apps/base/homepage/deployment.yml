@@ -18,9 +18,10 @@ spec:
       serviceAccountName: homepage
       containers:
         - name: homepage
-          image: "ghcr.io/gethomepage/homepage:v1.13.2"
+          image: "ghcr.io/gethomepage/homepage:v2.0.0"
           env:
             - name: HOMEPAGE_ALLOWED_HOSTS
+            // TODO: add auth env vars required in v2
           ports:
             - containerPort: 3000
           livenessProbe:
