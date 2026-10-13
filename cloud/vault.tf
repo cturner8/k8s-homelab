@@ -9,7 +9,7 @@ locals {
 
 module "admin_vault" {
   source  = "Azure/avm-res-keyvault-vault/azurerm"
-  version = "~> 0.11.0"
+  version = "~> 0.12.0"
 
   enable_telemetry              = false
   location                      = data.azurerm_resource_group.rg.location
@@ -39,7 +39,7 @@ module "admin_vault" {
 
 module "vault" {
   source  = "Azure/avm-res-keyvault-vault/azurerm"
-  version = "~> 0.11.0"
+  version = "~> 0.12.0"
 
   enable_telemetry              = false
   location                      = data.azurerm_resource_group.rg.location
