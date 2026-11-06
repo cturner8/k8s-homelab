@@ -58,7 +58,7 @@ module "dns_role_assignment" {
 
 module "aks_dns" {
   source  = "Azure/avm-res-network-privatednszone/azurerm"
-  version = "0.5.0"
+  version = "0.6.0"
 
   domain_name      = local.aks_zone_name
   parent_id        = data.azurerm_resource_group.rg.id
@@ -77,7 +77,7 @@ module "aks_dns" {
 
 module "vault_dns" {
   source  = "Azure/avm-res-network-privatednszone/azurerm"
-  version = "0.5.0"
+  version = "0.6.0"
 
   domain_name      = "privatelink.vaultcore.azure.net"
   parent_id        = data.azurerm_resource_group.rg.id
@@ -88,7 +88,7 @@ module "vault_dns" {
 
 module "blob_dns" {
   source  = "Azure/avm-res-network-privatednszone/azurerm"
-  version = "0.5.0"
+  version = "0.6.0"
 
   domain_name      = "privatelink.blob.core.windows.net"
   parent_id        = data.azurerm_resource_group.rg.id
@@ -99,7 +99,7 @@ module "blob_dns" {
 
 module "file_dns" {
   source  = "Azure/avm-res-network-privatednszone/azurerm"
-  version = "0.5.0"
+  version = "0.6.0"
 
   domain_name      = "privatelink.file.core.windows.net"
   parent_id        = data.azurerm_resource_group.rg.id
