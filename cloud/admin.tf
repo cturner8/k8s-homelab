@@ -7,7 +7,7 @@ resource "azurerm_ssh_public_key" "admin_vm_ssh_key" {
 
 module "bastion" {
   source  = "Azure/avm-res-network-bastionhost/azurerm"
-  version = "0.9.0"
+  version = "0.10.0"
 
   location         = data.azurerm_resource_group.rg.location
   name             = module.admin_naming.bastion_host.name_unique
